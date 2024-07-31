@@ -2,7 +2,6 @@
 
 namespace FestingerVault;
 
-use FestingerVault\api\Installed;
 use FestingerVault\api\Item;
 use FestingerVault\api\ApiBase;
 use FestingerVault\api\License;

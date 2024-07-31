@@ -39,7 +39,7 @@ export default function PostGridItem({ item }: Props) {
   const { InstallButton, isInstalled } = useInstall(item);
 
   return (
-    <Card className="group/item bg-yell grayscale transition-all duration-300 hover:grayscale-0">
+    <Card className="group/item grayscale transition-all duration-300 hover:grayscale-0">
       <CardHeader className="group/image relative aspect-video overflow-hidden rounded-t-sm bg-slate-400 p-0 sm:p-0">
         {item.image && (
           <Link to={`/item/${item.type}/detail/${item.id}`}>

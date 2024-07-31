@@ -57,7 +57,6 @@ export default function AutoUpdateSwitcher({ row }: Props) {
   }, [setting, settingIsFetched, setChecked]);
   return (
     <Switch
-      color="green"
       checked={checked}
       onCheckedChange={update_autoupdate}
       disabled={isPendingAutoUpdateRequest}

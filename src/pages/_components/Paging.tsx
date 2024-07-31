@@ -12,14 +12,12 @@ import { useMemo } from "react";
 type PagingProps = {
   totalPages: number;
   currentPage: number;
-  onPageChange: Function;
   urlGenerator: Function;
   className?: string;
 };
 export default function Paging({
   totalPages = 1,
   currentPage = 1,
-  onPageChange,
   urlGenerator,
   className = "",
 }: PagingProps) {
@@ -45,7 +43,6 @@ export default function Paging({
               {item.separator === false ? (
                 <PaginationLink
                   to={urlGenerator(item.page)}
-                  onClick={e => onPageChange(item.page)}
                   isActive={item.active}
                 >
                   {item.page}

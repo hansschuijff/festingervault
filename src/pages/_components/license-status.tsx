@@ -35,7 +35,7 @@ export default function LicenseStatus({ className }: Props) {
           <div className="text-sm text-muted-foreground">Status</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">{data?.total_limit.toLocaleString()}</div>
+          <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
           <div className="text-sm text-muted-foreground">Downloads</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
@@ -60,7 +60,7 @@ export default function LicenseStatus({ className }: Props) {
           <div className="space-x-1">
             <span className="text-muted-foreground">Downloads used:</span>
             <span>
-              {data?.today_limit_used} of {data?.today_limit} used
+              {data?.today_limit_used} of {data?.today_limit?.toLocaleString()} used
             </span>
           </div>
           {data && (

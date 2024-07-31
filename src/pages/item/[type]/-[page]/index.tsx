@@ -16,7 +16,7 @@ import { ItemTypeEnum, PostItemCollectionResponse } from "@/types/item";
 import catsToKeyValuePairs from "@/utils/catsToKeyValuePairs";
 import { __, sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
@@ -130,7 +130,12 @@ export default function Component() {
       sort: filter.sorting,
       keyword: filter.search?.keyword,
     });
-
+	useEffect(()=>{
+		window.scrollTo({
+			top:0,
+			behavior: 'smooth',
+		})
+	},[data]);
   return (
     <AppPageShell
       title={item.label}
@@ -169,7 +174,7 @@ export default function Component() {
             <Paging
               currentPage={page}
               totalPages={data.meta?.last_page}
-              onPageChange={() => {}}
+
               urlGenerator={(_page: number) =>
                 `/item/${params.type}/${_page}?${filter?.searchParams}`
               }

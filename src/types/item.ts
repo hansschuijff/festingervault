@@ -6,20 +6,26 @@ export const ItemTypeEnum = z.enum([
   "elementor-template-kits",
 ]);
 
-export type PostItemType<Types = never> = {
+export const AccessEnum=z.enum([
+	"gold",
+	"bronze",
+	"silver",
+])
+
+export type PostItemType<Ex = never> = {
   id: string;
   title: string;
   slug: string;
   summary: string;
   image: string;
-  type: Exclude<z.infer<typeof ItemTypeEnum>,Types>;
+  type: Exclude<z.infer<typeof ItemTypeEnum>,Ex>;
   author: string;
   category: string;
   updated: number;
   created: number;
   version: string;
   owned: boolean;
-  access?: "gold" | "bronze" | "silver";
+  access?: z.infer<typeof AccessEnum>;
   installed_version?: string;
 };
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
