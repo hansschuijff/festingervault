@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/components/data-table.tsx:97
+msgid "No results"
+msgstr ""
+
+#: src/components/filter/FilterItem.tsx:130
+msgid "Clear Filter"
+msgstr ""
+
+#: src/components/filter/FilterItem.tsx:80
+msgid "Search"
+msgstr ""
+
+#: src/components/filter/FilterItem.tsx:83
+msgid "No results found."
+msgstr ""
+
+#: src/components/filter/Search.tsx:27
+msgid "Search Title"
+msgstr ""
+
+#: src/components/ui/pagination.tsx:81
+msgid "Previous"
+msgstr ""
+
+#: src/components/ui/pagination.tsx:96
+msgid "Next"
+msgstr ""
+
+#: src/pages/activation/components/register-license.tsx:91
+msgid "Activate License"
+msgstr ""
+
+#: src/pages/activation/index.tsx:17
+msgid "License Activation"
+msgstr ""
+
+#: src/pages/index.tsx:9
+msgid "Dashboard Welcome"
+msgstr ""

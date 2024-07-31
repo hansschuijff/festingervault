@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "festinger-client",
+			"path": "../../.."
+		}
+	],
+	"settings": {
+		"yaml.schemas": {
+			"https://json.schemastore.org/github-workflow.json": "file:///s%3A/laragon/www/festinger-client/wp-content/plugins/festingervault/.github/workflows/deploy.yaml"
+		}
+	}
+}

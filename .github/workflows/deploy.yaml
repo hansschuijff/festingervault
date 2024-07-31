@@ -1,0 +1,37 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{env.SSH_IP}} >> ~/.ssh/known_hosts
+
+      - name: Install PHP and dependencies
+        run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
+
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Install NPM Dependencies
+        run: npm install
+      - name: Build Scripts
+        run: npm run deploy
+
+      - name: Deploy to Server
+        run: |
+          cd ./deploy
+          rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa" ./ ${{env.SSH_USERNAME}}@${{env.SSH_IP}}:${{env.BASE_PATH}}
+      - name: Clear SSH key
+        run: rm ~/.ssh/id_rsa
