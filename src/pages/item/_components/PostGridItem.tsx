@@ -96,7 +96,7 @@ export default function PostGridItem({ item }: Props) {
       </div>
       <CardFooter>
         <div className="flex gap-2 pt-3">
-          <div className="">
+          <div>
             <InstallButton />
           </div>
           <div>

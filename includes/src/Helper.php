@@ -58,6 +58,12 @@ class Helper {
 			}
 			$data[]=$item;
         }
+		usort($data,function($a,$b){
+			return $a["title"] > $b["title"];
+		});
+		usort($data,function($a,$b){
+			return version_compare($a["version"],$a["installed_version"]) < version_compare($b["version"],$b["installed_version"]);
+		});
         return ["data"=>$data];
     }
 

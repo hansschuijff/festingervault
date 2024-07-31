@@ -51,10 +51,11 @@ export default function AutoUpdateSwitcher({ row }: Props) {
   useEffect(() => {
     if (setting && setting.autoupdate[row.original.type][row.original.slug]) {
       setChecked(true);
+
     } else {
       setChecked(false);
-    }
-  }, [setting, settingIsFetched, setChecked]);
+		}
+  }, [setting, settingIsFetched, setChecked, row]);
   return (
     <Switch
       checked={checked}

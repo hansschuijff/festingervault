@@ -4,9 +4,11 @@ import useInstall from "@/hooks/useInstall";
 import { Link } from "@/router";
 import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/utils/version_compare";
-import { type ColumnDef } from "@tanstack/react-table";
+import { SortingFn, sortingFns, type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
+import useSetting from "@/hooks/useSetting";
+import { useEffect } from "react";
 
 export function getColumns(): ColumnDef<ThemePluginItemType>[] {
   return columns;
@@ -72,6 +74,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
         </div>
       );
     },
+
   },
   {
     accessorKey: "type",
@@ -83,7 +86,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
   },
 
   {
-    accessorKey: "version",
+    accessorKey: "installed_version",
     header: "Installed Version",
     cell: ({ row }) => {
       return (
@@ -94,25 +97,22 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
     },
   },
   {
-    accessorKey: "available",
+    accessorKey: "version",
     header: "Available",
     cell: ({ row }) => {
+      const isNew = version_compare(
+        row.original.version,
+        row.original.installed_version,
+        "gt",
+      );
+      return (
+        <Badge variant={isNew ? "success" : "secondary"} className="capitalize">
+          {row.original.version}
+        </Badge>
+      );
+    },
+    enableSorting: true,
 
-      return <Badge
-        variant={
-          version_compare(
-            row.original.version,
-            row.original.installed_version,
-            "le",
-          )
-            ? "secondary"
-            : "success"
-        }
-        className="capitalize"
-      >
-        {row.original.version}
-      </Badge>
-		},
   },
   {
     accessorKey: "autoupdate",
@@ -120,7 +120,16 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
     cell: ({ row }) => {
       return <AutoUpdateSwitcher row={row} />;
     },
-  },
+    enableSorting: true,
+		sortingFn:(rowA, rowB, columnId)=>{
+			const isNewA = version_compare(
+        rowA.original.version,
+        rowA.original.installed_version,
+        "gt",
+      );
+			return isNewA?-1:1;
+		},
+	  },
   {
     accessorKey: "actions",
     header: "",
@@ -129,5 +138,6 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
       return <InstallButton />;
     },
     enableHiding: false,
+    enableSorting: false,
   },
 ];

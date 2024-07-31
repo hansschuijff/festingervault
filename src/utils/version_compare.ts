@@ -1,4 +1,4 @@
-export default function version_compare(v1: string, v2: string, operator?: string): number | boolean | null {
+export default function version_compare(v1: string, v2: string, operator?: string) {
 	try {
 		let compare = 0;
 
