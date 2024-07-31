@@ -56,7 +56,7 @@ export default function ItemStats() {
   const { data } =
     useApiFetch<ItemStatsResponse>("item/stats");
   return (
-    <div className="grid grid-cols-2 gap-4 md:grid-cols-2">
+    <div className="grid grid-cols-2 gap-5 lg:gap-7 md:grid-cols-2">
       <ItemCard
         icon={Grid2X2}
         title="Total Products"

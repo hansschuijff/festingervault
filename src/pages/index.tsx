@@ -12,30 +12,24 @@ export default function Component() {
   const { effectiveTheme } = useTheme();
   console.log(effectiveTheme);
   return (
-    <AppPageShell title="Dashboard" description="Festingervault Dashboard" breadcrump={[
-
-			{
-				label:"Dashboard"
-			}
-		]}>
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+    <AppPageShell
+      title="Dashboard"
+      description="Festingervault Dashboard"
+      breadcrump={[
+        {
+          label: "Dashboard",
+        },
+      ]}
+    >
+      <div className="grid grid-cols-1 gap-5 lg:gap-7 lg:grid-cols-3">
         <div className="col-span-1">
           <ItemStats />
         </div>
         <DashboardWelcome className="lg:col-span-2" />
         <InstallStats className="lg:col-span-1 lg:aspect-square" />
-        <LicenseStatus
-          className={cn(
-            "lg:col-span-2",
-          )}
-        />
-        <AvailableUpdates
-        />
-        <Announcements
-          className={cn(
-            "lg:col-span-2",
-          )}
-        />
+        <LicenseStatus className={cn("lg:col-span-2")} />
+        <AvailableUpdates />
+        <Announcements className={cn("lg:col-span-2")} />
       </div>
     </AppPageShell>
   );

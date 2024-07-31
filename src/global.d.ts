@@ -1,5 +1,4 @@
-declare module '*.png' {
-	const value: TexImageSource;
-	export default value;
-}
-
+declare module '*.png';
+declare var vault:{
+	logo:string;
+};

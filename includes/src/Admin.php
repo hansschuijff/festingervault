@@ -62,6 +62,9 @@ class Admin {
             "handle" => "vault-main",
         ]);
         wp_set_script_translations('vault-main', 'festingervault');
+		wp_localize_script("vault-main","vault",[
+			"logo"=>Plugin::p_url("public/assets/logo-%s.png")
+		]);
     }
 
     public static function get_instance() {

@@ -74,7 +74,7 @@
 		--accent-foreground: 240 5.9% 10%;
 		--destructive: 0 72% 51%;
 		--destructive-foreground: 0 0% 98%;
-		--border: 240 5.9% 90%;
+		--border: 240deg 12% 95.1%;
 		--input: 240 5.9% 90%;
 		--ring: 346.8 77.2% 49.8%;
 		--chart-1: 347 77% 50%;
@@ -85,7 +85,7 @@
 		--radius:0.5rem;
 	}
 	.dark {
-		--background:230deg 15% 7.84%;
+		--background:228deg 16.13% 6.08%;
 		--foreground: 0 0% 98%;
 		--card: 230deg 15% 7.84%;
 		--card-foreground: 0 0% 98%;
@@ -101,7 +101,7 @@
 		--accent-foreground: 0 0% 98%;
 		--destructive: 0 72% 51%;
 		--destructive-foreground: 0 0% 98%;
-		--border: 240 3.7% 15.9%;
+		--border: 231.43deg 11.48% 11.96%;
 		--input: 240 3.7% 15.9%;
 		--ring: 221.2 83.2% 53.3%;
 		--chart-1: 347 77% 50%;

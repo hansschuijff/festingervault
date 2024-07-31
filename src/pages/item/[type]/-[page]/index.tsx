@@ -9,7 +9,7 @@ import useFilter, { FilterOption } from "@/hooks/useFilter";
 import { cn } from "@/lib/utils";
 import Paging from "@/pages/_components/Paging";
 import PostGridItem, {
-	PostGridItemSkeleton,
+  PostGridItemSkeleton,
 } from "@/pages/item/_components/PostGridItem";
 import { useParams } from "@/router";
 import { ItemTypeEnum, PostItemCollectionResponse } from "@/types/item";
@@ -130,12 +130,12 @@ export default function Component() {
       sort: filter.sorting,
       keyword: filter.search?.keyword,
     });
-	useEffect(()=>{
-		window.scrollTo({
-			top:0,
-			behavior: 'smooth',
-		})
-	},[data]);
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [data]);
   return (
     <AppPageShell
       title={item.label}
@@ -161,7 +161,9 @@ export default function Component() {
         <>
           <FilterBar filter={filter} />
 
-          <div className={cn(["grid grid-cols-1 gap-6 md:grid-cols-3"])}>
+          <div
+            className={cn(["grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-7"])}
+          >
             {data.data.length > 0 ? (
               data.data.map(item => (
                 <PostGridItem key={item.id} item={{ ...item }} />
@@ -174,7 +176,6 @@ export default function Component() {
             <Paging
               currentPage={page}
               totalPages={data.meta?.last_page}
-
               urlGenerator={(_page: number) =>
                 `/item/${params.type}/${_page}?${filter?.searchParams}`
               }
