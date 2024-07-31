@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -39,57 +40,61 @@ export default function PostGridItem({ item }: Props) {
   const { InstallButton, isInstalled } = useInstall(item);
 
   return (
-    <Card className="group/item grayscale transition-all duration-300 hover:grayscale-0">
-      <CardHeader className="group/image relative aspect-video overflow-hidden rounded-t-sm bg-slate-400 p-0 sm:p-0">
-        {item.image && (
-          <Link to={`/item/${item.type}/detail/${item.id}`}>
-            <img
-              src={item.image}
-              className="aspect-video rounded-t-sm object-cover"
-            />
-          </Link>
-        )}
-        {item.version && (
-          <Badge
-            className={cn([
-              "absolute bottom-1 flex items-center gap-1 rounded-sm uppercase transition-opacity group-hover/image:opacity-80",
-              "left-1",
-            ])}
-            variant="background"
-            title="Version"
-          >
-            {item.version}
-          </Badge>
-        )}
-        {item.access && (
-          <Badge
-            className={cn([
-              "absolute bottom-1 flex items-center gap-1 rounded-sm uppercase transition-opacity",
-              "right-1 border-0",
-            ])}
-            variant={item.access}
-          >
-            {item.access}
-          </Badge>
-        )}
-      </CardHeader>
-      <CardContent className="mt-4 space-y-1 pb-0">
-        <CardTitle className="leading-normal">
-          <Link to={`/item/${item.type}/detail/${item.id}`}>
-            {decodeEntities(item.title)}
-          </Link>
-        </CardTitle>
-        <CardDescription className="line-clamp-2">
-          In {item.category}
-        </CardDescription>
-        <div className="flex items-center gap-2 text-gray-400">
-          <div className="flex items-center gap-1 text-xs">
-            <Clock width={11} /> {moment.unix(item.updated).fromNow()}
+    <Card className="group/item flex flex-col justify-between transition-all duration-300">
+      <div>
+        <CardHeader className="group/image relative aspect-video overflow-hidden rounded-t-sm bg-slate-400 p-0 sm:p-0">
+          {item.image && (
+            <Link to={`/item/${item.type}/detail/${item.id}`}>
+              <img
+                src={item.image}
+                className="aspect-video rounded-t-sm object-cover"
+              />
+            </Link>
+          )}
+          {item.version && (
+            <Badge
+              className={cn([
+                "absolute bottom-1 flex items-center gap-1 rounded-sm uppercase transition-opacity group-hover/image:opacity-80",
+                "left-1",
+              ])}
+              variant="background"
+              title="Version"
+            >
+              {item.version}
+            </Badge>
+          )}
+          {item.access && (
+            <Badge
+              className={cn([
+                "absolute bottom-1 flex items-center gap-1 rounded-sm uppercase transition-opacity",
+                "right-1 border-0",
+              ])}
+              variant={item.access}
+            >
+              {item.access}
+            </Badge>
+          )}
+        </CardHeader>
+        <CardContent className="mt-4 space-y-1 pb-0">
+          <CardTitle className="leading-normal">
+            <Link to={`/item/${item.type}/detail/${item.id}`}>
+              {decodeEntities(item.title)}
+            </Link>
+          </CardTitle>
+          <CardDescription className="line-clamp-2">
+            In {item.category}
+          </CardDescription>
+          <div className="flex items-center gap-2 text-gray-400">
+            <div className="flex items-center gap-1 text-xs">
+              <Clock width={11} /> {moment.unix(item.updated).fromNow()}
+            </div>
+            <div className="flex items-center gap-1 text-xs">
+              <Info width={11} /> {item.version}
+            </div>
           </div>
-          <div className="flex items-center gap-1 text-xs">
-            <Info width={11} /> {item.version}
-          </div>
-        </div>
+        </CardContent>
+      </div>
+      <CardFooter>
         <div className="flex gap-2 pt-3">
           <div className="">
             <InstallButton />
@@ -134,7 +139,7 @@ export default function PostGridItem({ item }: Props) {
             </Button>
           </div>
         </div>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }
