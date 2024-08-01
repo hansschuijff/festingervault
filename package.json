@@ -1,16 +1,16 @@
 {
 	"name": "festingervault",
-	"version": "1.0.0-b.1",
+	"version": "5.0.0-b.1",
 	"description": "",
 	"main": "src/index.tsx",
 	"type": "module",
 	"namespace": "FestingerVault",
 	"wp": {
 		"mainFile": "festingervault.php",
-		"name": "FestingerVault",
+		"name": "Festinger Vault - 25K+ Premium WordPress themes and plugins",
 		"uri": "https://festingervault.com",
 		"updateURI": "https://festingervault.com",
-		"description": "FestingerVault Plugin",
+		"description": "Imagine going to Themeforest, buying a theme, and logging out. Now, you come to Festinger's, where we offer you 25K+ premium themes and plugins directly available from your WordPress dashboard.",
 		"minWP": "5.2",
 		"minPHP": "7.2",
 		"author": {

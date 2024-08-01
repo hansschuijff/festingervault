@@ -1,8 +1,4 @@
-import {
-	Card,
-	CardFooter,
-	CardHeader
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader } from "@/components/ui/card";
 import useInstalled from "@/hooks/use-is-installed";
 import { cn } from "@/lib/utils";
 import { Link } from "@/router";
@@ -23,9 +19,9 @@ export default function AvailableUpdates({ className }: Props) {
       <div className="px-0">
         {updateable && updateable?.length > 0 ? (
           <div className="divide-y text-sm">
-            {updateable.map(item => (
+            {updateable.slice(0, 4).map(item => (
               <div key={item.id} className="flex flex-col gap-2 p-4">
-                <div className="">
+                <div>
                   <Link
                     to="/item/:type/detail/:id"
                     params={{
