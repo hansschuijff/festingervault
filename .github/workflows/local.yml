@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Staging
 
 on:
   push:
@@ -29,7 +29,7 @@ jobs:
       - name: Build Scripts
         run: npm run deploy
 
-      - name: Deploy to Server
+      - name: Deploy
         run: |
           cd ./deploy
           rsync -avz --delete -e "ssh -i ~/.ssh/id_rsa" ./ ${{secrets.SSH_USERNAME}}@${{secrets.SSH_IP}}:${{secrets.BASE_PATH}}
