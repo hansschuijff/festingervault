@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import useInstalled from "@/hooks/use-is-installed";
 import useApiFetch from "@/hooks/useApiFetch";
-import { PostItemType } from "@/pages/item/_components/PostGridItem";
+import { PostItemType } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { CollectionResponse } from "@/types/api";
 import version_compare from "@/utils/version_compare";
 import {

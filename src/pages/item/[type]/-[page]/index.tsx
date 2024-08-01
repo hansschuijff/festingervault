@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import Paging from "@/pages/_components/Paging";
 import PostGridItem, {
   PostGridItemSkeleton,
-} from "@/pages/item/_components/PostGridItem";
+} from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import { ItemTypeEnum, PostItemCollectionResponse } from "@/types/item";
 import catsToKeyValuePairs from "@/utils/catsToKeyValuePairs";

@@ -62,7 +62,7 @@ export default function DashboardWelcome({ className }: Props) {
       </CardContent>
       <CardFooter className="justify-center border-t border-border text-center sm:p-4 sm:pt-4">
         <a
-          href="https://festingervault.com"
+          href="https://festingervault.com/beta-feedback"
 					target="_blank"
           className="border-b border-dashed border-blue-500 text-sm text-blue-500"
         >

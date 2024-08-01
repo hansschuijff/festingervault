@@ -1,10 +1,11 @@
 import { AppPageShell } from "@/components/body/page-shell";
 import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/useApiFetch";
-import { PostGridItemSkeleton } from "@/pages/item/_components/PostGridItem";
+import { PostGridItemSkeleton } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
+import ItemDetailHeader from "./_components/detail-header";
 
 export default function Component() {
   const params = useParams("/item/:type/detail/:id");
@@ -14,6 +15,9 @@ export default function Component() {
       id: params.id,
     },
   );
+	if(isLoading){
+		return null;
+	}
   return (
     <AppPageShell
       title={data?.title ?? "Item Detail"}
@@ -35,15 +39,7 @@ export default function Component() {
         },
       ]}
     >
-      <p>This page would have more info about current items such as:</p>
-      <ul className="list-inside list-disc">
-        <li>Item descriptions</li>
-        <li>Previous Versions</li>
-        <li>Additional Contents</li>
-        <li>Virus scan info</li>
-        <li>Request update features</li>
-        <li>Request update features</li>
-      </ul>
+     <ItemDetailHeader item={data} />
     </AppPageShell>
   );
 }

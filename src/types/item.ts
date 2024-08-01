@@ -27,6 +27,7 @@ export type PostItemType<Ex = never> = {
   owned: boolean;
   access?: z.infer<typeof AccessEnum>;
   installed_version?: string;
+	additional_content_count?:number;
 };
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
 export type ItemStatsResponse = {

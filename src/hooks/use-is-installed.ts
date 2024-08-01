@@ -1,4 +1,4 @@
-import { PostItemType } from "@/pages/item/_components/PostGridItem";
+import { PostItemType } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { CollectionResponse } from "@/types/api";
 import useApiFetch from "./useApiFetch";
 import version_compare from "@/utils/version_compare";
