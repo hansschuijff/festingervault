@@ -59,7 +59,10 @@ class Helper {
 			$data[]=$item;
         }
 		usort($data,function($a,$b){
-			return $a["title"] > $b["title"];
+			// if(version_compare($a["version"],$a["installed_version"],"gt")){
+			// 	return -1;
+			// }
+			return $a["title"] > $b["title"]?1:-1;
 		});
 		usort($data,function($a,$b){
 			return version_compare($a["version"],$a["installed_version"]) < version_compare($b["version"],$b["installed_version"]);

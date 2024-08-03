@@ -12,18 +12,21 @@ import {
 } from "../ui/breadcrumb";
 import { Link } from "react-router-dom";
 import { Home } from "lucide-react";
+import { Card, CardContent } from "../ui/card";
 type BreadCrumbType = {
   label: string;
   href?: string;
 };
-type AppPageShellProps = {
+type Props = {
   children: React.ReactNode;
   as?: ElementType;
   title: string;
   description?: string;
   isFetching?: boolean;
   isLoading?: boolean;
-  preloader?: React.ReactNode;
+  isError?: boolean;
+  preloader?: JSX.Element;
+  error?: JSX.Element;
   breadcrump?: BreadCrumbType[];
 };
 
@@ -34,25 +37,40 @@ export function AppPageShell({
   description,
   isFetching = false,
   isLoading = false,
-  preloader,
+  isError = false,
+  preloader: PreloaderComponent,
+  error: ErrorComponent,
   breadcrump,
-}: AppPageShellProps) {
+}: Props) {
   const Container = as ?? "main";
-  if (!preloader) {
-    preloader = (
+  if (!PreloaderComponent) {
+    PreloaderComponent = (
       <div className="space-y-2">
         <Skeleton className="h-4 w-[250px]" />
         <Skeleton className="h-4 w-[200px]" />
       </div>
     );
   }
+  if (!ErrorComponent) {
+    ErrorComponent = (
+      <Card>
+        <CardContent className="p-5 sm:p-7 text-center text-muted-foreground">Invalid Request</CardContent>
+      </Card>
+    );
+  }
+  function Out() {
+    return isLoading ? (
+      PreloaderComponent
+    ) : isError ? (
+      ErrorComponent
+    ) : (
+      <>{children}</>
+    );
+  }
   return (
-    <div className={cn(["w-full space-y-8"])}>
+    <div className="w-full space-y-8">
       <PageHeader title={title} description={description} />
-      {isLoading && preloader}
-      <Container
-        className={cn(["relative space-y-8 pb-8", isFetching && "blur-sm"])}
-      >
+      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7"])}>
         {breadcrump && (
           <div>
             <Breadcrumb>
@@ -60,7 +78,7 @@ export function AppPageShell({
                 {[
                   {
                     label: (
-                      <span className="flex flex-row gap-2 items-center">
+                      <span className="flex flex-row items-center gap-2">
                         <Home size={16} /> Home
                       </span>
                     ),
@@ -85,7 +103,7 @@ export function AppPageShell({
             </Breadcrumb>
           </div>
         )}
-        {children}
+        <Out />
         {isFetching && (
           <div className="absolute left-0 top-0 h-full w-full cursor-progress"></div>
         )}

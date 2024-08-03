@@ -12,7 +12,6 @@ export type CreateViteConfigOptions = ViteWpReactOptions & {
 export function createViteConfig({
 	outDir,
 	input,
-	makePot,
 }: CreateViteConfigOptions): UserConfig {
 	return {
 		plugins: [
@@ -22,7 +21,6 @@ export function createViteConfig({
 					extractWpDependencies: true,
 					externalizeWpPackages: true,
 					enableReact: true,
-					makePot,
 				},
 			),
 		],

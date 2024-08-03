@@ -1,40 +1,40 @@
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
-import useFilter from "@/hooks/useFilter";
+import useCollection from "@/hooks/use-collection";
 import { cn } from "@/lib/utils";
+import { SelectLabel } from "@radix-ui/react-select";
 import { SortAsc, SortDesc } from "lucide-react";
 import { Button } from "../ui/button";
-export type SortItems = {
-  value: string;
-  label: string;
-};
 
 export type Props = {
-  items: SortItems[];
   label: string;
-  filter: ReturnType<typeof useFilter>;
+  collection: ReturnType<typeof useCollection>;
 };
 
-export default function Sort({ items, label, filter }: Props) {
+export default function FilterToolbar({ label, collection }: Props) {
   return (
     <div className="flex flex-row items-center gap-4">
-      <div className="text-xs">Order By</div>
       <Select
-        value={filter.sorting.order_by}
-        onValueChange={value => filter.setSort(value, filter.sorting.order)}
+        value={collection.sorting.order_by}
+        onValueChange={value =>
+          collection.setSort(value, collection.sorting.order)
+        }
       >
         <SelectTrigger className="h-9 w-[180px]">
           <SelectValue placeholder={label} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {items.map(item => (
+            <SelectLabel className="p-2 text-sm text-muted-foreground">
+              Order By
+            </SelectLabel>
+            {collection.sort.map(item => (
               <SelectItem key={item.value} value={item.value}>
                 {item.label}
               </SelectItem>
@@ -46,9 +46,9 @@ export default function Sort({ items, label, filter }: Props) {
         variant="outline"
         size="icon"
         onClick={() =>
-          filter.setSort(
-            filter.sorting.order_by,
-            filter.sorting.order === "asc" ? "desc" : "asc",
+          collection.setSort(
+            collection.sorting.order_by,
+            collection.sorting.order === "asc" ? "desc" : "asc",
           )
         }
         className="h-9"
@@ -56,13 +56,13 @@ export default function Sort({ items, label, filter }: Props) {
         <SortAsc
           className={cn(
             "h-[1.2rem] w-[1.2rem] scale-0 transition-all",
-            filter.sorting?.order === "asc" && "scale-100",
+            collection.sorting?.order === "asc" && "scale-100",
           )}
         />
         <SortDesc
           className={cn(
             "absolute h-[1.2rem] w-[1.2rem] scale-0 transition-all",
-            filter.sorting?.order !== "asc" && "scale-100",
+            collection.sorting?.order !== "asc" && "scale-100",
           )}
         />
       </Button>

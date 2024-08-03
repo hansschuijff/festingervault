@@ -1,15 +1,14 @@
 import { AppPageShell } from "@/components/body/page-shell";
-import FilterBar from "@/components/filter/FilterBar";
-import { SortItems } from "@/components/sorting/sort";
+import FilterBar from "@/components/filter/collection-bar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { item_types } from "@/config/item";
+import useCollection from "@/hooks/use-collection";
 import useApiFetch from "@/hooks/useApiFetch";
-import useFilter, { FilterOption } from "@/hooks/useFilter";
 import { cn } from "@/lib/utils";
 import Paging from "@/pages/_components/Paging";
 import PostGridItem, {
-  PostGridItemSkeleton,
+	PostGridItemSkeleton,
 } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import { ItemTypeEnum, PostItemCollectionResponse } from "@/types/item";
@@ -20,7 +19,7 @@ import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
-const sort_items: SortItems[] = [
+const sort_items: ReturnType<typeof useCollection>["sort"] = [
   {
     label: "Updated",
     value: "updated",
@@ -39,42 +38,6 @@ const paramsSchema = z.object({
   type: ItemTypeEnum.default("wordpress-themes"),
   page: z.coerce.number().default(1),
 });
-const filters: FilterOption[] = [
-  {
-    id: "level",
-    label: __("Access"),
-    isMulti: true,
-    options: [
-      {
-        label: "Bronze",
-        value: "bronze",
-      },
-      {
-        label: "Silver",
-        value: "silver",
-      },
-      {
-        label: "Gold",
-        value: "gold",
-      },
-    ],
-  },
-  {
-    id: "add_content",
-    label: "Additional Content",
-    isMulti: false,
-    options: [
-      {
-        label: "Yes",
-        value: "yes",
-      },
-      {
-        label: "No",
-        value: "no",
-      },
-    ],
-  },
-];
 function NoSearchResultFound() {
   const params = paramsSchema.parse(useParams(path));
   return (
@@ -106,19 +69,55 @@ export default function Component() {
   } = useApiFetch<string[]>("item/categories", {
     type,
   });
-  const categoryFilter: FilterOption[] = useMemo(
+  const filters = useMemo<ReturnType<typeof useCollection>["options"]>(
     () => [
+      {
+        id: "level",
+        label: __("Access"),
+        isMulti: true,
+        options: [
+          {
+            label: "Bronze",
+            value: "bronze",
+          },
+          {
+            label: "Silver",
+            value: "silver",
+          },
+          {
+            label: "Gold",
+            value: "gold",
+          },
+        ],
+      },
+      {
+        id: "add_content",
+        label: "Additional Content",
+        isMulti: false,
+        enabled: params.type != "elementor-template-kits",
+        options: [
+          {
+            label: "Yes",
+            value: "yes",
+          },
+          {
+            label: "No",
+            value: "no",
+          },
+        ],
+      },
       {
         id: "category",
         label: "Category",
+        enabled: params.type != "elementor-template-kits",
         isMulti: true,
         options: categories ? catsToKeyValuePairs(categories) : [],
       },
     ],
-    [categories, categoriesIsLoading, catsToKeyValuePairs],
+    [categories, categoriesIsLoading, catsToKeyValuePairs, params],
   );
-  const filter = useFilter({
-    options: [...categoryFilter, ...filters],
+  const collection = useCollection({
+    options: filters,
     path: path,
     sort: sort_items,
   });
@@ -126,9 +125,10 @@ export default function Component() {
     useApiFetch<PostItemCollectionResponse>("item/list", {
       type,
       page,
-      filter: filter.items,
-      sort: filter.sorting,
-      keyword: filter.search?.keyword,
+      filter: collection.items,
+      sort: collection.sorting,
+      keyword: collection.search?.keyword,
+			per_page:Number(collection.pagination?.per_page),
     });
   useEffect(() => {
     window.scrollTo({
@@ -159,7 +159,7 @@ export default function Component() {
     >
       {data && (
         <>
-          <FilterBar filter={filter} />
+          <FilterBar collection={collection} />
 
           <div
             className={cn(["grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-7"])}
@@ -177,7 +177,7 @@ export default function Component() {
               currentPage={page}
               totalPages={data.meta?.last_page}
               urlGenerator={(_page: number) =>
-                `/item/${params.type}/${_page}?${filter?.searchParams}`
+                `/item/${params.type}/${_page}?${collection?.searchParams}`
               }
             />
           )}

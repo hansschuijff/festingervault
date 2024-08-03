@@ -15,8 +15,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  assetsInclude: ["./src/assets/**/*.*"],
   build: {
+		modulePreload: false,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[hash].${rand}.js`,

@@ -1,9 +1,21 @@
 import { Grid } from "@/components/ui/grid";
+import { Skeleton } from "@/components/ui/skeleton";
 import { PostItemType } from "@/types/item";
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
-import { Calendar, Check, CheckCircle2, Grid2X2 } from "lucide-react";
+import { Calendar, CheckCircle2 } from "lucide-react";
 import moment from "moment";
+export function ItemDetailHeaderSkeleton(){
+	return (
+    <div className="relative flex flex-col items-center gap-3 p-6 py-12">
+      <Grid size={50} />
+      <div>
+				<Skeleton className="aspect-video h-52 rounded-md" />
+      </div>
+			<Skeleton className="w-52 h-5" />
 
+    </div>
+  );
+}
 type Props = {
   item: PostItemType;
 };

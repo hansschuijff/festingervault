@@ -1,33 +1,26 @@
 import { AppPageShell } from "@/components/body/page-shell";
 import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/useApiFetch";
-import { PostGridItemSkeleton } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
-import ItemDetailHeader from "./_components/detail-header";
+import ItemDetailHeader, { ItemDetailHeaderSkeleton } from "./_components/detail-header";
+
 
 export default function Component() {
   const params = useParams("/item/:type/detail/:id");
-  const { data, isLoading, isFetching } = useApiFetch<PostItemType>(
+  const {data, isError,isLoading,isFetching} = useApiFetch<PostItemType>(
     "item/detail",
     {
       id: params.id,
     },
   );
-	if(isLoading){
-		return null;
-	}
   return (
     <AppPageShell
       title={data?.title ?? "Item Detail"}
       description=""
-      isFetching={isFetching}
-      isLoading={isLoading}
       preloader={
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          <PostGridItemSkeleton />
-        </div>
+        <ItemDetailHeaderSkeleton />
       }
       breadcrump={[
         {
@@ -38,8 +31,9 @@ export default function Component() {
           label: decodeEntities(data?.title),
         },
       ]}
+			{...{isError,isFetching,isLoading}}
     >
-     <ItemDetailHeader item={data} />
+     {data && <ItemDetailHeader item={data} />}
     </AppPageShell>
   );
 }

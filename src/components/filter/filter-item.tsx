@@ -15,22 +15,22 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@/components/ui/popover";
-import useFilter, { FilterOption } from "@/hooks/useFilter";
+import useCollection from "@/hooks/use-collection";
 import { cn } from "@/lib/utils";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { __ } from "@wordpress/i18n";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
 export type FilterItemProps = {
-	filter: ReturnType<typeof useFilter>;
-	item: FilterOption;
+	collection: ReturnType<typeof useCollection>;
+	item: ReturnType<typeof useCollection>["options"][0];
 };
-export default function FilterItem({ item, filter }: FilterItemProps) {
+export default function FilterItem({ item, collection }: FilterItemProps) {
 	const selectedValues = new Set<string>(
 		item.isMulti
-			? filter.items[item.id]
-			: filter.items[item.id]
-				? [filter.items[item.id]]
+			? collection.items[item.id]
+			: collection.items[item.id]
+				? [collection.items[item.id]]
 				: null,
 	);
 	return (
@@ -98,7 +98,7 @@ export default function FilterItem({ item, filter }: FilterItemProps) {
 											}
 											const filterValues = Array.from(selectedValues);
 
-											filter.setFilter(item.id, filterValues);
+											collection.setFilter(item.id, filterValues);
 										}}
 									>
 										<div
@@ -124,7 +124,7 @@ export default function FilterItem({ item, filter }: FilterItemProps) {
 								<CommandSeparator />
 								<CommandGroup>
 									<CommandItem
-										onSelect={() => filter.setFilter(item.id, [])}
+										onSelect={() => collection.setFilter(item.id, [])}
 										className="justify-center text-center"
 									>
 										{__("Clear Filter")}

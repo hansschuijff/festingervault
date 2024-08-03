@@ -64,7 +64,7 @@ export const NON_WP_PACKAGES: Record<string, string> = {
 	tinymce: 'tinymce',
 	moment: 'moment',
 	react: 'React',
-	'react-dom': 'ReactDOM',
+	// 'react-dom': 'ReactDOM',
 	backbone: 'Backbone',
 	lodash: 'lodash',
 };

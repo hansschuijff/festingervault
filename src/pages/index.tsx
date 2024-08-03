@@ -1,15 +1,14 @@
 import { AppPageShell } from "@/components/body/page-shell";
+import { Alert } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
 import useTheme from "@/hooks/useTheme";
-import { cn } from "@/lib/utils";
+import { ShieldAlert } from "lucide-react";
 import Announcements from "./_components/announcements";
 import AvailableUpdates from "./_components/available-updates";
 import InstallStats from "./_components/InstallStats";
 import ItemStats from "./_components/ItemStats";
 import LicenseStatus from "./_components/license-status";
 import DashboardWelcome from "./_components/Welcome";
-import { Alert } from "@/components/ui/alert";
-import { ShieldAlert } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export default function Component() {
   const { effectiveTheme } = useTheme();

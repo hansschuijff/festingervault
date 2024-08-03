@@ -66,4 +66,7 @@ class Plugin {
     public static function set_main_file($file) {
         self::$file = $file;
     }
+	public static function get_main_file(){
+		return self::$file;
+	}
 }

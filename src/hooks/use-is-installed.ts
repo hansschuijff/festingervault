@@ -1,12 +1,12 @@
-import { PostItemType } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { CollectionResponse } from "@/types/api";
-import useApiFetch from "./useApiFetch";
+import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/utils/version_compare";
 import { useMemo } from "react";
+import useApiFetch from "./useApiFetch";
 
 export default function useInstalled() {
 	const { data, isFetched, isLoading } = useApiFetch<
-		CollectionResponse<PostItemType>
+		CollectionResponse<ThemePluginItemType>
 	>(`update/list`);
 	const updateable = useMemo(() => data?.data?.filter(
 		item =>
