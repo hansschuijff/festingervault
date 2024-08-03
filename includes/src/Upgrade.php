@@ -27,9 +27,15 @@ class Upgrade
 	/**
 	 * @var mixed
 	 */
-	private static $instance = null;
 	private static $file;
 
+	/**
+	 * @var mixed
+	 */
+	/**
+	 * @param $file
+	 */
+	private static $instance = null;
 
 	function __construct($file)
 	{
@@ -39,20 +45,21 @@ class Upgrade
 			add_filter('http_request_host_is_external', '__return_true');
 		}
 		if (!function_exists('get_plugin_data')) {
-			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-		self::$file = $file;
-		$plugin_info = get_plugin_data($file);
+		self::$file          = $file;
+		$plugin_info         = get_plugin_data($file);
 		$this->plugin_slug   = dirname(plugin_basename($file));
 		$this->version       = $plugin_info['Version'];
 		$this->cache_key     = 'vault_updater';
-		$this->cache_allowed = false;
-
+		$this->cache_allowed =  true;
 		add_filter('plugins_api', [$this, 'info'], 20, 3);
 		add_filter('site_transient_update_plugins', [$this, 'update']);
-		add_action('upgrader_process_complete', [$this, 'purge'], 10, 2);
 	}
 
+	/**
+	 * @param $file
+	 */
 	public static function get_instance($file)
 	{
 		if (is_null(self::$instance)) {
@@ -69,11 +76,9 @@ class Upgrade
 	 */
 	function info($response, $action, $args)
 	{
-		if (($action == 'query_plugins' || $action == 'plugin_information') &&
+		if (('query_plugins' == $action || 'plugin_information' == $action) &&
 			isset($args->slug) && $args->slug === $this->plugin_slug
 		) {
-
-			// get updates
 			$remote = $this->request();
 			if (!$remote) {
 				return $response;
@@ -83,20 +88,6 @@ class Upgrade
 		}
 		return $response;
 	}
-
-	/**
-	 * @param $upgrader
-	 * @param $options
-	 */
-	public function purge($upgrader, $options)
-	{
-
-		if ($this->cache_allowed && 'update' === $options['action'] && 'plugin' === $options['type']) {
-			// just clean the cache when new plugin version is installed
-			delete_transient($this->cache_key);
-		}
-	}
-
 	/**
 	 * @return mixed
 	 */
@@ -104,12 +95,11 @@ class Upgrade
 	{
 		$urlBase = "https://github.com/FestingerVault/festingervault/raw/beta-release/";
 
-		$remote = get_transient($this->cache_key);
+		$response = get_transient($this->cache_key);
 
-		if (false === $remote || !$this->cache_allowed) {
+		if (false === $response || !$this->cache_allowed) {
 
 			$remote = wp_remote_get(
-				//'https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/info.json',
 				$urlBase . "info.json",
 				[
 					'timeout' => 10,
@@ -122,7 +112,7 @@ class Upgrade
 			if (is_wp_error($remote) || 200 !== wp_remote_retrieve_response_code($remote) || empty(wp_remote_retrieve_body($remote))) {
 				return false;
 			}
-			$remote = json_decode(wp_remote_retrieve_body($remote), false);
+			$remote   = json_decode(wp_remote_retrieve_body($remote), false);
 			$response = new \stdClass();
 
 			$response->name           = $remote->name;
@@ -135,10 +125,10 @@ class Upgrade
 			$response->homepage       = $remote->homepage;
 			$response->requires_php   = $remote->requires_php;
 			$response->last_updated   = $remote->last_updated;
-			$response->sections = [
+			$response->sections       = [
 				'description'  => $remote->sections->description,
 				'installation' => $remote->sections->installation,
-				'changelog'    => $remote->sections->changelog
+				'changelog'    => $remote->sections->changelog,
 			];
 			$response->banners = [
 				'low'  => $remote->banners->low,
@@ -147,12 +137,14 @@ class Upgrade
 			$response->icons = [
 				"1x" => $remote->icon,
 			];
-			$response->download_link     = $urlBase . "festingervault.zip";
-			$response->plugin         = plugin_basename(self::$file);
-			set_transient($this->cache_key, $remote, 2 * HOUR_IN_SECONDS);
-			return $response;
+			$response->download_link = $urlBase . "festingervault.zip";
+			$response->plugin        = plugin_basename(self::$file);
+			if (version_compare($this->version, $remote->version, '<')) {
+				$response->update = 1;
+			}
+			set_transient($this->cache_key, $response, 1 * HOUR_IN_SECONDS);
 		}
-		return false;
+		return $response;
 	}
 
 	/**
@@ -167,11 +159,15 @@ class Upgrade
 		}
 
 		$remote = $this->request();
-		if ($remote && version_compare($this->version, $remote->version, '<')) {
+		if ($remote) {
 			$response              = $this->request();
-			$response->new_version   = $response->version;
+			$response->new_version = $response->version;
 			$response->package     = $response->download_link;
-			$transient->response[$response->plugin] = $response;
+			if (version_compare($this->version, $remote->version, '<')) {
+				$transient->response[$response->plugin] = $response;
+			} else {
+				$transient->no_update[$response->plugin] = $response;
+			}
 		}
 		return $transient;
 	}
