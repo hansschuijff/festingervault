@@ -1,6 +1,6 @@
 {
 	"name": "festingervault",
-	"version": "5.0.0-beta.1",
+	"version": "5.0.0-beta.2",
 	"description": "",
 	"main": "src/index.tsx",
 	"type": "module",
@@ -25,11 +25,12 @@
 	},
 	"scripts": {
 		"wp": "node ./scripts/wp.js",
-		"start": "vite",
-		"deploy": "npm run wp && npm run build && node ./scripts/deploy.js",
-		"release": "npm run wp && npm run build && node ./scripts/release.js",
+		"dev": "set ENGINE_URL=https://engine.sovit.top && npm run wp && vite",
+		"start": "npm run wp && vite",
+		"deploy": "npm run build && node ./scripts/deploy.js",
 		"dist":"node ./scripts/release.js",
-		"build": "vite build"
+		"release": "npm run build && npm run dist",
+		"build": "npm run wp && vite build"
 	},
 	"keywords": [],
 	"author": "",

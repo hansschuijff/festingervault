@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - beta
+env:
+  ENGINE_URL: https://engine.festingervault.com
 jobs:
   deploy:
     name: Beta Release
@@ -13,11 +15,11 @@ jobs:
     - name: Install PHP and dependencies
       run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
 
+    - name: Install NPM Dependencies
+      run: npm install && npm run wp
     - name: Install Composer dependencies
       run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-    - name: Install NPM Dependencies
-      run: npm install
     - name: Build Scripts
       run: npm run release
     - name: Release Trunk

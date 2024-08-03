@@ -15,7 +15,7 @@ class Helper {
         $content_body = json_encode($data);
         //echo $content_body;
         $result = wp_remote_post(
-            \trailingslashit(Constants::ENGINE_URL) . trim($path, "/"),
+            \trailingslashit(Constants::ENGINE_URL)."api/client/" . trim($path, "/"),
             [
                 'sslverify' => defined("WP_DEBUG") && WP_DEBUG == true ? false : true,
                 "headers"   => [

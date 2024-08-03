@@ -10,10 +10,10 @@ class AutoUpdate {
 
     function __construct() {
         add_action('init', [$this, 'schedule_action']);
-        add_action(Constants::ACTION_KEY, [$this, 'auto_update']);
-        add_action(Constants::ACTION_KEY, [$this, 'auto_update']);
-        add_action(Constants::ACTION_KEY . "/run-update", [$this, 'auto_update_run']);
-        add_action(Constants::ACTION_KEY . "/cleanup", [$this, 'cleanup']);
+        add_action(Constants::ACTION_KEY."/autoupdate", [$this, 'auto_update']);
+        add_action(Constants::ACTION_KEY."/autoupdate", [$this, 'auto_update']);
+        add_action(Constants::ACTION_KEY."/autoupdate/run-update", [$this, 'auto_update_run']);
+        add_action(Constants::ACTION_KEY ."/autoupdate/cleanup", [$this, 'cleanup']);
     }
 
     function auto_update() {
@@ -24,7 +24,7 @@ class AutoUpdate {
                 if (isset($settings["autoupdate"][$item["type"]][$item["slug"]]) && true === $settings["autoupdate"][$item["type"]][$item["slug"]]) {
                     if (version_compare($item["version"], $item["installed_version"], "gt") === true) {
                         if (function_exists("as_schedule_single_action")) {
-                            as_schedule_single_action(time(), Constants::ACTION_KEY . "/run-update", [
+                            as_schedule_single_action(time(), Constants::ACTION_KEY."/autoupdate/run-update", [
                                 $item["id"],
                             ], Constants::API_SLUG);
                         }
@@ -81,11 +81,11 @@ class AutoUpdate {
 
     function schedule_action() {
         if (function_exists('as_has_scheduled_action')) {
-            if (false === as_has_scheduled_action(Constants::ACTION_KEY)) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY, [], Constants::API_SLUG, true);
+            if (false === as_has_scheduled_action(Constants::ACTION_KEY."/autoupdate")) {
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY."/autoupdate", [], Constants::API_SLUG, true);
             }
-            if (false === as_has_scheduled_action(Constants::ACTION_KEY . "/cleanup")) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/cleanup", [], Constants::API_SLUG, true);
+            if (false === as_has_scheduled_action(Constants::ACTION_KEY."/autoupdate/cleanup")) {
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY."/autoupdate/cleanup", [], Constants::API_SLUG, true);
             }
         }
     }

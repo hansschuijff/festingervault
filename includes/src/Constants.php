@@ -4,8 +4,7 @@ namespace FestingerVault;
 
 class Constants
 {
-	//const ENGINE_URL = "https://engine.sovit.top/api/client/";
-	const ENGINE_URL = "https://engine.festingervault.com/api/client/";
+	const ENGINE_URL = "https://engine.sovit.top ";
 	const API_SLUG = "festingervault";
 	const TYPES = ["theme", "plugin", "kits", "wishlist"];
 	const ACTIVATION_KEY = "vault_activation_key";
@@ -16,5 +15,5 @@ class Constants
 			"wordpress-plugins" => [],
 		],
 	];
-	const ACTION_KEY="festingervault/autoupdate";
+	const ACTION_KEY="festingervault";
 }

@@ -36,6 +36,7 @@ patterns.forEach(pattern => {
 zip.addLocalFolder("./deploy", packageContent.name);
 fs.ensureDirSync("./dist");
 zip.writeZip(`./dist/${packageContent.name}.zip`);
+
 const data = {
   name: packageContent.wp.name,
   slug: packageContent.name,
