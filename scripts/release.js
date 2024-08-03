@@ -56,10 +56,10 @@ const data = {
     changelog: "Will be added soon",
   },
   banners: {
-    low: "https://festinger-client.sovit.top/wp-content/plugins/festingervault/public/assets/banner.jpg",
-    high: "https://festinger-client.sovit.top/wp-content/plugins/festingervault/public/assets/banner.jpg",
+    low: "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-trunk/public/assets/banner-low.jpg",
+    high: "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-trunk/public/assets/banner.jpg",
   },
-  icon: "https://festinger-client.sovit.top/wp-content/plugins/festingervault/public/assets/icon.png",
+  icon: "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-trunk/public/assets/icon.png",
   screenshots: {},
 };
 
