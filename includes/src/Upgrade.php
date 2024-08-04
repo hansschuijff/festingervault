@@ -76,10 +76,11 @@ class Upgrade
 	 */
 	function info($response, $action, $args)
 	{
-		if (('query_plugins' == $action || 'plugin_information' == $action) &&
+		if (
+			'plugin_information' == $action &&
 			isset($args->slug) && $args->slug === $this->plugin_slug
 		) {
-			$remote = $this->request();
+		$remote = $this->request();
 			if (!$remote) {
 				return $response;
 			}
@@ -142,7 +143,7 @@ class Upgrade
 			if (version_compare($this->version, $remote->version, '<')) {
 				$response->update = 1;
 			}
-			set_transient($this->cache_key, $response, 1 * HOUR_IN_SECONDS);
+			set_transient($this->cache_key, $response, 20 * MINUTE_IN_SECONDS);
 		}
 		return $response;
 	}
@@ -157,7 +158,6 @@ class Upgrade
 		if (empty($transient->checked)) {
 			return $transient;
 		}
-
 		$remote = $this->request();
 		if ($remote) {
 			$response              = $this->request();
