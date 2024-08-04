@@ -1,6 +1,6 @@
 {
 	"name": "festingervault",
-	"version": "5.0.0-beta.2.1",
+	"version": "5.0.0-beta.2.2",
 	"description": "",
 	"main": "src/index.tsx",
 	"type": "module",
@@ -114,6 +114,7 @@
 		"@types/adm-zip": "^0.5.5",
 		"@types/fs-extra": "^11.0.4",
 		"@types/glob": "^8.1.0",
+		"@types/markdown-it": "^14.1.2",
 		"@types/react": "^18.3.3",
 		"@types/read-pkg-up": "^6.0.0",
 		"@vitejs/plugin-react": "^4.3.1",
@@ -122,6 +123,7 @@
 		"fast-glob": "^3.3.2",
 		"fs-extra": "^11.2.0",
 		"glob": "^10.4.3",
+		"markdown-it": "^14.1.0",
 		"read-package-up": "^11.0.0",
 		"read-pkg-up": "^11.0.0",
 		"rollup-plugin-external-globals": "^0.11.0",
