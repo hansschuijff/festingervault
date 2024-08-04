@@ -2,6 +2,7 @@ import { Grid } from "@/components/ui/grid";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PostItemType } from "@/types/item";
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
+import { decodeEntities } from "@wordpress/html-entities";
 import { Calendar, CheckCircle2 } from "lucide-react";
 import moment from "moment";
 export function ItemDetailHeaderSkeleton(){
@@ -26,7 +27,7 @@ export default function ItemDetailHeader({ item }: Props) {
       <div>
         <img src={item.image} className="aspect-video h-52 rounded-md" />
       </div>
-      <h1 className="text-xl">{item.title}</h1>
+      <h1 className="text-xl">{decodeEntities(item.title)}</h1>
       <div className="flex flex-row gap-5 text-sm text-muted-foreground">
         <div className="space-x-2">
           <span>In</span>
@@ -35,7 +36,7 @@ export default function ItemDetailHeader({ item }: Props) {
         <div className="flex flex-row items-center gap-1 text-green-600">
           {moment
             .unix(item.updated)
-            .isBefore(moment("today").add(1, "week")) ? (
+            .isBefore(moment().add(1, "week")) ? (
             <>
               <CheckCircle2 size={18} /> <span>Recently Updated</span>
             </>

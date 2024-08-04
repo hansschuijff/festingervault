@@ -2,18 +2,23 @@
 
 namespace FestingerVault;
 
-class Constants
-{
-	const ENGINE_URL = "https://engine.sovit.top ";
-	const API_SLUG = "festingervault";
-	const TYPES = ["theme", "plugin", "kits", "wishlist"];
-	const ACTIVATION_KEY = "vault_activation_key";
-	const SETTING_KEY = "vault_settings";
-	const DEFAULT_SETTINGS = [
-		"autoupdate" => [
-			"wordpress-themes"  => [],
-			"wordpress-plugins" => [],
-		],
-	];
-	const ACTION_KEY="festingervault";
+class Constants {
+    const ACTION_KEY = "festingervault";
+
+    const ACTIVATION_KEY = "vault_activation_key";
+
+    const API_SLUG = "festingervault";
+
+    const DEFAULT_SETTINGS = [
+        "autoupdate" => [
+            "wordpress-themes"  => [],
+            "wordpress-plugins" => [],
+        ],
+    ];
+
+    const ENGINE_URL = "https://engine.sovit.top";
+
+    const SETTING_KEY = "vault_settings";
+
+    const TYPES = ["theme", "plugin", "kits", "wishlist"];
 }

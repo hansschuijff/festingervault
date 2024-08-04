@@ -1,6 +1,8 @@
 import { readFileSync, writeFileSync } from "fs";
 import { relative, dirname as _dirname, resolve } from "path";
 import { sync } from "glob";
+import {config} from "dotenv";
+config();
 const packageContent = JSON.parse(readFileSync("./package.json"));
 const composerContent = JSON.parse(readFileSync("./composer.json"));
 const textdomain = packageContent.wp?.textdomain || packageContent.name;
@@ -110,7 +112,7 @@ const updateComposer = () => {
 const processConstantsFile = () => {
   const variables = {
     ENGINE_URL:
-      process.env.ENGINE_URL ?? "https://engine.festingervault.com",
+      process.env.ENGINE_URL,
 	  API_SLUG:packageContent.name,
 	  ACTION_KEY:packageContent.name,
   };

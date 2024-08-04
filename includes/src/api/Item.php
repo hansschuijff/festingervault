@@ -184,7 +184,7 @@ class Item extends ApiBase
 			}
 			return rest_ensure_response($body);
 		}
-		return new \WP_REST_Response(["message" => $result->get_error_message()], 400);
+		return new \WP_REST_Response(["code"=>400,"message" => $result->get_error_message()], 404);
 	}
 
 	protected function prefix()

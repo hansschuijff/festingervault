@@ -13,44 +13,32 @@ type Props = {
 };
 
 export default function InstallStats({ className }: Props) {
-  const { data, isLoading } = useApiFetch<PostItemCollectionResponse>(
-    `update/list`,
-    {},
-  );
+  const { data, isLoading, isError, status } =
+    useApiFetch<PostItemCollectionResponse>(`update/list`, {});
   const themes = useMemo(() => {
-    if (isLoading) {
-      return [];
+    if (data?.data) {
+      return data?.data?.filter(item => item.type === "wordpress-themes");
     }
-    return data.data?.filter(item => item.type === "wordpress-themes");
+    return [];
   }, [data]);
   const plugins = useMemo(() => {
-    if (isLoading) {
-      return [];
+    if (data?.data) {
+      return data?.data?.filter(item => item.type === "wordpress-plugins");
     }
-    return data.data?.filter(item => item.type === "wordpress-plugins");
+    return [];
   }, [data]);
-  const themeUpdateAvailable = useMemo(() => {
-    return themes.filter(item =>
-      version_compare(item.version, item.installed_version, "gt"),
-    );
-  }, [themes]);
-  const pluginUpdateAvailable = useMemo(() => {
-    return plugins.filter(item =>
-      version_compare(item.version, item.installed_version, "gt"),
-    );
-  }, [plugins]);
   const chartData = useMemo<StackedBarChartDataType[]>(
     () => [
       {
         name: "theme",
         label: "Themes",
-        value: themes.length,
+        value: themes?.length,
         color: "hsl(var(--chart-1))",
       },
       {
         name: "plugin",
         label: "Plugins",
-        value: plugins.length,
+        value: plugins?.length,
         color: "hsl(var(--chart-2))",
       },
     ],

@@ -6,7 +6,7 @@ export default function useApiFetch<
   ResponseDataType,
   PostDataType = Record<string, any>,
 >(path: string, data?: PostDataType, enabled = true) {
-  const query = useQuery({
+  const query = useQuery<ResponseDataType, Error>({
     queryKey: [path, data].filter(item => item),
     queryFn: async () => {
       try {

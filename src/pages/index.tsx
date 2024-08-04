@@ -11,8 +11,6 @@ import LicenseStatus from "./_components/license-status";
 import DashboardWelcome from "./_components/Welcome";
 
 export default function Component() {
-  const { effectiveTheme } = useTheme();
-  console.log(effectiveTheme);
   return (
     <AppPageShell
       title="Dashboard"
