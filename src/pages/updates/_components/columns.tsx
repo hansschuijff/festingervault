@@ -4,11 +4,9 @@ import useInstall from "@/hooks/useInstall";
 import { Link } from "@/router";
 import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/utils/version_compare";
-import { SortingFn, sortingFns, type ColumnDef } from "@tanstack/react-table";
+import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
-import useSetting from "@/hooks/useSetting";
-import { useEffect } from "react";
 
 export function getColumns(): ColumnDef<ThemePluginItemType>[] {
   return columns;

@@ -13,6 +13,8 @@ import {
 import { Link } from "react-router-dom";
 import { Home } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
+import BulkAction from "../bulk-action";
+import LanguageSelector from "../language-select";
 type BreadCrumbType = {
   label: string;
   href?: string;
@@ -127,7 +129,9 @@ function PageHeader({ title, description }: PageHeaderProps) {
         )}
       </div>
       <div className="flex flex-row gap-2">
-        <ModeToggle />
+			<ModeToggle />
+			<BulkAction />
+			<LanguageSelector />
       </div>
     </header>
   );

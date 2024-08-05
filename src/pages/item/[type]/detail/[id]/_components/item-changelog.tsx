@@ -1,9 +1,10 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
 import { useParams } from "@/router";
 import { PostChangelogCollectionResponse, PostItemType } from "@/types/item";
-import { decodeEntities } from "@wordpress/html-entities";
+import { DownloadCloud } from "lucide-react";
 import moment from "moment";
 
 type Props = {
@@ -25,17 +26,21 @@ export default function ItemChangeLog({ item }: Props) {
               <div className="divide-y">
                 {data?.data?.map(item => (
                   <div
-                    className="grid grid-cols-4 p-4 first:pt-0 last:pb-0"
+                    className="flex flex-row items-center justify-between gap-4 p-4 first:pt-0 last:pb-0"
                     key={item.id}
                   >
-                    <div className="col-span-1">{item.version}</div>
-                    <div className="col-span-1">{item.slug}</div>
-                    <div className="col-span-1">
-                      {moment.unix(item.updated).fromNow()}
+                    <div className="space-y-1">
+                      <div className="text-xl">{item.version}</div>
+                      <div className="text-muted-foreground">{item.slug}</div>
+                      <div className="text-muted-foreground">
+                        {moment.unix(item.updated).fromNow()}
+                      </div>
                     </div>
                     <div>
-
-										</div>
+                      <Button size="iconSmall" variant="outline">
+                        <DownloadCloud size={14} />
+                      </Button>
+                    </div>
                   </div>
                 ))}
               </div>
