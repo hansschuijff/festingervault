@@ -47,10 +47,10 @@ export default function InstallStats({ className }: Props) {
   const total = plugins.length + themes.length;
   return (
     <Card className={cn("aspect-auto justify-between ", className)}>
-      <CardHeader className="border-b border-border sm:p-4 sm:pb-4">
+      <CardHeader className="border-b border-border">
         <h3 className="text-lg">{__("Installed Assets")}</h3>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-6 sm:p-4">
+      <CardContent className="flex flex-col gap-4">
         <div className="text-muted-foreground">Installed</div>
         <div className="space-x-2">
           <span className="text-3xl">{total}</span>

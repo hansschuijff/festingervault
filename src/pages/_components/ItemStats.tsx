@@ -26,7 +26,7 @@ type Props = {
 function ItemCard({ className, icon: Icon, title, count }: Props) {
   return (
     <Card className={cn(className)}>
-      <CardContent className="relative p-4 sm:p-6">
+      <CardContent className="relative">
         <Grid size={25} />
         <div
           className={cn(

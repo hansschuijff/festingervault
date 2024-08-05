@@ -9,7 +9,7 @@ export type Path =
 	| `/browse`
 	| `/collections`
 	| `/item/:type/:page?`
-	| `/item/:type/detail/:id`
+	| `/item/:type/detail/:id/:tab?`
 	| `/popular`
 	| `/requests`
 	| `/settings`
@@ -17,7 +17,7 @@ export type Path =
 
 export type Params = {
 	"/item/:type/:page?": { type: string; page?: string };
-	"/item/:type/detail/:id": { type: string; id: string };
+	"/item/:type/detail/:id/:tab?": { type: string; id: string; tab?: string };
 };
 
 export type ModalPath = never;

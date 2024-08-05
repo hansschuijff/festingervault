@@ -1,14 +1,12 @@
 import { AppPageShell } from "@/components/body/page-shell";
-import useApiFetch from "@/hooks/useApiFetch";
+import useActivation from "@/hooks/use-activation";
 import { __ } from "@wordpress/i18n";
-import ActivationDetailItem, {
-	ActivationDetailItemType
-} from "./_components/activation-detail";
+import ActivationDetailItem from "./_components/activation-detail";
 import RegisterLicenseForm from "./_components/register-license";
 
 export default function Component() {
-  const { data, isLoading, isFetching, isFetched, isError, error } =
-    useApiFetch<ActivationDetailItemType>("license/detail", {});
+  const { data, isLoading,isFetching } =
+    useActivation();
 
   return (
     <AppPageShell
@@ -26,7 +24,7 @@ export default function Component() {
       <div>
         {data &&
           (data.activation_key ? (
-            <ActivationDetailItem key={data.activation_key} item={data} />
+            <ActivationDetailItem key={data.activation_key} detail={data} />
           ) : (
             <RegisterLicenseForm />
           ))}

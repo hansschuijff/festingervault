@@ -75,7 +75,7 @@ export default function PostGridItem({ item }: Props) {
             </Badge>
           )}
         </CardHeader>
-        <CardContent className="mt-4 space-y-1 pb-0">
+        <CardContent className="space-y-1">
           <CardTitle className="leading-normal">
             <Link to={`/item/${item.type}/detail/${item.id}`}>
               {decodeEntities(item.title)}

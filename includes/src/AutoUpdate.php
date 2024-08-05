@@ -11,7 +11,6 @@ class AutoUpdate {
     function __construct() {
         add_action('init', [$this, 'schedule_action']);
         add_action(Constants::ACTION_KEY."/autoupdate", [$this, 'auto_update']);
-        add_action(Constants::ACTION_KEY."/autoupdate", [$this, 'auto_update']);
         add_action(Constants::ACTION_KEY."/autoupdate/run-update", [$this, 'auto_update_run']);
         add_action(Constants::ACTION_KEY ."/autoupdate/cleanup", [$this, 'cleanup']);
     }
@@ -57,7 +56,7 @@ class AutoUpdate {
             if ("elementor-template-kits" === $item_detail["type"]) {
                 return false;
             }
-            $installer = new Installer($item_detail, $download_detail, "update");
+            $installer = new Installer($item_detail, $download_detail);
             $installer->run();
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage());

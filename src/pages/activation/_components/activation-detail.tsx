@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
 import useApiMutation from "@/hooks/useApiMutation";
+import { ActivationDetailType } from "@/types/license";
 import { useQueryClient } from "@tanstack/react-query";
 import { __ } from "@wordpress/i18n";
 import { Globe, Loader } from "lucide-react";
@@ -32,21 +33,10 @@ export type ClientLicenseType = {
 export type ClientProductType = {
   title: string;
 };
-export type ActivationDetailItemType = {
-  activation_key: string;
-  domain: string;
-  created: number;
-  expires: number;
-  status: "active" | "inactive" | "expired";
-  plan_type: string;
-  plan_title: string;
-  total_limit: number;
-  today_limit: number;
-  today_limit_used: number;
-};
+
 
 type Props = {
-  item: ActivationDetailItemType;
+  detail: ActivationDetailType;
 };
 export function ActivationDetailItemSkeleton() {
   return (
@@ -59,7 +49,7 @@ export function ActivationDetailItemSkeleton() {
     </Card>
   );
 }
-export default function ActivationDetailItem({ item }: Props) {
+export default function ActivationDetailItem({  detail }: Props) {
   const queryClient = useQueryClient();
   const { isPending, mutateAsync } = useApiMutation("license/deactivate");
   async function onSubmit() {
@@ -76,29 +66,29 @@ export default function ActivationDetailItem({ item }: Props) {
   }
   return (
     <Card className="">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium uppercase">
-          {item.plan_type}
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b">
+        <CardTitle className="text-lg font-medium uppercase">
+          {detail.plan_type}
         </CardTitle>
         <Globe className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-2">
-        <div className="text-xl font-bold">{item.plan_title}</div>
+        <div className="text-xl font-bold">{detail.plan_title}</div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
           <span>{__("Expires:")}</span>
           <span>
-            {item.expires > 0
-              ? moment.unix(item.expires).fromNow()
+            {detail.expires > 0
+              ? moment.unix(detail.expires).fromNow()
               : "LIFETIME"}
           </span>
         </div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
           <span>{__("Status:")}</span>
-          <span>{item.status}</span>
+          <span>{detail.status}</span>
         </div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
           <span>{__("Install ID:")}</span>
-          <span>{item.activation_key}</span>
+          <span>{detail.activation_key}</span>
         </div>
       </CardContent>
       <CardFooter>

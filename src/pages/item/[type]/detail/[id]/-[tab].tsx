@@ -1,0 +1,104 @@
+import { AppPageShell } from "@/components/body/page-shell";
+import { item_types } from "@/config/item";
+import useApiFetch from "@/hooks/useApiFetch";
+import { useParams } from "@/router";
+import { PostItemType } from "@/types/item";
+import { decodeEntities } from "@wordpress/html-entities";
+import ItemDetailHeader, {
+  ItemDetailHeaderSkeleton,
+} from "./_components/detail-header";
+import ItemDescription from "./_components/item-description";
+import DetailTabHeaders from "./_components/detail-tab-headers";
+import DetailTabContent from "./_components/detail-tab-content";
+import { useMemo } from "react";
+import ItemChangeLog from "./_components/item-changelog";
+import ItemDemoContents from "./_components/item-demo-contents";
+import ItemDocumentation from "./_components/item-documentation";
+import ItemSupport from "./_components/item-support";
+import ItemSidebar from "./_components/item-sidebar";
+type TabRecordType = {
+  id: string;
+  label: string;
+  el?: React.ComponentType;
+  enabled?: boolean;
+  external?: string;
+};
+export type DetailTabType = TabRecordType[];
+export default function Component() {
+  const params = useParams("/item/:type/detail/:id/:tab?");
+
+  const { data, isError, isLoading, isFetching } = useApiFetch<PostItemType>(
+    "item/detail",
+    {
+      item_id: params.id,
+    },
+  );
+  const tabs = useMemo<DetailTabType>(() => {
+    if (!data) {
+      return [];
+    }
+    return [
+      {
+        id: "description",
+        label: "Description",
+        el: () => <ItemDescription item={data} />,
+      },
+      {
+        id: "changelog",
+        label: "Changelog",
+        el: () => <ItemChangeLog item={data} />,
+        enabled: data.media_count > 0,
+      },
+      {
+        id: "demo-contents",
+        label: "Demo Contents",
+        el: () => <ItemDemoContents item={data} />,
+        enabled: data.additional_content_count > 0,
+      },
+      {
+        id: "documentation",
+        label: "Documentation",
+        el: () => <ItemDocumentation item={data} />,
+        enabled: false,
+      },
+      {
+        id: "support",
+        label: "Support",
+        external: data.support_url,// TODO: add forum support to engine
+				enabled:data?.support_url?.length>0
+      },
+    ].filter(item => item.enabled ?? true);
+  }, [data]);
+  return (
+    <AppPageShell
+      title={data?.title ?? "Item Detail"}
+      description=""
+      preloader={<ItemDetailHeaderSkeleton />}
+      breadcrump={[
+        {
+          label: item_types[params.type].label,
+          href: `/item/${params.type}`,
+        },
+        {
+          label: decodeEntities(data?.title),
+        },
+      ]}
+      {...{ isError, isFetching, isLoading }}
+    >
+      {data && (
+        <>
+          <ItemDetailHeader item={data} />
+          <div className="wp-full">
+            <DetailTabHeaders item={data} tabs={tabs} />
+          </div>
+          <div className="flex flex-row gap-5 sm:gap-7">
+            <div className="flex-1">
+              <DetailTabContent item={data} tabs={tabs} />
+            </div>
+            <div className="w-80"><ItemSidebar item={data} /></div>
+          </div>
+        </>
+      )}
+    </AppPageShell>
+  );
+}

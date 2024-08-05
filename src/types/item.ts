@@ -11,7 +11,13 @@ export const AccessEnum=z.enum([
 	"bronze",
 	"silver",
 ])
-
+type VirusTotal={
+	filename:string;
+	hash:string;
+	result:string;
+	stats:Record<string, number>;
+	updated:number;
+}
 export type PostItemType<Ex = never> = {
   id: string;
   title: string;
@@ -28,8 +34,23 @@ export type PostItemType<Ex = never> = {
   access?: z.infer<typeof AccessEnum>;
   installed_version?: string;
 	additional_content_count?:number;
+	download_count?:number;
+	install_count?:number;
+	media_count?:number;
+	preview?:string;
+	support_url?:string;
+	virus_total?:VirusTotal;
+};
+export type PostChangelogType={
+	id:number;
+	filename:string;
+	version:string;
+	slug:string;
+	size:number;
+	updated:number;
 };
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
+export type PostChangelogCollectionResponse = CollectionResponse<PostChangelogType>;
 export type ItemStatsResponse = {
   total: number;
   themes: number;

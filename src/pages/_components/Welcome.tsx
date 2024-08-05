@@ -10,40 +10,40 @@ type Props = {
 export default function DashboardWelcome({ className }: Props) {
   return (
     <Card className={cn("flex flex-col justify-between", className)}>
-      <CardContent className="relative p-4 sm:p-6 flex-1 flex flex-row  items-center">
-				<Grid size={40} />
+      <CardContent className="relative flex flex-1 flex-row items-center">
+        <Grid size={40} />
         <div className="grid grid-cols-4">
           <div className="col-span-3 flex flex-col justify-center gap-4">
             <div className="flex -space-x-2">
               <div className="flex">
                 <Avatar className="relative size-10 shrink-0 rounded-full ring-1 ring-white/10 hover:z-10">
                   <AvatarImage
-                    src={`https://i.pravatar.cc/50?u=${Math.random()*Date.now()}`}
-										></AvatarImage>
+                    src={`https://i.pravatar.cc/50?u=${Math.random() * Date.now()}`}
+                  ></AvatarImage>
                   <AvatarFallback>FV</AvatarFallback>
                 </Avatar>
               </div>
               <div className="flex">
                 <Avatar className="relative size-10 shrink-0 rounded-full ring-1 ring-white/10 hover:z-10">
                   <AvatarImage
-                    src={`https://i.pravatar.cc/50?u=${Math.random()*Date.now()}`}
-										></AvatarImage>
+                    src={`https://i.pravatar.cc/50?u=${Math.random() * Date.now()}`}
+                  ></AvatarImage>
                   <AvatarFallback>FV</AvatarFallback>
                 </Avatar>
               </div>
               <div className="flex">
                 <Avatar className="relative size-10 shrink-0 rounded-full ring-1 ring-white/10 hover:z-10">
                   <AvatarImage
-                    src={`https://i.pravatar.cc/50?u=${Math.random()*Date.now()}`}
-										></AvatarImage>
+                    src={`https://i.pravatar.cc/50?u=${Math.random() * Date.now()}`}
+                  ></AvatarImage>
                   <AvatarFallback>FV</AvatarFallback>
                 </Avatar>
               </div>
               <div className="flex">
                 <Avatar className="relative size-10 shrink-0 rounded-full ring-1 ring-white/10 hover:z-10">
                   <AvatarImage
-                    src={`https://i.pravatar.cc/50?u=${Math.random()*Date.now()}`}
-										></AvatarImage>
+                    src={`https://i.pravatar.cc/50?u=${Math.random() * Date.now()}`}
+                  ></AvatarImage>
                   <AvatarFallback>FV</AvatarFallback>
                 </Avatar>
               </div>
@@ -60,10 +60,10 @@ export default function DashboardWelcome({ className }: Props) {
           <div className="grid-cols-1"></div>
         </div>
       </CardContent>
-      <CardFooter className="justify-center border-t border-border text-center sm:p-4 sm:pt-4">
+      <CardFooter className="text-cente justify-center border-t border-border">
         <a
           href="https://festingervault.com/beta-feedback"
-					target="_blank"
+          target="_blank"
           className="border-b border-dashed border-blue-500 text-sm text-blue-500"
         >
           Get Started

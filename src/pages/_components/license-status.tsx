@@ -14,7 +14,7 @@ export default function LicenseStatus({ className }: Props) {
   const { data} =
     useApiFetch<ActivationDetailItemType>("license/detail", {});
   return (
-    <Card className={cn("flex flex-col justify-between gap-6 p-12", className)}>
+    <Card className={cn("flex flex-col justify-between gap-6 p-8", className)}>
       <div>
         <h2 className="flex items-center gap-2 text-3xl font-semibold">
           Professional Plan

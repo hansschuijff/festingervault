@@ -1,4 +1,9 @@
-import { Card, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import useInstalled from "@/hooks/use-is-installed";
 import { cn } from "@/lib/utils";
 import { Link } from "@/router";
@@ -13,17 +18,20 @@ export default function AvailableUpdates({ className }: Props) {
   const { updateable } = useInstalled();
   return (
     <Card className={cn("flex flex-col justify-between", className)}>
-      <CardHeader className="border-b sm:p-4 sm:pb-4">
+      <CardHeader className="border-b">
         <h3 className="text-lg">{__("Item Updates")}</h3>
       </CardHeader>
-      <div className="px-0">
+      <CardContent className="px-0">
         {updateable && updateable?.length > 0 ? (
           <div className="divide-y text-sm">
             {updateable.slice(0, 4).map(item => (
-              <div key={item.id} className="flex flex-col gap-2 p-4">
+              <div
+                key={item.id}
+                className="flex flex-col gap-2 py-4 first:pt-0 last:pb-0"
+              >
                 <div>
                   <Link
-                    to="/item/:type/detail/:id"
+                    to="/item/:type/detail/:id/:tab?"
                     params={{
                       id: item.id,
                       type: item.type,
@@ -47,15 +55,15 @@ export default function AvailableUpdates({ className }: Props) {
             ))}
           </div>
         ) : (
-          <div className="p-4 text-center text-sm italic text-muted-foreground">
+          <div className="text-center text-sm italic text-muted-foreground">
             No Update Found
           </div>
         )}
-      </div>
-      <CardFooter className="justify-center border-t border-border pt-4 text-center sm:p-4 sm:pt-4">
+      </CardContent>
+      <CardFooter className="justify-center border-t border-border text-center">
         <Link
           to="/updates"
-          className="border-b border-dashed border-blue-500 text-blue-500"
+          className="border-b border-dashed border-blue-500 text-blue-500 text-sm"
         >
           View All Updates
         </Link>

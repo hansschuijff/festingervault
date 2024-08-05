@@ -76,10 +76,9 @@ const processMainFile = () => {
       if (headers[header].length < 1) {
         return;
       }
-      let tabs = 10 - Math.ceil((header.length + 1) / 4);
       fileContent = fileContent.replace(
         new RegExp(`${header}[\\s+]{0,}:[\\s+]{0,}(.+)`, "gi"),
-        `${header}:${"\t".repeat(tabs)}${headers[header]}`,
+        `${header}: ${headers[header]}`,
       );
     });
     writeFileSync(filePath, fileContent, "utf8");

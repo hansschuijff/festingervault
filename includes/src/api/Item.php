@@ -12,7 +12,7 @@ class Item extends ApiBase
 	 */
 	public function detail(\WP_REST_Request $request)
 	{
-		$item_id = $request->get_param("id");
+		$item_id = $request->get_param("item_id");
 
 		$result = Helper::engine_post("item/detail", [
 			"item_id" => $item_id,
@@ -43,58 +43,15 @@ class Item extends ApiBase
 			"stats"  => [
 				'callback' => [$this, 'stats'],
 			],
+			"changelog"  => [
+				'callback' => [$this, 'changelog'],
+			],
 			"install" => [
 				'callback'            => [$this, 'install'],
 				'permission_callback' => [$this, "user_can_install"],
 			],
 
 		];
-	}
-
-	/**
-	 * @param $plugins
-	 */
-	public function inject_plugin_update_info($plugins)
-	{
-		$repo_updates = get_site_transient('update_plugins');
-
-		if (!is_object($repo_updates)) {
-			$repo_updates = new \stdClass;
-		}
-
-		foreach ($plugins as $slug => $plugin) {
-			$file_path = $plugin['file_path'];
-
-			if (empty($repo_updates->response[$file_path])) {
-				$repo_updates->response[$file_path] = new \stdClass;
-			}
-			// We only really need to set package, but let's do all we can in case WP changes something.
-			$repo_updates->response[$file_path]->slug        = $slug;
-			$repo_updates->response[$file_path]->plugin      = $file_path;
-			$repo_updates->response[$file_path]->new_version = $plugin['version'];
-			$repo_updates->response[$file_path]->package     = $plugin['source'];
-		}
-		set_site_transient('update_plugins', $repo_updates);
-	}
-
-	/**
-	 * @param $themes
-	 */
-	public function inject_theme_update_info($themes)
-	{
-		$repo_updates = get_site_transient('update_themes');
-		if (!is_object($repo_updates)) {
-			$repo_updates = new \stdClass;
-		}
-		foreach ($themes as $slug => $theme) {
-			$repo_updates->response[$slug] = [
-				"theme"       => $slug,
-				"slug"        => $slug,
-				"new_version" => $theme['version'],
-				"package"     => $theme['source'],
-			];
-		}
-		set_site_transient('update_themes', $repo_updates);
 	}
 
 	/**
@@ -108,7 +65,7 @@ class Item extends ApiBase
 			"item_id" => $item_id,
 		]);
 		if (is_wp_error($result)) {
-			return new \WP_REST_Response(["message" => "Error getting Item detail"], 400);
+			return new \WP_Error("item_detail","Error getting Item detail");
 		}
 		$item_detail = json_decode(wp_remote_retrieve_body($result), true);
 		$result      = Helper::engine_post("item/download", [
@@ -116,18 +73,18 @@ class Item extends ApiBase
 			"method"  => $method,
 		]);
 		if (is_wp_error($result)) {
-			return new \WP_REST_Response($result->get_error_message(), 400);
+			return new \WP_Error("download_detail","Error getting zip file information");
 		}
 		$download_detail = json_decode(wp_remote_retrieve_body($result), true);
-		if ("elementor-template-kits" === $item_detail["type"]) {
+		if ("elementor-template-kits" === $item_detail["type"] || $method==="download") {
 			return new \WP_REST_Response($download_detail, 200);
 		}
-		$installer = new Installer($item_detail, $download_detail, $method);
+		$installer = new Installer($item_detail, $download_detail);
 		$status    = $installer->run();
 		if (is_wp_error($status)) {
-			return new \WP_REST_Response(['error' => true, 'message' => "Error installing plugin"], 200);
+			return new \WP_Error("item_install","Error running item installation/update");
 		}
-		return new \WP_REST_Response(['success' => true], 200);
+		return new \WP_REST_Response(['success' => true]);
 	}
 
 	/**
@@ -148,6 +105,23 @@ class Item extends ApiBase
 			"filter" => $filter,
 			"sort" => $sort,
 			"per_page" => $per_page,
+		]);
+		if (!is_wp_error($result)) {
+			$body = json_decode(wp_remote_retrieve_body($result), true);
+			if (isset($body["error"])) {
+				return new \WP_REST_Response($body, 400);
+			}
+			return rest_ensure_response($body);
+		}
+		return new \WP_REST_Response(["message" => $result->get_error_message()], 400);
+	}
+	public function changelog(\WP_REST_Request $request)
+	{
+		$page   = $request->get_param("page");
+		$item_id = $request->get_param("item_id");
+		$result = Helper::engine_post("item/changelog", [
+			"item_id" => $item_id,
+			"page" => $page
 		]);
 		if (!is_wp_error($result)) {
 			$body = json_decode(wp_remote_retrieve_body($result), true);
