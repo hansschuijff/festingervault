@@ -2,6 +2,8 @@ import { siteConfig } from "@/config/site";
 import { CollectionResponse } from "@/types/api";
 import { useMutation } from "@tanstack/react-query";
 import apiFetch from "@wordpress/api-fetch";
+import { __ } from "@wordpress/i18n";
+import { toast } from "sonner";
 
 export default function useApiMutation<
   ResponseDataType = {},
@@ -16,6 +18,12 @@ export default function useApiMutation<
       });
 
     },
+		onError(error){
+			toast.error(
+        (error as { message?: string })?.message ??
+          __("Error Activating License"),
+      );
+		}
   });
   return mutation;
 }

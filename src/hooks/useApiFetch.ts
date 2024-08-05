@@ -1,6 +1,8 @@
 import { siteConfig } from "@/config/site";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import apiFetch from "@wordpress/api-fetch";
+import { __ } from "@wordpress/i18n";
+import { toast } from "sonner";
 
 export default function useApiFetch<
   ResponseDataType,
@@ -13,6 +15,13 @@ export default function useApiFetch<
 			method: "POST",
 			data,
 		}),
+		throwOnError(error, query) {
+			toast.error(
+        (error as { message?: string })?.message ??
+          __("Error"),
+      );
+			return true;
+		},
     placeholderData: keepPreviousData,
     enabled,
   });
