@@ -5,14 +5,14 @@ import useApiFetch from "@/hooks/useApiFetch";
 import { cn } from "@/lib/utils";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
-import { ActivationDetailItemType } from "../activation/_components/activation-detail";
+import { ActivationDetailType } from "@/types/license";
 
 type Props = {
   className?: ClassNameValue;
 };
 export default function LicenseStatus({ className }: Props) {
   const { data} =
-    useApiFetch<ActivationDetailItemType>("license/detail", {});
+    useApiFetch<ActivationDetailType>("license/detail", {});
   return (
     <Card className={cn("flex flex-col justify-between gap-6 p-8", className)}>
       <div>
@@ -31,21 +31,22 @@ export default function LicenseStatus({ className }: Props) {
       </div>
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">{data?.status ?? "---"}</div>
+          <div className="text-lg capitalize">{data?.status ?? "---"}</div>
           <div className="text-sm text-muted-foreground">Status</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
-          <div className="text-sm text-muted-foreground">Downloads</div>
+          <div className="text-lg">{data?.today_limit?.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">Daily Today</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">Unlimited</div>
+          <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
+          <div className="text-sm text-muted-foreground">All-Time Limit</div>
+        </div>
+        <div className="rounded-sm border border-dashed border-muted-foreground p-4">
+          <div className="text-lg">Lifetime</div>
           <div className="text-sm text-muted-foreground">Updates</div>
         </div>
-        <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">$99.00</div>
-          <div className="text-sm text-muted-foreground">Price</div>
-        </div>
+
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">
             {data?.expires > 0
@@ -60,7 +61,7 @@ export default function LicenseStatus({ className }: Props) {
           <div className="space-x-1">
             <span className="text-muted-foreground">Downloads used:</span>
             <span>
-              {data?.today_limit_used} of {data?.today_limit?.toLocaleString()} used
+              {data?.today_limit_used} of {data?.today_limit?.toLocaleString()}
             </span>
           </div>
           {data && (
@@ -71,7 +72,7 @@ export default function LicenseStatus({ className }: Props) {
         </div>
         <div className="">
           <div>
-            <span className="text-muted-foreground">Domains:</span> 1/999
+            <span className="text-muted-foreground">Domains:</span> {data?.activation_count?.toLocaleString()}/{data?.activation_limit?.toLocaleString()}
           </div>
         </div>
       </div>

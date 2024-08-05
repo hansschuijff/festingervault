@@ -55,7 +55,7 @@ const createSortSchema = (sort_items: SortItem[]) => {
   ];
   return z.object({
     order_by: z.enum(sortValues).default(sortValues[0]),
-    order: z.enum(["asc", "desc"]).default("asc"),
+    order: z.enum(["asc", "desc"]).default("desc"),
   });
 };
 

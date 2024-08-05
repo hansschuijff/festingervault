@@ -1,5 +1,7 @@
 export type ActivationDetailType = {
 	activation_key: string;
+	activation_limit: number;
+	activation_count: number;
 	domain: string;
 	created: number;
 	expires: number;

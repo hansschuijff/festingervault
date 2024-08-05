@@ -72,7 +72,7 @@ export function AppPageShell({
   return (
     <div className="w-full space-y-8">
       <PageHeader title={title} description={description} />
-      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7", isLoading && "blur-sm"])}>
+      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7", (isFetching || isLoading) && "blur-sm"])}>
         {breadcrump && (
           <div>
             <Breadcrumb>
@@ -106,7 +106,7 @@ export function AppPageShell({
           </div>
         )}
         <Out />
-        {isFetching && (
+        {(isFetching || isLoading) && (
           <div className="absolute left-0 top-0 h-full w-full cursor-progress"></div>
         )}
       </Container>

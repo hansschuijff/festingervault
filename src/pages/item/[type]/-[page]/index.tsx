@@ -166,7 +166,7 @@ export default function Component() {
           >
             {data.data.length > 0 ? (
               data.data.map(item => (
-                <PostGridItem key={item.id} item={{ ...item }} />
+                <PostGridItem key={item.id} item={item} />
               ))
             ) : (
               <NoSearchResultFound />

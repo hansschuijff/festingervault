@@ -15,7 +15,6 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Languages } from "lucide-react";
-import { z } from "zod";
 const languages = [
   {
     value: "english",
@@ -24,7 +23,7 @@ const languages = [
   },
   {
     value: "french",
-    label: "Frensh",
+    label: "French",
     alias: "FR",
   },
 ];
@@ -41,7 +40,7 @@ export default function LanguageSelector() {
           aria-expanded={open}
           className="justify-between gap-2"
         >
-          <Languages size={16} />{" "}
+          <Languages size={16} />
           {value && languages.find(lang => lang.value === value)?.alias}
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
