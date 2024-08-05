@@ -1,14 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import useApiFetch from "@/hooks/useApiFetch";
 import { cn } from "@/lib/utils";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
+import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
 
 type Props = {
   className?: ClassNameValue;
 };
 export default function Announcements({ className }: Props) {
-  const announcements = [];
+  const { data: announcements } = useApiFetch<any>("announcement/latest");
   return (
     <Card className={cn("flex flex-col ", className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b">
@@ -23,7 +25,30 @@ export default function Announcements({ className }: Props) {
       </CardHeader>
       <CardContent>
         {announcements && announcements?.length > 0 ? (
-          <div className="divide-y text-sm"></div>
+          <div className="flex flex-col divide-y">
+            {announcements.map(item => (
+              <div
+                key={item.id}
+                className="flex flex-row justify-between gap-2 py-4 text-sm first:pt-0 last:pb-0"
+              >
+                <div>
+                  <a
+                    href={`https://meta.festingervault.com/t/${item.slug}/${item.id}`}
+                    target="_blank"
+                    className="transition-colors hover:text-muted-foreground"
+                  >
+                    {item.title}
+                  </a>
+                </div>
+                <div className="whitespace-nowrap text-muted-foreground">
+                  {sprintf(
+                    __("Updated %s"),
+                    moment(item.last_posted_at).fromNow(),
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="text-center text-sm italic text-muted-foreground">
             No new announcements

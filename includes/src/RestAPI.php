@@ -2,6 +2,7 @@
 
 namespace FestingerVault;
 
+use FestingerVault\api\Announcement;
 use FestingerVault\api\Item;
 use FestingerVault\api\ApiBase;
 use FestingerVault\api\License;
@@ -21,6 +22,7 @@ class RestAPI
 		$this->register(new Item());
 		$this->register(new Update());
 		$this->register(new Setting());
+		$this->register(new Announcement());
 	}
 
 	public static function get_instance()

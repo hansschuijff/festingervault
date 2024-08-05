@@ -70,7 +70,7 @@ export function AppPageShell({
   return (
     <div className="w-full space-y-8">
       <PageHeader title={title} description={description} />
-      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7"])}>
+      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7", isLoading && "blur-sm"])}>
         {breadcrump && (
           <div>
             <Breadcrumb>

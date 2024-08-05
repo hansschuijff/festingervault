@@ -50,17 +50,17 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-row gap-4">
-          <div>
+          <div className="aspect-square w-12">
             <img
               src={row.original.image}
-              className="h-12  w-12 rounded-sm object-cover"
+              className="h-12 w-12 rounded-sm aspect-square object-cover"
             />
           </div>
-          <div className="space-y-1">
+          <div className=" flex-1 space-y-1">
             <div className="font-semibold">
               <div className="line-clamp-1">
                 <Link
-                  to={`/item/:type/detail/:id`}
+                  to={`/item/:type/detail/:id/:tab?`}
                   params={{ id: row.original.id, type: row.original.type }}
                 >
                   {decodeEntities(row.original.title)}
