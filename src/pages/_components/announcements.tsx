@@ -26,7 +26,7 @@ export default function Announcements({ className }: Props) {
       <CardContent>
         {announcements && announcements?.length > 0 ? (
           <div className="flex flex-col divide-y">
-            {announcements.map(item => (
+            {announcements?.map(item => (
               <div
                 key={item.id}
                 className="flex flex-row justify-between gap-2 py-4 text-sm first:pt-0 last:pb-0"

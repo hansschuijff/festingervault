@@ -9,6 +9,7 @@ import InstallStats from "./_components/InstallStats";
 import ItemStats from "./_components/ItemStats";
 import LicenseStatus from "./_components/license-status";
 import DashboardWelcome from "./_components/Welcome";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Component() {
   return (
@@ -22,8 +23,9 @@ export default function Component() {
       ]}
     >
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-7">
-				<div className="col-span-3"><Alert className="border-dashed border-slate-700 bg-red-950/30 p-10">
-            <div className="flex flex-row items-center gap-5">
+        <div className="col-span-3">
+          <Card className="border border-dashed border-primary-foreground bg-red-900 p-4 text-white">
+            <CardContent className="flex flex-row items-center gap-5">
               <ShieldAlert size={42} />
               <div className="flex-1">
                 <h2 className="text-lg">
@@ -48,15 +50,15 @@ export default function Component() {
                   Report Feedback
                 </a>
               </Button>
-            </div>
-          </Alert></div>
+            </CardContent>
+          </Card>
+        </div>
         <div className="col-span-1 flex flex-col gap-5 lg:gap-7">
           <ItemStats />
           <InstallStats />
           <AvailableUpdates />
         </div>{" "}
         <div className="col-span-2  flex flex-col gap-5 lg:gap-7">
-
           <DashboardWelcome />
           <LicenseStatus />
           <Announcements />

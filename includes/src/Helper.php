@@ -24,11 +24,16 @@ class Helper {
                 'body'      => $content_body,
             ]
         );
-        if (wp_remote_retrieve_response_code($result) !== 200) {
-            return new \WP_Error(400, wp_remote_retrieve_body($result));
+        $body = json_decode(wp_remote_retrieve_body($result), true);
+        if (is_wp_error($result) || wp_remote_retrieve_response_code($result) !== 200 || isset($body["error"])) {
+            return new \WP_Error(
+                400,
+                $body["message"] ?? $result->get_error_message()
+            );
         }
-        return $result;
+        return $body;
     }
+
     /**
      * @return mixed
      */
@@ -36,15 +41,14 @@ class Helper {
         $installed_themes  = Helper::installed_themes();
         $installed_plugins = Helper::installed_plugins();
 
-        $response = Helper::engine_post("update/list", [
+        $result = Helper::engine_post("update/list", [
             "themes"  => $installed_themes,
             "plugins" => $installed_plugins,
         ]);
-		if (is_wp_error($response)) {
-            return new \WP_Error(400,"Error Fetching Update List");
+        if (is_wp_error($result)) {
+            return new \WP_Error(400, "Error Fetching Update List");
         }
-        $result = json_decode(wp_remote_retrieve_body($response), true);
-        $data   = [];
+        $data = [];
         foreach ($result["data"] as $item) {
             if ("wordpress-themes" == $item["type"] && isset($installed_themes[$item["slug"]])) {
                 $item["installed_version"] = $installed_themes[$item["slug"]]["version"];
@@ -58,15 +62,15 @@ class Helper {
             }
         }
         usort($data, function ($a, $b) {
-			return strcmp(strtolower($a["title"]),strtolower($b["title"]));
+            return strcmp(strtolower($a["title"]), strtolower($b["title"]));
         });
-		$updatable=array_filter($data,function($item){
-			return version_compare($item["version"], $item["installed_version"],"gt");
-		});
-		$data=array_filter($data,function($item){
-			return version_compare($item["version"], $item["installed_version"],"le");
-		});
-        return ["data" => array_values(array_merge($updatable,$data))];
+        $updatable = array_filter($data, function ($item) {
+            return version_compare($item["version"], $item["installed_version"], "gt");
+        });
+        $data = array_filter($data, function ($item) {
+            return version_compare($item["version"], $item["installed_version"], "le");
+        });
+        return ["data" => array_values(array_merge($updatable, $data))];
     }
 
     /**
@@ -103,7 +107,7 @@ class Helper {
         $plugins = get_plugins();
         $result  = [];
         foreach ($plugins as $file_path => $plugin) {
-            $slug     = Helper::slug_from_path($file_path);
+            $slug          = Helper::slug_from_path($file_path);
             $result[$slug] = [
                 "slug"    => $slug,
                 "path"    => $file_path,
@@ -133,11 +137,12 @@ class Helper {
         }
         return $result;
     }
+
     /**
      * @param $path
      */
     public static function slug_from_path($path = "") {
-		$parts = explode("/", $path);
+        $parts = explode("/", $path);
         return array_shift($parts);
     }
 }

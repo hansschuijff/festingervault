@@ -10,11 +10,7 @@ class Update extends ApiBase {
      * @param \WP_REST_Request $request
      */
     public function list(\WP_REST_Request $request) {
-        $items= Helper::get_item_updates();
-		if(!is_wp_error($items)){
-			return new \WP_REST_Response($items,200);
-		}
-		return new \WP_REST_Response(["error"=>true,"message"=>"Error retrieving update data"],200);
+        return Helper::get_item_updates();
 
     }
 
@@ -43,10 +39,7 @@ class Update extends ApiBase {
         $slug    = $request->get_param("slug");
         $enabled = $request->get_param("enabled");
         if (!in_array($type, ["wordpress-themes", "wordpress-plugins"])) {
-            return new \WP_REST_Response([
-                "error"   => true,
-                "message" => __("Invalid request", "festingervault"),
-            ], 400);
+            return new \WP_Error(400, "Error enabling auto-update");
         }
         $setting = get_option(Constants::SETTING_KEY, Constants::DEFAULT_SETTINGS);
         if (!isset($setting["autoupdate"])) {
@@ -58,9 +51,9 @@ class Update extends ApiBase {
         $setting["autoupdate"][$type][$slug] = true == $enabled;
 
         update_option(Constants::SETTING_KEY, $setting);
-        return new \WP_REST_Response([
+        return [
             "message" => __("Success", "festingervault"),
-        ], 200);
+        ];
 
     }
 

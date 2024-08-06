@@ -31,7 +31,7 @@ class Announcement extends ApiBase {
             set_transient($key, $topics, 30 * MINUTE_IN_SECONDS);
             return rest_ensure_response($topics);
         }
-        return new \WP_REST_Response(["message" => $request->get_error_message()], 400);
+        return new \WP_Error(400,"Error loading announcements.");
     }
 
 

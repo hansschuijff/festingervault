@@ -18,12 +18,7 @@ export default function useApiMutation<
       });
 
     },
-		onError(error){
-			toast.error(
-        (error as { message?: string })?.message ??
-          __("Error Activating License"),
-      );
-		}
+
   });
   return mutation;
 }

@@ -29,6 +29,7 @@ import {
   Recycle,
   RefreshCw,
 } from "lucide-react";
+import useInstalled from "@/hooks/use-is-installed";
 type Props = {
   item: PostItemType;
   media?: PostMediaType;
@@ -44,6 +45,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
     item,
     media,
   );
+	const {clearCache}=useInstalled();
   const { tab } = useParams("/item/:type/detail/:id/:tab?");
   function install(is_download?: boolean) {
     if (typeof activation?.plan_type == "undefined") {
@@ -73,15 +75,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
           if (data.link && is_download === true) {
             window.open(data.link, "_blank");
           }
-          queryClient.invalidateQueries({
-            queryKey: ["update/list"],
-          });
-          queryClient.invalidateQueries({
-            queryKey: ["item/detail"],
-          });
-					queryClient.invalidateQueries({
-						queryKey:["history/list"]
-					});
+          clearCache();
           return __("Successful");
         },
         error(err) {

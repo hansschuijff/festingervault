@@ -32,40 +32,42 @@ export default function ItemChangeLog({ item }: Props) {
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
             <div className="flex flex-col gap-4">
-              <div className="divide-y">
-                <div className="flex flex-row items-center justify-between gap-4 p-4 first:pt-0 last:pb-0">
-                  <div className="flex-1 font-bold">Version</div>
-                  <div className="font-bold">Date</div>
-                  <div className="w-9"></div>
-                </div>
-                {data?.data?.map(media => (
-                  <div
-                    className="flex flex-row items-center justify-between gap-4 p-4 first:pt-0 last:pb-0"
-                    key={media.id}
-                  >
-                    <div className="flex flex-1 flex-row items-center gap-2">
-                      <span className="text-xl">{media.version}</span>
-                      {isInstalled &&
-                        isInstalled.installed_version === media.version && (
-                          <Badge variant="info" size="sm">
-                            Installed
-                          </Badge>
-                        )}
-                    </div>
-                    <div className="text-muted-foreground">
-                      {moment.unix(media.updated).format("D MMM, YYYY")}
-                    </div>
-                    <div>
-                      <InstallButton
-                        item={item}
-                        media={media}
-                        size="icon"
-                        variant="outline"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <table className="table-auto">
+                <thead>
+                  <tr className="text-left font-semibold">
+                    <th className="w-full border-b pb-4 pr-4">Version</th>
+                    <th className="border-b px-4 pb-4">Date</th>
+                    <th className="max-w-11 border-b pb-4 pl-4"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data?.data?.map(media => (
+                    <tr key={media.id}>
+                      <td className="border-b py-4 pr-4">
+                        <div className="flex flex-row items-center gap-2"><span className="text-xl">{media.version}</span>
+                        {isInstalled &&
+                          isInstalled.installed_version === media.version && (
+                            <Badge variant="info" size="sm">
+                              Installed
+                            </Badge>
+                          )}
+													</div>
+                      </td>
+                      <td className="whitespace-nowrap border-b p-4 text-muted-foreground">
+                        {moment.unix(media.updated).format("D MMM, YYYY")}
+                      </td>
+                      <td className="border-b py-4 pl-4">
+                        <InstallButton
+                          item={item}
+                          media={media}
+                          size="icon"
+                          variant="outline"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
               {data?.meta && (
                 <Paging
                   currentPage={page}
@@ -74,7 +76,7 @@ export default function ItemChangeLog({ item }: Props) {
                     `/item/${params.type}/detail/${params.id}/${params.tab}?page=${_page}`
                   }
                 />
-              )}{" "}
+              )}
             </div>
           ) : isLoading || isFetching ? (
             <div className="">Loading...</div>

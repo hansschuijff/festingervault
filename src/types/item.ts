@@ -49,8 +49,15 @@ export type PostMediaType={
 	size:number;
 	updated:number;
 };
+export type DemoContentType={
+	id:number;
+	type:string;
+	title:string;
+	updated:number;
+};
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
 export type PostChangelogCollectionResponse = CollectionResponse<PostMediaType>;
+export type DemoContentCollectionResponse = CollectionResponse<DemoContentType>;
 export type ItemStatsResponse = {
   total: number;
   themes: number;

@@ -6,8 +6,8 @@ import useTaskQueue from "@/hooks/use-task-queue";
 import useApiMutation from "@/hooks/useApiMutation";
 import { PluginInstallResponse, PluginInstallSchema } from "@/hooks/useInstall";
 import {
-	DataTableFilterableColumn,
-	DataTableSearchableColumn,
+  DataTableFilterableColumn,
+  DataTableSearchableColumn,
 } from "@/types/data-table";
 import { ThemePluginItemType } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
@@ -17,6 +17,7 @@ import { __ } from "@wordpress/i18n";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { getColumns } from "./columns";
+import useInstalled from "@/hooks/use-is-installed";
 
 const filterableColumns: DataTableFilterableColumn<ThemePluginItemType>[] = [
   {
@@ -59,7 +60,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     any,
     AutoupdatePostSchema
   >("update/update-autoupdate");
-
+  const { clearCache } = useInstalled();
   const { addTask } = useTaskQueue();
   const bulkActions: BulkActionType<ThemePluginItemType>[] = [
     {
@@ -83,12 +84,10 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                   },
                   error(err) {
                     reject(err);
-                    return __("Error");
+                    return err.message ?? __("Error");
                   },
                   finally() {
-                    queryClient.invalidateQueries({
-                      queryKey: ["update/list"],
-                    });
+                    clearCache();
                     table.resetRowSelection();
                   },
                 },
@@ -117,14 +116,12 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                     resolve(item);
                     return __("Re-Install Success");
                   },
-                  error() {
-                    reject(item);
-                    return __("Error Re-Installing");
+                  error(err) {
+                    reject(err);
+                    return err.message ?? __("Error Installing");
                   },
                   finally() {
-                    queryClient.invalidateQueries({
-                      queryKey: ["update/list"],
-                    });
+                    clearCache();
                     table.resetRowSelection();
                   },
                 },

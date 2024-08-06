@@ -2,7 +2,7 @@ import PQueue from "p-queue";
 import { useCallback, useEffect, useRef } from "react";
 
 const useTaskQueue = () => {
-  const queue = useRef(new PQueue({ concurrency: 1 }));
+  const queue = useRef(new PQueue({ concurrency: 2 }));
 
   const addTask = useCallback((task: () => Promise<unknown>) => {
     queue.current.add(task);

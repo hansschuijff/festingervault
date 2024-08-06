@@ -48,8 +48,8 @@ export default function DashboardWelcome({ className }: Props) {
                 </Avatar>
               </div>
             </div>
-            <h2 className="text-2xl font-semibold text-primary-foreground">
-              Unlimited WordPress themes, plugins and kits,{" "}
+            <h2 className="text-2xl font-semibold text-card-foreground space-x-1">
+              <span>Unlimited WordPress themes, plugins and kits,</span>
               <span className="text-blue-500">all in one place</span>
             </h2>
             <p className="text-sm font-medium leading-5 text-muted-foreground">

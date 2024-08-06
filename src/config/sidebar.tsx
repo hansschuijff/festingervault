@@ -1,24 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 import useInstalled from "@/hooks/use-is-installed";
-import useApiFetch from "@/hooks/useApiFetch";
-import { PostItemType } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
-import { CollectionResponse } from "@/types/api";
-import version_compare from "@/utils/version_compare";
 import {
-  ArrowLeft,
-  Drum,
-  Grid2x2,
-  Heart,
-  HomeIcon,
-  Library,
-  LifeBuoy,
-  List,
-  Palette,
-  Radio,
-  Repeat,
-  Settings,
-  ShieldCheck,
-  ToyBrick,
+	ArrowLeft,
+	Drum,
+	Grid2x2,
+	Heart,
+	HomeIcon,
+	Library,
+	LifeBuoy,
+	List,
+	Palette,
+	Radio,
+	Repeat,
+	Settings,
+	ShieldCheck,
+	ToyBrick,
 } from "lucide-react";
 import React from "react";
 

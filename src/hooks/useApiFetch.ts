@@ -15,13 +15,6 @@ export default function useApiFetch<
 			method: "POST",
 			data,
 		}),
-		throwOnError(error, query) {
-			toast.error(
-        (error as { message?: string })?.message ??
-          __("Error"),
-      );
-			return true;
-		},
     placeholderData: keepPreviousData,
     enabled,
   });
