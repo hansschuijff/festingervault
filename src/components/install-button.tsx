@@ -13,7 +13,7 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import useActivation from "@/hooks/use-activation";
 import { toast } from "sonner";
-import { useNavigate } from "@/router";
+import { useNavigate, useParams } from "@/router";
 import { __, sprintf } from "@wordpress/i18n";
 import useInstall, {
   PluginInstallResponse,
@@ -21,7 +21,14 @@ import useInstall, {
 } from "@/hooks/useInstall";
 import useApiMutation from "@/hooks/useApiMutation";
 import { decodeEntities } from "@wordpress/html-entities";
-import { CloudDownload, Loader } from "lucide-react";
+import {
+  CloudDownload,
+  Download,
+  DownloadCloud,
+  Loader,
+  Recycle,
+  RefreshCw,
+} from "lucide-react";
 type Props = {
   item: PostItemType;
   media?: PostMediaType;
@@ -37,6 +44,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
     item,
     media,
   );
+  const { tab } = useParams("/item/:type/detail/:id/:tab?");
   function install(is_download?: boolean) {
     if (typeof activation?.plan_type == "undefined") {
       toast.error(__("License not activated"));
@@ -155,7 +163,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                     1,
                   )}
                 </div>
-                <div className="flex flex-row justify-center gap-2 divide-x">
+                <div className="flex flex-row justify-center divide-x">
                   <div className="px-4">
                     Daily Limit: {activation?.today_limit}
                   </div>
@@ -180,6 +188,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                     variant="default"
                     className="gap-2"
                   >
+                    <DownloadCloud size={16} />
                     <span>
                       {isRollBack
                         ? "Roll-Back"
@@ -195,12 +204,33 @@ export default function InstallButton({ item, media, size, variant }: Props) {
               <DrawerClose asChild>
                 <Button
                   onClick={() => install(true)}
-                  variant="default"
+                  variant="outline"
                   className="gap-2"
                 >
+                  <Download size={16} />
                   <span>{__("Download")}</span>
                 </Button>
               </DrawerClose>
+              {tab !== "changelog" && (
+                <DrawerClose asChild>
+                  <Button
+                    onClick={() =>
+                      navigate("/item/:type/detail/:id/:tab?", {
+                        params: {
+                          type: item.type,
+                          id: item.id,
+                          tab: "changelog",
+                        },
+                      })
+                    }
+                    variant="outline"
+                    className="gap-2"
+                  >
+                    <RefreshCw size={16} />
+                    <span>{__("Roll-Back")}</span>
+                  </Button>
+                </DrawerClose>
+              )}
               <DrawerClose asChild>
                 <Button variant="outline">{__("Cancel")}</Button>
               </DrawerClose>

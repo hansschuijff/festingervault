@@ -4,17 +4,16 @@ import useApiFetch from "@/hooks/useApiFetch";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
-import ItemDetailHeader, {
-  ItemDetailHeaderSkeleton,
-} from "./_components/detail-header";
-import ItemDescription from "./_components/item-description";
-import DetailTabHeaders from "./_components/detail-tab-headers";
-import DetailTabContent from "./_components/detail-tab-content";
 import { useMemo } from "react";
+import ItemDetailHeader, {
+	ItemDetailHeaderSkeleton,
+} from "./_components/detail-header";
+import DetailTabContent from "./_components/detail-tab-content";
+import DetailTabHeaders from "./_components/detail-tab-headers";
 import ItemChangeLog from "./_components/item-changelog";
 import ItemDemoContents from "./_components/item-demo-contents";
+import ItemDescription from "./_components/item-description";
 import ItemDocumentation from "./_components/item-documentation";
-import ItemSupport from "./_components/item-support";
 import ItemSidebar from "./_components/item-sidebar";
 type TabRecordType = {
   id: string;
@@ -26,7 +25,6 @@ type TabRecordType = {
 export type DetailTabType = TabRecordType[];
 export default function Component() {
   const params = useParams("/item/:type/detail/:id/:tab?");
-
   const { data, isError, isLoading, isFetching } = useApiFetch<PostItemType>(
     "item/detail",
     {

@@ -31,7 +31,7 @@ export default function Paging({
     <>
       <Pagination className={className}>
         <PaginationContent>
-          {currentPage >= 1 && (
+          {currentPage > 1 && (
             <PaginationItem>
               <PaginationPrevious
                 to={urlGenerator(currentPage - 1)}
