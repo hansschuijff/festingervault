@@ -7,6 +7,7 @@ import version_compare from "@/utils/version_compare";
 import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
+import InstallButton from "@/components/install-button";
 
 export function getColumns(): ColumnDef<ThemePluginItemType>[] {
   return columns;
@@ -132,8 +133,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
     accessorKey: "actions",
     header: "",
     cell: ({ row }) => {
-      const { InstallButton } = useInstall(row.original);
-      return <InstallButton />;
+      return <InstallButton item={row.original} size="icon" />;
     },
     enableHiding: false,
     enableSorting: false,

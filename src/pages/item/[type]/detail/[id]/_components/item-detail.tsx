@@ -11,12 +11,22 @@ type Props = {
 export default function ItemDetail({ item }: Props) {
   const items = useMemo(
     () => [
-		{ label: "Version", el: () => item.version },
-		{ label: "Status", el: () => "Functional"},
-		{ label: "Updated", el: () => moment.unix(item.updated).format("MMM D, YYYY")},
-		{ label: "Published", el: () => moment.unix(item.created).format("MMM D, YYYY")},
-		{ label: "Access", el: () => <span className="capitalize">{item.access}</span>},
-	],
+      { label: "Version", el: () => item.version },
+      { label: "Slug", el: () => item.slug },
+      { label: "Status", el: () => "Functional" },
+      {
+        label: "Updated",
+        el: () => moment.unix(item.updated).format("MMM D, YYYY"),
+      },
+      {
+        label: "Published",
+        el: () => moment.unix(item.created).format("MMM D, YYYY"),
+      },
+      {
+        label: "Access",
+        el: () => <span className="capitalize">{item.access}</span>,
+      },
+    ],
     [item],
   );
 
@@ -27,7 +37,10 @@ export default function ItemDetail({ item }: Props) {
       </CardHeader>
       <CardContent className="space-y-3">
         {items.map(row => (
-          <div key={row.label} className="grid grid-cols-3 gap-3 text-sm font-light">
+          <div
+            key={row.label}
+            className="grid grid-cols-3 gap-3 text-sm font-light"
+          >
             <div className="col-span-1 text-muted-foreground">{row.label}</div>
             <div className="col-span-2">
               <row.el />

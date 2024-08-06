@@ -25,12 +25,10 @@ class Helper {
             ]
         );
         if (wp_remote_retrieve_response_code($result) !== 200) {
-            $body = json_decode(wp_remote_retrieve_body($result));
-            return new \WP_Error(400, $body);
+            return new \WP_Error(400, wp_remote_retrieve_body($result));
         }
         return $result;
     }
-
     /**
      * @return mixed
      */
@@ -42,8 +40,8 @@ class Helper {
             "themes"  => $installed_themes,
             "plugins" => $installed_plugins,
         ]);
-        if (is_wp_error($response)) {
-            return new \WP_Error("Invalid Request");
+		if (is_wp_error($response)) {
+            return new \WP_Error(400,"Error Fetching Update List");
         }
         $result = json_decode(wp_remote_retrieve_body($response), true);
         $data   = [];
@@ -60,12 +58,15 @@ class Helper {
             }
         }
         usort($data, function ($a, $b) {
-            return $a["title"] > $b["title"] ? 1 : 0;
+			return strcmp(strtolower($a["title"]),strtolower($b["title"]));
         });
-        usort($data, function ($a, $b) {
-            return version_compare($a["version"], $a["installed_version"]) < version_compare($b["version"], $b["installed_version"])?2:0;
-        });
-        return ["data" => $data];
+		$updatable=array_filter($data,function($item){
+			return version_compare($item["version"], $item["installed_version"],"gt");
+		});
+		$data=array_filter($data,function($item){
+			return version_compare($item["version"], $item["installed_version"],"le");
+		});
+        return ["data" => array_values(array_merge($updatable,$data))];
     }
 
     /**
@@ -132,9 +133,6 @@ class Helper {
         }
         return $result;
     }
-
-
-
     /**
      * @param $path
      */

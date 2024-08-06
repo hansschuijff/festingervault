@@ -1,3 +1,4 @@
+import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -37,7 +38,7 @@ type Props = {
 };
 export default function PostGridItem({ item }: Props) {
   const navigate = useNavigate();
-  const { InstallButton, isInstalled } = useInstall(item);
+  const { isInstalled } = useInstall(item);
 
   return (
     <Card className="group/item flex flex-col justify-between transition-all duration-300">
@@ -95,49 +96,40 @@ export default function PostGridItem({ item }: Props) {
         </CardContent>
       </div>
       <CardFooter>
-        <div className="flex gap-2 pt-3">
-          <div>
-            <InstallButton />
-          </div>
-          <div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex items-center gap-2"
-              disabled
-              onClick={e => {
-                navigate(`/item/${item.type}/detail/${item.id}`);
-              }}
-            >
-              <Eye width={16} />
-            </Button>
-          </div>
-          <div>
-            <Button
-              variant="outline"
-              disabled
-              size="sm"
-              className="flex items-center gap-2"
-              onClick={e => {
-                //navigate(`/item/${item.type}/detail/${item.id}`);
-              }}
-            >
-              <Star width={16} />
-            </Button>
-          </div>
-          <div>
-            <Button
-              variant="outline"
-              size="sm"
-              disabled
-              className="flex items-center gap-2"
-              onClick={e => {
-                //navigate(`/item/${item.type}/detail/${item.id}`);
-              }}
-            >
-              <Ellipsis width={16} />
-            </Button>
-          </div>
+        <div className="flex flex-row gap-2 pt-3 items-center">
+          <InstallButton item={item} />
+          <Button
+            variant="outline"
+            size="icon"
+            className="flex items-center gap-2"
+            onClick={e => {
+              navigate(`/item/${item.type}/detail/${item.id}`);
+            }}
+          >
+            <Eye width={16} />
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="flex items-center gap-2"
+            onClick={e => {
+              //navigate(`/item/${item.type}/detail/${item.id}`);
+            }}
+          >
+            <Star width={16} />
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className="flex items-center gap-2"
+            onClick={e => {
+              //navigate(`/item/${item.type}/detail/${item.id}`);
+            }}
+          >
+            <Ellipsis width={16} />
+          </Button>
         </div>
       </CardFooter>
     </Card>

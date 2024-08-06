@@ -61,6 +61,7 @@ class Item extends ApiBase
 	{
 		$item_id = $request->get_param("item_id");
 		$method  = $request->get_param("method");
+		$media_id  = $request->get_param("media_id");
 		$result  = Helper::engine_post("item/detail", [
 			"item_id" => $item_id,
 		]);
@@ -71,6 +72,7 @@ class Item extends ApiBase
 		$result      = Helper::engine_post("item/download", [
 			"item_id" => $item_id,
 			"method"  => $method,
+			"media_id"=>$media_id,
 		]);
 		if (is_wp_error($result)) {
 			return new \WP_Error("download_detail","Error getting zip file information");

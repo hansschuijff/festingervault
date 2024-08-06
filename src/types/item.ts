@@ -41,7 +41,7 @@ export type PostItemType<Ex = never> = {
 	support_url?:string;
 	virus_total?:VirusTotal;
 };
-export type PostChangelogType={
+export type PostMediaType={
 	id:number;
 	filename:string;
 	version:string;
@@ -50,7 +50,7 @@ export type PostChangelogType={
 	updated:number;
 };
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
-export type PostChangelogCollectionResponse = CollectionResponse<PostChangelogType>;
+export type PostChangelogCollectionResponse = CollectionResponse<PostMediaType>;
 export type ItemStatsResponse = {
   total: number;
   themes: number;
