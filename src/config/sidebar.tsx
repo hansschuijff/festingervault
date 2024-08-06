@@ -12,6 +12,7 @@ import {
   HomeIcon,
   Library,
   LifeBuoy,
+  List,
   Palette,
   Radio,
   Repeat,
@@ -162,7 +163,12 @@ const navigation: SidebarNavItems[] = [
           }
         },
       },
-    ],
+			{
+        label: "History",
+        icon: List,
+        href: "/history",
+      },
+   ],
   },
   {
     id: navIds.settings,

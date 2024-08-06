@@ -8,6 +8,7 @@ export type Path =
 	| `/activation`
 	| `/browse`
 	| `/collections`
+	| `/history/:page?`
 	| `/item/:type/:page?`
 	| `/item/:type/detail/:id/:tab?`
 	| `/popular`
@@ -16,6 +17,7 @@ export type Path =
 	| `/updates`;
 
 export type Params = {
+	"/history/:page?": { page?: string };
 	"/item/:type/:page?": { type: string; page?: string };
 	"/item/:type/detail/:id/:tab?": { type: string; id: string; tab?: string };
 };

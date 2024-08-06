@@ -10,7 +10,7 @@ class History extends ApiBase {
      */
     public function list(\WP_REST_Request $request) {
         $page   = $request->get_param("page");
-        $result = Helper::engine_post("history", [
+        $result = Helper::engine_post("history/list", [
             "page" => $page,
         ]);
         if (!is_wp_error($result)) {
