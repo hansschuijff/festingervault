@@ -32,14 +32,14 @@ export default function HistoryItem({ data }: Props) {
               >
                 <div className="flex flex-1 flex-row items-center gap-2">
                   <Badge variant="bronze" className="uppercase">
-                    {decodeEntities(item.type)}
+                    {item.type}
                   </Badge>
                   <Link
                     to="/item/:type/detail/:id/:tab?"
                     params={{ id: item.item.id, type: item.item.type }}
                     className="flex flex-row items-center transition-colors hover:text-muted-foreground"
                   >
-                    {item.item.title}
+                    {decodeEntities(item.item.title)}
                   </Link>
                 </div>
                 <span className="text-sm text-muted-foreground">
