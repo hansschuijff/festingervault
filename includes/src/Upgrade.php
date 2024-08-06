@@ -97,11 +97,14 @@ class Upgrade
 		$urlBase = "https://github.com/FestingerVault/festingervault/raw/beta-release/";
 
 		$response = get_transient($this->cache_key);
-
+		if(is_admin() && sanitize_text_field($_GET["force-check"])==1){
+			// bypass cached data if force-check is triggered from updates page
+			$this->cache_allowed=false;
+		}
 		if (false === $response || !$this->cache_allowed) {
 
 			$remote = wp_remote_get(
-				$urlBase . "info.json",
+				$urlBase . "info.json?token=".time(),
 				[
 					'timeout' => 10,
 					'headers' => [
@@ -138,7 +141,7 @@ class Upgrade
 			$response->icons = [
 				"1x" => $remote->icon,
 			];
-			$response->download_link = $urlBase . "festingervault.zip";
+			$response->download_link = $urlBase . "festingervault.zip?token=".time();
 			$response->plugin        = plugin_basename(self::$file);
 			if (version_compare($this->version, $remote->version, '<')) {
 				$response->update = 1;
