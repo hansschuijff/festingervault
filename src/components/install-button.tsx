@@ -79,6 +79,9 @@ export default function InstallButton({ item, media, size, variant }: Props) {
           queryClient.invalidateQueries({
             queryKey: ["item/detail"],
           });
+					queryClient.invalidateQueries({
+						queryKey:["history/list"]
+					});
           return __("Successful");
         },
         error(err) {
