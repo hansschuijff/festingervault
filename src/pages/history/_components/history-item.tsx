@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Paging from "@/pages/_components/Paging";
 import { Link, useParams } from "@/router";
 import { HistoryCollectionType, HistoryItemType } from "@/types/history";
+import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
 
 type Props = {
@@ -31,7 +32,7 @@ export default function HistoryItem({ data }: Props) {
               >
                 <div className="flex flex-1 flex-row items-center gap-2">
                   <Badge variant="bronze" className="uppercase">
-                    {item.type}
+                    {decodeEntities(item.type)}
                   </Badge>
                   <Link
                     to="/item/:type/detail/:id/:tab?"
