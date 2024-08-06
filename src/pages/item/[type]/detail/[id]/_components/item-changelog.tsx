@@ -8,6 +8,7 @@ import { useParams } from "@/router";
 import { PostChangelogCollectionResponse, PostItemType } from "@/types/item";
 import cn from "@/utils/cn";
 import moment from "moment";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
@@ -25,6 +26,7 @@ export default function ItemChangeLog({ item }: Props) {
       item_id: params.id,
       page,
     });
+
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
@@ -44,14 +46,15 @@ export default function ItemChangeLog({ item }: Props) {
                   {data?.data?.map(media => (
                     <tr key={media.id}>
                       <td className="border-b py-4 pr-4">
-                        <div className="flex flex-row items-center gap-2"><span className="text-xl">{media.version}</span>
-                        {isInstalled &&
-                          isInstalled.installed_version === media.version && (
-                            <Badge variant="info" size="sm">
-                              Installed
-                            </Badge>
-                          )}
-													</div>
+                        <div className="flex flex-row items-center gap-2">
+                          <span className="text-xl">{media.version}</span>
+                          {isInstalled &&
+                            isInstalled.installed_version === media.version && (
+                              <Badge variant="info" size="sm">
+                                Installed
+                              </Badge>
+                            )}
+                        </div>
                       </td>
                       <td className="whitespace-nowrap border-b p-4 text-muted-foreground">
                         {moment.unix(media.updated).format("D MMM, YYYY")}

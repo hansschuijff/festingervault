@@ -3,7 +3,7 @@ import useApiFetch from "@/hooks/useApiFetch";
 import { useParams } from "@/router";
 import { HistoryCollectionType } from "@/types/history";
 import { __ } from "@wordpress/i18n";
-import HistoryItem from "./_components/history-item";
+import HistoryItems from "./_components/history-items";
 
 export default function Component() {
   const { page } = useParams("/history/:page?");
@@ -15,7 +15,7 @@ export default function Component() {
   );
   return (
     <AppPageShell title={__("History")} isLoading={isLoading}>
-      <HistoryItem data={data} />
+      <HistoryItems data={data} />
     </AppPageShell>
   );
 }

@@ -1,10 +1,10 @@
 import { CollectionResponse } from "./api";
-import { PostItemType, PostMediaType } from "./item";
+import { DemoContentType, PostItemType, PostMediaType } from "./item";
 
 export type HistoryItemType={
 	id:number;
 	type: "download" | "install" | "update" | "download_additional";
-	media?:PostMediaType;
+	media?:PostMediaType & DemoContentType;
 	item:PostItemType;
 	created:number;
 }

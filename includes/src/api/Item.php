@@ -54,6 +54,27 @@ class Item extends ApiBase {
 
     }
 
+    /**
+     * @param \WP_REST_Request $request
+     * @return mixed
+     */
+    public function download_additional(\WP_REST_Request $request) {
+        $item_id     = $request->get_param("item_id");
+        $media_id    = $request->get_param("media_id");
+        $item_detail = Helper::engine_post("item/detail", [
+            "item_id" => $item_id,
+        ]);
+        if (is_wp_error($item_detail)) {
+            return new \WP_Error("item_detail", "Error getting Item detail");
+        }
+        return Helper::engine_post("item/download-additional", [
+            "item_id"  => $item_id,
+            "media_id" => $media_id,
+        ]);
+
+
+    }
+
     public function endpoints() {
 
         return [
@@ -78,6 +99,9 @@ class Item extends ApiBase {
             "install"      => [
                 'callback'            => [$this, 'install'],
                 'permission_callback' => [$this, "user_can_install"],
+            ],
+            "download-additional"      => [
+                'callback'            => [$this, 'download_additional'],
             ],
 
         ];

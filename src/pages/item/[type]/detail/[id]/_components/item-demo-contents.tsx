@@ -1,3 +1,4 @@
+import AdditionalDownloadButton from "@/components/additional-download-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -54,14 +55,12 @@ export default function ItemDemoContents({ item }: Props) {
                         {moment.unix(ditem.updated).format("D MMM, YYYY")}
                       </td>
                       <td className="border-b py-4 pl-4">
-                        <Button
-                          //item={item}
-                          //media={ditem}
+                        <AdditionalDownloadButton
+                          item={item}
+                          media={ditem}
                           size="icon"
                           variant="outline"
-                        >
-                          <DownloadCloud size={16} />
-                        </Button>
+                        />
                       </td>
                     </tr>
                   ))}
