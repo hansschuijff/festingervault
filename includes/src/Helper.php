@@ -82,7 +82,7 @@ class Helper {
         $admin_email  = get_option('admin_email');
         $table_prefix = $wpdb->prefix;
         $plugin_uuid  = get_option('fv_uuid');
-
+        $info         = Plugin::info();
         if (!$plugin_uuid) {
             $plugin_uuid = wp_generate_uuid4();
             update_option('fv_uuid', $plugin_uuid);
@@ -93,6 +93,7 @@ class Helper {
             'table_prefix' => $table_prefix,
             'uuid'         => $plugin_uuid,
             'wp_path'      => \ABSPATH,
+            'plugin'       => $info,
         ];
         return $data;
     }

@@ -20,8 +20,7 @@ if (!defined('ABSPATH')) {
 
 if (file_exists(__DIR__ . "/includes/lib/autoload.php")) {
     require_once __DIR__ . "/includes/lib/autoload.php";
-    \FestingerVault\Plugin::get_instance();
-    \FestingerVault\Plugin::set_main_file(__FILE__);
+    \FestingerVault\Plugin::get_instance(__FILE__);
     \FestingerVault\Upgrade::get_instance(__FILE__);
 }
 if (file_exists(__DIR__ . "/includes/lib/woocommerce/action-scheduler/action-scheduler.php")) {

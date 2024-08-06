@@ -6,27 +6,31 @@ import { cn } from "@/lib/utils";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
 import { ActivationDetailType } from "@/types/license";
+import { decodeEntities } from "@wordpress/html-entities";
 
 type Props = {
   className?: ClassNameValue;
 };
 export default function LicenseStatus({ className }: Props) {
-  const { data} =
-    useApiFetch<ActivationDetailType>("license/detail", {});
+  const { data } = useApiFetch<ActivationDetailType>("license/detail", {});
   return (
     <Card className={cn("flex flex-col justify-between gap-6 p-8", className)}>
       <div>
         <h2 className="flex items-center gap-2 text-3xl font-semibold">
-          Professional Plan
+          {data?.plan_title}
           <Badge
             variant="outline"
             className="border-green-600 bg-green-600/10 text-green-600"
           >
-            Monthly Plan
+            {data?.expires > 0
+              ? data?.plan_type === "recurring"
+                ? "Monthly Plan"
+                : "One-Time Plan"
+              : "Lifetime Plan"}
           </Badge>
         </h2>
         <div className="text-muted-foreground">
-          Essential Festures for Startups and Individuals
+          {decodeEntities(data?.plan_detail)}
         </div>
       </div>
       <div className="flex flex-col gap-4 lg:flex-row">
@@ -72,7 +76,9 @@ export default function LicenseStatus({ className }: Props) {
         </div>
         <div className="">
           <div>
-            <span className="text-muted-foreground">Domains:</span> {data?.activation_count?.toLocaleString()}/{data?.activation_limit?.toLocaleString()}
+            <span className="text-muted-foreground">Domains:</span>{" "}
+            {data?.activation_count?.toLocaleString()}/
+            {data?.activation_limit?.toLocaleString()}
           </div>
         </div>
       </div>

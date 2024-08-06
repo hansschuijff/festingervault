@@ -27,15 +27,22 @@ class Plugin {
      */
     private static $instance = null;
 
-    public function __construct() {
+    /**
+     * @param $file
+     */
+    public function __construct($file) {
+        self::$file = $file;
         Admin::get_instance();
         RestAPI::get_instance();
         AutoUpdate::get_instance();
     }
 
-    public static function get_instance() {
+    /**
+     * @param $file
+     */
+    public static function get_instance($file) {
         if (is_null(self::$instance)) {
-            self::$instance = new self();
+            self::$instance = new self($file);
         }
         return self::$instance;
     }
@@ -59,14 +66,10 @@ class Plugin {
     public static function p_url($path = "") {
         return plugins_url(trim($path, '/'), self::$file);
     }
-
-    /**
-     * @param string $file
-     */
-    public static function set_main_file($file) {
-        self::$file = $file;
-    }
-	public static function get_main_file(){
-		return self::$file;
+	public static function info(){
+		if (!function_exists('get_plugin_data')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+		return get_plugin_data(self::$file);
 	}
 }

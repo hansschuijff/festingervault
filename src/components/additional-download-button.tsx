@@ -133,10 +133,7 @@ export default function AdditionalDownloadButton({
           <DrawerFooter>
             <div className="flex flex-row justify-center gap-4">
               <DrawerClose asChild>
-                <Button
-                  onClick={() => download()}
-                  className="gap-2"
-                >
+                <Button onClick={() => download()} className="gap-2">
                   <Download size={16} />
                   <span>{__("Download")}</span>
                 </Button>
