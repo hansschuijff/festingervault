@@ -38,7 +38,7 @@ export function DemoContentTable({item, data}:DemoContentTableProps){
         id: "type",
         label: "Type",
         render({ row }) {
-          return capitalizeHyphenatedWords(row.type);
+          return capitalizeHyphenatedWords(row?.type);
         },
       },
       {
