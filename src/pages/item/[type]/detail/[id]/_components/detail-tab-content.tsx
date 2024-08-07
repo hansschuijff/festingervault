@@ -1,7 +1,5 @@
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
-import ItemDescription from "./item-description";
-import useApiFetch from "@/hooks/useApiFetch";
 import { DetailTabType } from "../-[tab]";
 
 type Props = {

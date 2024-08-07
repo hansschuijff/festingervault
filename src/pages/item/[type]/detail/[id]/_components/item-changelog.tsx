@@ -7,13 +7,12 @@ import useInstall from "@/hooks/useInstall";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
 import {
-  PostChangelogCollectionResponse,
-  PostItemType,
-  PostMediaType,
+	PostChangelogCollectionResponse,
+	PostItemType,
+	PostMediaType,
 } from "@/types/item";
-import cn from "@/utils/cn";
 import moment from "moment";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 

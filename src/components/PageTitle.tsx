@@ -1,11 +1,11 @@
 import cn from "@/utils/cn";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-type Props={
-	title:string,
-	back?:boolean
-}
-export default function PageTitle({ title, back = true }:Props) {
+type Props = {
+  title: string;
+  back?: boolean;
+};
+export default function PageTitle({ title, back = true }: Props) {
   const location = useLocation();
   useEffect(() => {
     document.title = title;

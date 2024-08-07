@@ -1,7 +1,10 @@
 import { cn } from "@/lib/utils";
+import { Home } from "lucide-react";
 import { Fragment, type ElementType } from "react";
+import { Link } from "react-router-dom";
+import BulkAction from "../bulk-action";
+import LanguageSelector from "../language-select";
 import ModeToggle from "../mode-toggle";
-import { Skeleton } from "../ui/skeleton";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,11 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "../ui/breadcrumb";
-import { Link } from "react-router-dom";
-import { Home } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
-import BulkAction from "../bulk-action";
-import LanguageSelector from "../language-select";
+import { Skeleton } from "../ui/skeleton";
 type BreadCrumbType = {
   label: string;
   href?: string;
@@ -56,7 +56,9 @@ export function AppPageShell({
   if (!ErrorComponent) {
     ErrorComponent = (
       <Card>
-        <CardContent className="p-5 sm:p-7 text-center text-muted-foreground">Invalid Request</CardContent>
+        <CardContent className="p-5 text-center text-muted-foreground sm:p-7">
+          Invalid Request
+        </CardContent>
       </Card>
     );
   }
@@ -72,7 +74,12 @@ export function AppPageShell({
   return (
     <div className="w-full space-y-8">
       <PageHeader title={title} description={description} />
-      <Container className={cn(["relative flex flex-col gap-5 pb-8 sm:gap-7", (isFetching || isLoading) && "blur-sm"])}>
+      <Container
+        className={cn([
+          "relative flex flex-col gap-5 pb-8 sm:gap-7",
+          (isFetching || isLoading) && "blur-sm",
+        ])}
+      >
         {breadcrump && (
           <div>
             <Breadcrumb>
@@ -129,9 +136,9 @@ function PageHeader({ title, description }: PageHeaderProps) {
         )}
       </div>
       <div className="flex flex-row gap-2">
-			<ModeToggle />
-			<BulkAction />
-			<LanguageSelector />
+        <ModeToggle />
+        <BulkAction />
+        <LanguageSelector />
       </div>
     </header>
   );

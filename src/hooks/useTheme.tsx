@@ -33,7 +33,6 @@ export function ThemeProvider({
   );
 
   const [effectiveTheme, setEffectiveTheme] = useState<Theme>(() => {
-
     return theme;
   });
 

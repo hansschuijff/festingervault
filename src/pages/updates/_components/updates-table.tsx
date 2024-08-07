@@ -2,6 +2,7 @@ import { DataTable } from "@/components/data-table";
 import { BulkActionType } from "@/components/data-table-bulk-action";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
+import useInstalled from "@/hooks/use-is-installed";
 import useTaskQueue from "@/hooks/use-task-queue";
 import useApiMutation from "@/hooks/useApiMutation";
 import { PluginInstallResponse, PluginInstallSchema } from "@/hooks/useInstall";
@@ -17,7 +18,6 @@ import { __ } from "@wordpress/i18n";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { getColumns } from "./columns";
-import useInstalled from "@/hooks/use-is-installed";
 
 const filterableColumns: DataTableFilterableColumn<ThemePluginItemType>[] = [
   {

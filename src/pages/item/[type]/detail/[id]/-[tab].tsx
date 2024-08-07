@@ -6,7 +6,7 @@ import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { useMemo } from "react";
 import ItemDetailHeader, {
-	ItemDetailHeaderSkeleton,
+  ItemDetailHeaderSkeleton,
 } from "./_components/detail-header";
 import DetailTabContent from "./_components/detail-tab-content";
 import DetailTabHeaders from "./_components/detail-tab-headers";
@@ -49,7 +49,7 @@ export default function Component() {
       },
       {
         id: "demo-contents",
-        label: "Demo Contents",
+        label: `Demo Contents [${data.additional_content_count}]`,
         el: () => <ItemDemoContents item={data} />,
         enabled: data.additional_content_count > 0,
       },
@@ -62,8 +62,8 @@ export default function Component() {
       {
         id: "support",
         label: "Support",
-        external: data.support_url,// TODO: add forum support to engine
-				enabled:data?.support_url?.length>0
+        external: data.support_url, // TODO: add forum support to engine
+        enabled: data?.support_url?.length > 0,
       },
     ].filter(item => item.enabled ?? true);
   }, [data]);
@@ -93,7 +93,9 @@ export default function Component() {
             <div className="flex-1">
               <DetailTabContent item={data} tabs={tabs} />
             </div>
-            <div className="w-80"><ItemSidebar item={data} /></div>
+            <div className="w-80">
+              <ItemSidebar item={data} />
+            </div>
           </div>
         </>
       )}

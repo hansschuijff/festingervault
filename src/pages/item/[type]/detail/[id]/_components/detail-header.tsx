@@ -5,15 +5,14 @@ import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
 import { decodeEntities } from "@wordpress/html-entities";
 import { Calendar, CheckCircle2 } from "lucide-react";
 import moment from "moment";
-export function ItemDetailHeaderSkeleton(){
-	return (
+export function ItemDetailHeaderSkeleton() {
+  return (
     <div className="relative flex flex-col items-center gap-3 p-6 py-12">
       <Grid size={50} />
       <div>
-				<Skeleton className="aspect-video h-52 rounded-md" />
+        <Skeleton className="aspect-video h-52 rounded-md" />
       </div>
-			<Skeleton className="w-52 h-5" />
-
+      <Skeleton className="h-5 w-52" />
     </div>
   );
 }
@@ -34,9 +33,7 @@ export default function ItemDetailHeader({ item }: Props) {
           <span>{capitalizeHyphenatedWords(item.category)}</span>
         </div>
         <div className="flex flex-row items-center gap-1 text-green-600">
-          {moment
-            .unix(item.updated)
-            .isBefore(moment().add(1, "week")) ? (
+          {moment.unix(item.updated).isBefore(moment().add(1, "week")) ? (
             <>
               <CheckCircle2 size={18} /> <span>Recently Updated</span>
             </>

@@ -1,5 +1,5 @@
 import Layout from "@/layouts/Layout";
-import { useLocation, useNavigate, useRouteError } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function Component() {
   return <Layout />;
 }

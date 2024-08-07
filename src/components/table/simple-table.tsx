@@ -1,6 +1,5 @@
 import cn from "@/utils/cn";
 import { ClassValue } from "clsx";
-import { ClassNameValue } from "tailwind-merge";
 
 type ColumnRenderProps<TData> = {
   row: TData;
@@ -12,11 +11,6 @@ export type SimpleColumnDef<TData> = {
   className?: ClassValue;
   render: string | ((props: ColumnRenderProps<TData>) => any);
 };
-type SimpleColumnTable<TData> = {
-  data: ({ id: string } & TData)[];
-};
-type DataWithId = { id: string | number };
-
 type Props<TData> = {
   columns: SimpleColumnDef<TData>[];
   data: ({ id: string | number } & TData)[];

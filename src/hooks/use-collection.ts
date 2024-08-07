@@ -5,10 +5,7 @@ import { z } from "zod";
 
 // Define types
 type FilterState = Record<string, string[] | string>;
-type SortState = {
-  order_by?: string;
-  order?: "asc" | "desc";
-};
+
 type SortItem = {
   value: string;
   label: string;

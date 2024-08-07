@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@/lib/utils";
 import type {
   DataTableFilterableColumn,
   DataTableSearchableColumn,
@@ -17,10 +18,9 @@ import {
 } from "@tanstack/react-table";
 import { __ } from "@wordpress/i18n";
 import * as React from "react";
+import { BulkActionType } from "./data-table-bulk-action";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { BulkActionType } from "./data-table-bulk-action";
-import { cn } from "@/lib/utils";
 
 /**
  * learn more about data-table at shadcn ui website @see https://ui.shadcn.com/docs/components/data-table

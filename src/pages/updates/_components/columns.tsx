@@ -1,13 +1,12 @@
+import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import useInstall from "@/hooks/useInstall";
 import { Link } from "@/router";
 import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/utils/version_compare";
 import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
-import InstallButton from "@/components/install-button";
 
 export function getColumns(): ColumnDef<ThemePluginItemType>[] {
   return columns;

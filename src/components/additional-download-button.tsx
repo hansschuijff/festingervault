@@ -13,7 +13,7 @@ import useActivation from "@/hooks/use-activation";
 import useInstalled from "@/hooks/use-is-installed";
 import useApiMutation from "@/hooks/useApiMutation";
 import { PluginInstallResponse } from "@/hooks/useInstall";
-import { useNavigate, useParams } from "@/router";
+import { useNavigate } from "@/router";
 import { DemoContentType, PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { __, sprintf } from "@wordpress/i18n";

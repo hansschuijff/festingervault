@@ -13,17 +13,14 @@ export type PluginInstallSchema = {
   media_id?: number;
 };
 
-export default function useInstall(item: PostItemType, media?:PostMediaType) {
+export default function useInstall(item: PostItemType, media?: PostMediaType) {
   const isInstallable = useMemo(
     () => ["wordpress-themes", "wordpress-plugins"].includes(item.type),
     [item],
   );
 
   const { list } = useInstalled();
-  const isInstalled = useMemo(
-    () => list?.find(i => i.id === item.id),
-    [list],
-  );
+  const isInstalled = useMemo(() => list?.find(i => i.id === item.id), [list]);
   const isNewerVersion = useMemo(() => {
     if (isInstalled) {
       return (
@@ -37,18 +34,15 @@ export default function useInstall(item: PostItemType, media?:PostMediaType) {
     return false;
   }, [isInstalled, list]);
 
-	const isRollBack=useMemo(()=>{
-		if(isInstalled && media){
-			return (
-        version_compare(
-          isInstalled.installed_version,
-					media.version,
-          "gt",
-        ) === true
+  const isRollBack = useMemo(() => {
+    if (isInstalled && media) {
+      return (
+        version_compare(isInstalled.installed_version, media.version, "gt") ===
+        true
       );
-		}
-		return false;
-	},[isInstalled, media])
+    }
+    return false;
+  }, [isInstalled, media]);
 
   return { isInstalled, isNewerVersion, isInstallable, isRollBack };
 }

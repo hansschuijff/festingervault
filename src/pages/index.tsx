@@ -1,7 +1,6 @@
 import { AppPageShell } from "@/components/body/page-shell";
-import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import useTheme from "@/hooks/useTheme";
+import { Card, CardContent } from "@/components/ui/card";
 import { ShieldAlert } from "lucide-react";
 import Announcements from "./_components/announcements";
 import AvailableUpdates from "./_components/available-updates";
@@ -9,7 +8,6 @@ import InstallStats from "./_components/InstallStats";
 import ItemStats from "./_components/ItemStats";
 import LicenseStatus from "./_components/license-status";
 import DashboardWelcome from "./_components/Welcome";
-import { Card, CardContent } from "@/components/ui/card";
 
 export default function Component() {
   return (

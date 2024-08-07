@@ -6,25 +6,21 @@ export const ItemTypeEnum = z.enum([
   "elementor-template-kits",
 ]);
 
-export const AccessEnum=z.enum([
-	"gold",
-	"bronze",
-	"silver",
-])
-type VirusTotal={
-	filename:string;
-	hash:string;
-	result:string;
-	stats:Record<string, number>;
-	updated:number;
-}
+export const AccessEnum = z.enum(["gold", "bronze", "silver"]);
+type VirusTotal = {
+  filename: string;
+  hash: string;
+  result: string;
+  stats: Record<string, number>;
+  updated: number;
+};
 export type PostItemType<Ex = never> = {
   id: string;
   title: string;
   slug: string;
   summary: string;
   image: string;
-  type: Exclude<z.infer<typeof ItemTypeEnum>,Ex>;
+  type: Exclude<z.infer<typeof ItemTypeEnum>, Ex>;
   author: string;
   category: string;
   updated: number;
@@ -33,27 +29,27 @@ export type PostItemType<Ex = never> = {
   owned: boolean;
   access?: z.infer<typeof AccessEnum>;
   installed_version?: string;
-	additional_content_count?:number;
-	download_count?:number;
-	install_count?:number;
-	media_count?:number;
-	preview?:string;
-	support_url?:string;
-	virus_total?:VirusTotal;
+  additional_content_count?: number;
+  download_count?: number;
+  install_count?: number;
+  media_count?: number;
+  preview?: string;
+  support_url?: string;
+  virus_total?: VirusTotal;
 };
-export type PostMediaType={
-	id:number;
-	filename:string;
-	version:string;
-	slug:string;
-	size:number;
-	updated:number;
+export type PostMediaType = {
+  id: number;
+  filename: string;
+  version: string;
+  slug: string;
+  size: number;
+  updated: number;
 };
-export type DemoContentType={
-	id:number;
-	type:string;
-	title:string;
-	updated:number;
+export type DemoContentType = {
+  id: number;
+  type: string;
+  title: string;
+  updated: number;
 };
 export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
 export type PostChangelogCollectionResponse = CollectionResponse<PostMediaType>;
@@ -64,4 +60,4 @@ export type ItemStatsResponse = {
   plugins: number;
   kits: number;
 };
-export type ThemePluginItemType=PostItemType<"elementor-template-kits">;
+export type ThemePluginItemType = PostItemType<"elementor-template-kits">;

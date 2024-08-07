@@ -1,4 +1,3 @@
-import { PostItemType, PostMediaType } from "@/types/item";
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
   Drawer,
@@ -10,26 +9,26 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useQueryClient } from "@tanstack/react-query";
 import useActivation from "@/hooks/use-activation";
-import { toast } from "sonner";
-import { useNavigate, useParams } from "@/router";
-import { __, sprintf } from "@wordpress/i18n";
+import useInstalled from "@/hooks/use-is-installed";
+import useApiMutation from "@/hooks/useApiMutation";
 import useInstall, {
   PluginInstallResponse,
   PluginInstallSchema,
 } from "@/hooks/useInstall";
-import useApiMutation from "@/hooks/useApiMutation";
+import { useNavigate, useParams } from "@/router";
+import { PostItemType, PostMediaType } from "@/types/item";
+import { useQueryClient } from "@tanstack/react-query";
 import { decodeEntities } from "@wordpress/html-entities";
+import { __, sprintf } from "@wordpress/i18n";
 import {
   CloudDownload,
   Download,
   DownloadCloud,
   Loader,
-  Recycle,
   RefreshCw,
 } from "lucide-react";
-import useInstalled from "@/hooks/use-is-installed";
+import { toast } from "sonner";
 type Props = {
   item: PostItemType;
   media?: PostMediaType;
@@ -45,7 +44,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
     item,
     media,
   );
-	const {clearCache}=useInstalled();
+  const { clearCache } = useInstalled();
   const { tab } = useParams("/item/:type/detail/:id/:tab?");
   function install(is_download?: boolean) {
     if (typeof activation?.plan_type == "undefined") {

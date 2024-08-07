@@ -1,7 +1,3 @@
-import AdditionalDownloadButton from "@/components/additional-download-button";
-import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,33 +5,17 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
-import Paging from "@/pages/_components/Paging";
 import { Link, useParams } from "@/router";
-import {
-  DemoContentCollectionResponse,
-  DemoContentType,
-  PostItemType,
-} from "@/types/item";
-import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
-import { decodeEntities } from "@wordpress/html-entities";
-import { DownloadCloud } from "lucide-react";
-import moment from "moment";
-import { useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
-import { z } from "zod";
+import { DemoContentCollectionResponse, PostItemType } from "@/types/item";
 import { DemoContentTable } from "./item-demo-contents";
-type DemoContentTableProps = {
-  item: PostItemType;
-  data: DemoContentType[];
-};
+
 type Props = {
   item: PostItemType;
 };
-const pageSchema = z.number().gte(1).default(1);
 
 export default function DemoContentPreview({ item }: Props) {
   const params = useParams("/item/:type/detail/:id/:tab?");
-  const { data, isError, isLoading, isFetching } =
+  const { data, isLoading, isFetching } =
     useApiFetch<DemoContentCollectionResponse>("item/demo-content", {
       item_id: params.id,
     });

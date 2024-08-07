@@ -1,13 +1,12 @@
+import InstallButton from "@/components/install-button";
 import { Button } from "@/components/ui/button";
-import useInstall from "@/hooks/useInstall";
 import { Link, useParams } from "@/router";
 import { PostItemType } from "@/types/item";
 import cn from "@/utils/cn";
+import { Slot } from "@radix-ui/react-slot";
 import { __ } from "@wordpress/i18n";
 import { EllipsisVertical, ExternalLink, Heart } from "lucide-react";
 import { DetailTabType } from "../-[tab]";
-import { Slot } from "@radix-ui/react-slot";
-import InstallButton from "@/components/install-button";
 
 type Props = {
   item: PostItemType;
@@ -15,7 +14,7 @@ type Props = {
 };
 export default function DetailTabHeaders({ item, tabs }: Props) {
   const params = useParams("/item/:type/detail/:id/:tab?");
-	const active=tabs.find(tab=>tab.id===params.tab)?.id??"description";
+  const active = tabs.find(tab => tab.id === params.tab)?.id ?? "description";
   return (
     <div className="flex flex-row items-center justify-between border-b-2 border-b-card">
       <div className="flex flex-row">
@@ -48,7 +47,12 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
       <div className="flex flex-row gap-4">
         <InstallButton item={item} />
         {item.preview && (
-          <Button asChild className="flex gap-2" variant="outline" size="default">
+          <Button
+            asChild
+            className="flex gap-2"
+            variant="outline"
+            size="default"
+          >
             <a href={item.preview} target="_blank" referrerPolicy="no-referrer">
               <span>{__("Live Preview")}</span>
               <ExternalLink size={16} />

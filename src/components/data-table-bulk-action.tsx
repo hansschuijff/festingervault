@@ -1,18 +1,16 @@
 import { Row, type Table } from "@tanstack/react-table";
-
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCallback, useState } from "react";
-import { Button } from "./ui/button";
 import { ArrowRight } from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
+import { Button } from "./ui/button";
 
 type DataTableBulkActionProps<TData> = {
   table: Table<TData>;
@@ -27,17 +25,15 @@ export function DataTableBulkAction<TData>({
   table,
   actions,
 }: DataTableBulkActionProps<TData>) {
-	const [selected,setSelected]=useState<string>();
-	const onSubmit=()=>{
-		const models=table.getSelectedRowModel().rows;
-		if(models.length>0 && selected){
-			const callback=actions.find(action=>action.id===selected);
-			callback && callback.action(models);
-			toast.info(`Added ${models.length} items to queue`);
-		}
-
-
-	};
+  const [selected, setSelected] = useState<string>();
+  const onSubmit = () => {
+    const models = table.getSelectedRowModel().rows;
+    if (models.length > 0 && selected) {
+      const callback = actions.find(action => action.id === selected);
+      callback && callback.action(models);
+      toast.info(`Added ${models.length} items to queue`);
+    }
+  };
   return (
     <div className="flex flex-row gap-4">
       <Select onValueChange={setSelected}>
@@ -54,7 +50,14 @@ export function DataTableBulkAction<TData>({
           </SelectGroup>
         </SelectContent>
       </Select>
-	  <Button disabled={!selected || table.getSelectedRowModel().rows.length===0}  size="icon" variant="secondary" onClick={onSubmit}><ArrowRight size={16} /></Button>
+      <Button
+        disabled={!selected || table.getSelectedRowModel().rows.length === 0}
+        size="icon"
+        variant="secondary"
+        onClick={onSubmit}
+      >
+        <ArrowRight size={16} />
+      </Button>
     </div>
   );
 }

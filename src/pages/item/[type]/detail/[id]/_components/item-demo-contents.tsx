@@ -5,9 +5,9 @@ import useApiFetch from "@/hooks/useApiFetch";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
 import {
-	DemoContentCollectionResponse,
-	DemoContentType,
-	PostItemType,
+  DemoContentCollectionResponse,
+  DemoContentType,
+  PostItemType,
 } from "@/types/item";
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
 import { decodeEntities } from "@wordpress/html-entities";
@@ -15,16 +15,16 @@ import moment from "moment";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
-type DemoContentTableProps={
+type DemoContentTableProps = {
   item: PostItemType;
-	data:DemoContentType[];
-}
+  data: DemoContentType[];
+};
 type Props = {
   item: PostItemType;
 };
 const pageSchema = z.number().gte(1).default(1);
-export function DemoContentTable({item, data}:DemoContentTableProps){
-	const columns = useMemo<SimpleColumnDef<DemoContentType>[]>(
+export function DemoContentTable({ item, data }: DemoContentTableProps) {
+  const columns = useMemo<SimpleColumnDef<DemoContentType>[]>(
     () => [
       {
         id: "name",
@@ -37,6 +37,7 @@ export function DemoContentTable({item, data}:DemoContentTableProps){
       {
         id: "type",
         label: "Type",
+        className: "whitespace-nowrap whitespace-nowrap",
         render({ row }) {
           return capitalizeHyphenatedWords(row?.type);
         },
@@ -65,9 +66,9 @@ export function DemoContentTable({item, data}:DemoContentTableProps){
         },
       },
     ],
-    [data, item],
+    [item],
   );
-	return <SimpleTable columns={columns} data={data} />
+  return <SimpleTable columns={columns} data={data} />;
 }
 export default function ItemDemoContents({ item }: Props) {
   const params = useParams("/item/:type/detail/:id/:tab?");

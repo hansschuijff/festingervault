@@ -1,8 +1,6 @@
 import { siteConfig } from "@/config/site";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import apiFetch from "@wordpress/api-fetch";
-import { __ } from "@wordpress/i18n";
-import { toast } from "sonner";
 
 export default function useApiFetch<
   ResponseDataType,

@@ -210,7 +210,7 @@ function NavLink({
 }: NavLinkProps) {
   const isExternal = href.startsWith("http") ?? external;
   const linkTarget = isExternal ? "_blank" : "_self";
-	const content = (
+  const content = (
     <>
       <Icon
         className={cn("flex-shrink-0", isCollapsed ? "h-5 w-5" : "h-4 w-4 ")}
@@ -223,7 +223,7 @@ function NavLink({
           <ExternalLinkIcon className="ml-2 h-3 w-3" />
         </span>
       )}
-     {Notice && <Notice />}
+      {Notice && <Notice />}
     </>
   );
   if (as == "link") {

@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { PostItemType } from "@/types/item";
 import { __ } from "@wordpress/i18n";
-import { ShieldCheck, ShieldEllipsis } from "lucide-react";
 import moment from "moment";
 import { useMemo } from "react";
 
