@@ -93,7 +93,12 @@ class Helper {
             'table_prefix' => $table_prefix,
             'uuid'         => $plugin_uuid,
             'wp_path'      => \ABSPATH,
+            /**
+             * @todo `plugin` key to be deprecated soon as `plugin` holds data which we won't need except `Version`
+             */
             'plugin'       => $info,
+            'wp_version'   => get_bloginfo('version'),
+            'fv_version'   => $info["Version"] ?? null,
         ];
         return $data;
     }

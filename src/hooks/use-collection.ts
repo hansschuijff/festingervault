@@ -9,10 +9,6 @@ type SortState = {
   order_by?: string;
   order?: "asc" | "desc";
 };
-type PaginationState = {
-  page: number;
-  per_page: number;
-};
 type SortItem = {
   value: string;
   label: string;
@@ -67,14 +63,18 @@ const searchSchema = z.object({ keyword: z.string().optional() });
 // Utility functions
 const serializeQuery = (items: FilterState): Record<string, string> => {
   return Object.fromEntries(
-    Object.entries(items)
-      .filter(([_, values]) => Array.isArray(values) && values.length > 0)
-      .map(([key, values]) => [key, (values as string[]).sort().join(",")]),
+    Object.entries(items).map(([key, values]) => [
+      key,
+      Array.isArray(values) ? (values as string[]).sort().join(",") : values,
+    ]),
   );
 };
+type ParamsWith<T, Keys extends string[] = ["type"]> = {
+  [K in keyof T]: Keys extends (keyof T[K])[] ? K : never;
+}[keyof T];
 type useCollectionProps = {
   options: FilterOption[];
-  path: keyof Params;
+  path: ParamsWith<Params, ["type"]>; // Only need Params that has `type` params
   sort: SortItem[];
 };
 export default function useCollection({
@@ -125,6 +125,7 @@ export default function useCollection({
 
   function setFilter(key: string, values: string[]) {
     const newItems = { ...initialState.items, [key]: values.sort() };
+    console.log(newItems);
     resetPage();
     setSearchParams({
       ...initialState.search,
@@ -153,8 +154,8 @@ export default function useCollection({
     });
   }
   function setPerPage(per_page: number | string) {
-		resetPage();
-		setSearchParams({
+    resetPage();
+    setSearchParams({
       ...initialState.search,
       ...serializeQuery(initialState.items),
       ...initialState.sorting,
@@ -184,7 +185,7 @@ export default function useCollection({
     setSort,
     resetPage,
     setSearch,
-		setPerPage,
+    setPerPage,
     clearFilter,
   };
 }

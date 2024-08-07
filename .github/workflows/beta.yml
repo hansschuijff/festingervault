@@ -10,29 +10,29 @@ jobs:
     name: Beta Release
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Install PHP and dependencies
-      run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install PHP and dependencies
+        run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
 
-    - name: Install NPM Dependencies
-      run: npm install && npm run wp
-    - name: Install Composer dependencies
-      run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
-    - name: Build Scripts
-      run: npm run release
-    - name: Release Trunk
-      uses: s0/git-publish-subdir-action@develop
-      env:
-        REPO: self
-        BRANCH: beta-trunk
-        FOLDER: deploy
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: ZIP and Release
-      uses: s0/git-publish-subdir-action@develop
-      env:
-        REPO: self
-        BRANCH: beta-release
-        FOLDER: dist
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install NPM Dependencies
+        run: npm install && npm run wp
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+      - name: Build Scripts
+        run: npm run release
+      - name: Release Trunk
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: beta-trunk
+          FOLDER: deploy
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: ZIP and Release
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: beta-release
+          FOLDER: dist
+          SQUASH_HISTORY: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

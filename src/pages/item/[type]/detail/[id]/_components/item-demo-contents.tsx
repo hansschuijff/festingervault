@@ -1,23 +1,74 @@
 import AdditionalDownloadButton from "@/components/additional-download-button";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
-import { DemoContentCollectionResponse, PostItemType } from "@/types/item";
+import {
+	DemoContentCollectionResponse,
+	DemoContentType,
+	PostItemType,
+} from "@/types/item";
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
 import { decodeEntities } from "@wordpress/html-entities";
-import { DownloadCloud } from "lucide-react";
 import moment from "moment";
+import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
-
+type DemoContentTableProps={
+  item: PostItemType;
+	data:DemoContentType[];
+}
 type Props = {
   item: PostItemType;
 };
 const pageSchema = z.number().gte(1).default(1);
-
+export function DemoContentTable({item, data}:DemoContentTableProps){
+	const columns = useMemo<SimpleColumnDef<DemoContentType>[]>(
+    () => [
+      {
+        id: "name",
+        label: "Name",
+        className: "w-full",
+        render({ row }) {
+          return decodeEntities(row.title);
+        },
+      },
+      {
+        id: "type",
+        label: "Type",
+        render({ row }) {
+          return capitalizeHyphenatedWords(row.type);
+        },
+      },
+      {
+        id: "date",
+        label: "Date",
+        className: "whitespace-nowrap text-muted-foreground",
+        render({ row }) {
+          return moment.unix(row.updated).format("D MMM, YYYY");
+        },
+      },
+      {
+        id: "action",
+        label: "",
+        className: "",
+        render({ row }) {
+          return (
+            <AdditionalDownloadButton
+              item={item}
+              media={row}
+              size="icon"
+              variant="outline"
+            />
+          );
+        },
+      },
+    ],
+    [data, item],
+  );
+	return <SimpleTable columns={columns} data={data} />
+}
 export default function ItemDemoContents({ item }: Props) {
   const params = useParams("/item/:type/detail/:id/:tab?");
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,38 +85,7 @@ export default function ItemDemoContents({ item }: Props) {
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
             <div className="flex flex-col gap-4">
-              <table className="table-auto">
-                <thead>
-                  <tr className="text-left font-semibold">
-                    <th className="w-full border-b pb-4 pr-4">Version</th>
-                    <th className="border-b px-4 pb-4">Type</th>
-                    <th className="border-b px-4 pb-4">Date</th>
-                    <th className="max-w-11 border-b pb-4 pl-4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.data?.map(ditem => (
-                    <tr className="" key={ditem.id}>
-                      <td className="border-b py-4 pr-4">{ditem.title}</td>
-                      <td className="whitespace-nowrap border-b  p-4">
-                        {capitalizeHyphenatedWords(ditem.type)}
-                      </td>
-
-                      <td className="whitespace-nowrap border-b p-4 text-muted-foreground">
-                        {moment.unix(ditem.updated).format("D MMM, YYYY")}
-                      </td>
-                      <td className="border-b py-4 pl-4">
-                        <AdditionalDownloadButton
-                          item={item}
-                          media={ditem}
-                          size="icon"
-                          variant="outline"
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <DemoContentTable item={item} data={data?.data} />
               {data?.meta && (
                 <Paging
                   currentPage={page}

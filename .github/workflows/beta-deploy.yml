@@ -20,15 +20,12 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_IP}} >> ~/.ssh/known_hosts
       - name: Install PHP and dependencies
         run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
-
       - name: Install NPM Dependencies
         run: npm install && npm run wp
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
-
       - name: Build Scripts
         run: npm run deploy
-
       - name: RSync to Server
         run: |
           cd ./deploy

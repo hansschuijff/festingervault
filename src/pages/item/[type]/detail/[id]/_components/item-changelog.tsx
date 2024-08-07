@@ -1,25 +1,82 @@
 import InstallButton from "@/components/install-button";
+import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
 import useInstall from "@/hooks/useInstall";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
-import { PostChangelogCollectionResponse, PostItemType } from "@/types/item";
+import {
+  PostChangelogCollectionResponse,
+  PostItemType,
+  PostMediaType,
+} from "@/types/item";
 import cn from "@/utils/cn";
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
 type Props = {
   item: PostItemType;
 };
+type ItemChangelogTableProps = {
+  item: PostItemType;
+  data: PostMediaType[];
+};
 const pageSchema = z.number().gte(1);
+function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
+  const { isInstalled } = useInstall(item);
+  const columns = useMemo<SimpleColumnDef<PostMediaType>[]>(
+    () => [
+      {
+        id: "version",
+        label: "Version",
+        className: "w-full",
+        render({ row }) {
+          return (
+            <div className="flex flex-row items-center gap-2">
+              <span className="text-xl">{row.version}</span>
+              {isInstalled && isInstalled.installed_version === row.version && (
+                <Badge variant="info" size="sm">
+                  Installed
+                </Badge>
+              )}
+            </div>
+          );
+        },
+      },
+      {
+        id: "date",
+        label: "Date",
+        className: "whitespace-nowrap text-muted-foreground",
+        render({ row }) {
+          return moment.unix(row.updated).format("D MMM, YYYY");
+        },
+      },
+      {
+        id: "action",
+        label: "",
+        className: "",
+        render({ row }) {
+          return (
+            <InstallButton
+              item={item}
+              media={row}
+              size="icon"
+              variant="outline"
+            />
+          );
+        },
+      },
+    ],
+    [data, item, isInstalled],
+  );
+  return <SimpleTable columns={columns} data={data} />;
+}
 export default function ItemChangeLog({ item }: Props) {
   const params = useParams("/item/:type/detail/:id/:tab?");
   const [searchParams, setSearchParams] = useSearchParams();
-  const { isInstalled } = useInstall(item);
   const page = pageSchema.parse(Number(searchParams?.get("page") ?? 1));
   const { data, isError, isLoading, isFetching } =
     useApiFetch<PostChangelogCollectionResponse>("item/changelog", {
@@ -34,43 +91,7 @@ export default function ItemChangeLog({ item }: Props) {
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
             <div className="flex flex-col gap-4">
-              <table className="table-auto">
-                <thead>
-                  <tr className="text-left font-semibold">
-                    <th className="w-full border-b pb-4 pr-4">Version</th>
-                    <th className="border-b px-4 pb-4">Date</th>
-                    <th className="max-w-11 border-b pb-4 pl-4"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.data?.map(media => (
-                    <tr key={media.id}>
-                      <td className="border-b py-4 pr-4">
-                        <div className="flex flex-row items-center gap-2">
-                          <span className="text-xl">{media.version}</span>
-                          {isInstalled &&
-                            isInstalled.installed_version === media.version && (
-                              <Badge variant="info" size="sm">
-                                Installed
-                              </Badge>
-                            )}
-                        </div>
-                      </td>
-                      <td className="whitespace-nowrap border-b p-4 text-muted-foreground">
-                        {moment.unix(media.updated).format("D MMM, YYYY")}
-                      </td>
-                      <td className="border-b py-4 pl-4">
-                        <InstallButton
-                          item={item}
-                          media={media}
-                          size="icon"
-                          variant="outline"
-                        />
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+              <ItemChangelogTable item={item} data={data?.data} />
               {data?.meta && (
                 <Paging
                   currentPage={page}

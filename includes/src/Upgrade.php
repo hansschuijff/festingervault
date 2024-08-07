@@ -43,6 +43,18 @@ class Upgrade {
     /**
      * @param $file
      */
+    /**
+     * @param $file
+     */
+    /**
+     * @param $file
+     */
+    /**
+     * @param $file
+     */
+    /**
+     * @param $file
+     */
     private static $instance = null;
 
     function __construct($file) {
@@ -98,21 +110,20 @@ class Upgrade {
     /**
      * @return mixed
      */
+
     public function request() {
         $urlBase  = "https://github.com/FestingerVault/festingervault/raw/beta-release/";
         $response = get_transient($this->cache_key);
-        if (is_admin() && isset($_GET["force-check"]) && sanitize_text_field($_GET["force-check"]) == 1) {
-            // bypass cached data if force-check is triggered from updates page
-            $this->cache_allowed = false;
-        }
-        if (false === $response || !$this->cache_allowed) {
 
+        if (false === $response || !$this->cache_allowed) {
             $remote = wp_remote_get(
-                $urlBase . "info.json?token=" . time(),
+
+                $urlBase . "info.json?token=" . md5(time()),
                 [
                     'timeout' => 10,
                     'headers' => [
-                        'Accept' => 'application/json',
+                        'Accept'          => 'application/json',
+                        'Accept-encoding' => "deflate",
                     ],
                 ]
             );

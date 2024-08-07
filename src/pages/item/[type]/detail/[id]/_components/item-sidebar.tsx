@@ -4,11 +4,14 @@ import millify from "millify";
 import CountUp from "react-countup";
 import VirusTotalScan from "./item-virus-total";
 import ItemDetail from "./item-detail";
+import ChangelogPreview from "./changelog-preview";
+import { useParams } from "@/router";
 
 type Props = {
   item: PostItemType;
 };
 export default function ItemSidebar({ item }: Props) {
+	const params=useParams("/item/:type/detail/:id/:tab?")
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
@@ -39,6 +42,7 @@ export default function ItemSidebar({ item }: Props) {
       </Card>
       <VirusTotalScan item={item} />
 			<ItemDetail item={item}/>
+			{item.media_count>0 && params.tab!="changelog" && <ChangelogPreview item={item} />}
     </div>
   );
 }
