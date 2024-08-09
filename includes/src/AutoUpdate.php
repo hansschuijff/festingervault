@@ -10,9 +10,9 @@ class AutoUpdate {
 
     function __construct() {
         add_action('init', [$this, 'schedule_action']);
-        add_action(Constants::ACTION_KEY."/autoupdate", [$this, 'auto_update']);
-        add_action(Constants::ACTION_KEY."/autoupdate/run-update", [$this, 'auto_update_run']);
-        add_action(Constants::ACTION_KEY ."/autoupdate/cleanup", [$this, 'cleanup']);
+        add_action(Constants::ACTION_KEY . "/autoupdate", [$this, 'auto_update']);
+        add_action(Constants::ACTION_KEY . "/autoupdate/run-update", [$this, 'auto_update_run']);
+        add_action(Constants::ACTION_KEY . "/autoupdate/cleanup", [$this, 'cleanup']);
     }
 
     function auto_update() {
@@ -20,10 +20,10 @@ class AutoUpdate {
         $engine_data = Helper::get_item_updates();
         if (!is_wp_error($engine_data)) {
             foreach ($engine_data['data'] as $item) {
-                if (isset($settings["autoupdate"][$item["type"]][$item["slug"]]) && true === $settings["autoupdate"][$item["type"]][$item["slug"]]) {
+                if (isset($settings["autoupdate"][$item["type"]][$item["slug"]]) && true == $settings["autoupdate"][$item["type"]][$item["slug"]]) {
                     if (version_compare($item["version"], $item["installed_version"], "gt") === true) {
                         if (function_exists("as_schedule_single_action")) {
-                            as_schedule_single_action(time(), Constants::ACTION_KEY."/autoupdate/run-update", [
+                            as_schedule_single_action(time(), Constants::ACTION_KEY . "/autoupdate/run-update", [
                                 $item["id"],
                             ], Constants::API_SLUG);
                         }
@@ -38,21 +38,19 @@ class AutoUpdate {
      */
     function auto_update_run($item_id) {
         try {
-            $result = Helper::engine_post("item/detail", [
+            $item_detail = Helper::engine_post("item/detail", [
                 "item_id" => $item_id,
             ]);
-            if (is_wp_error($result)) {
+            if (is_wp_error($item_detail)) {
                 return false;
             }
-            $item_detail = json_decode(wp_remote_retrieve_body($result), true);
-            $result      = Helper::engine_post("item/download", [
+            $download_detail = Helper::engine_post("item/download", [
                 "item_id" => $item_id,
                 "method"  => "update",
             ]);
-            if (is_wp_error($result)) {
+            if (is_wp_error($download_detail)) {
                 return false;
             }
-            $download_detail = json_decode(wp_remote_retrieve_body($result), true);
             if ("elementor-template-kits" === $item_detail["type"]) {
                 return false;
             }
@@ -80,11 +78,11 @@ class AutoUpdate {
 
     function schedule_action() {
         if (function_exists('as_has_scheduled_action')) {
-            if (false === as_has_scheduled_action(Constants::ACTION_KEY."/autoupdate")) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY."/autoupdate", [], Constants::API_SLUG, true);
+            if (false === as_has_scheduled_action(Constants::ACTION_KEY . "/autoupdate")) {
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate", [], Constants::API_SLUG, true);
             }
-            if (false === as_has_scheduled_action(Constants::ACTION_KEY."/autoupdate/cleanup")) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY."/autoupdate/cleanup", [], Constants::API_SLUG, true);
+            if (false === as_has_scheduled_action(Constants::ACTION_KEY . "/autoupdate/cleanup")) {
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate/cleanup", [], Constants::API_SLUG, true);
             }
         }
     }
