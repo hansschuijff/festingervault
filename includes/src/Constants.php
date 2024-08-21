@@ -22,4 +22,6 @@ class Constants
 	const SETTING_KEY = "vault_settings";
 
 	const TYPES = ["theme", "plugin", "kits", "wishlist"];
+	const PLUGIN_INFO_URL="https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/info.json";
+	const PLUGIN_DOWNLOAD_URL="https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/festingervault.zip";
 }

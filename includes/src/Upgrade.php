@@ -55,6 +55,12 @@ class Upgrade {
     /**
      * @param $file
      */
+    /**
+     * @param $file
+     */
+    /**
+     * @param $file
+     */
     private static $instance = null;
 
     function __construct($file) {
@@ -112,13 +118,11 @@ class Upgrade {
      */
 
     public function request() {
-        $urlBase  = "https://github.com/FestingerVault/festingervault/raw/beta-release/";
         $response = get_transient($this->cache_key);
 
         if (false === $response || !$this->cache_allowed) {
             $remote = wp_remote_get(
-
-                $urlBase . "info.json?token=" . md5(time()),
+                add_query_arg(["token" => time()], Constants::PLUGIN_INFO_URL),
                 [
                     'timeout' => 10,
                     'headers' => [
@@ -156,7 +160,7 @@ class Upgrade {
             $response->icons = [
                 "1x" => $remote->icon,
             ];
-            $response->download_link = $urlBase . "festingervault.zip?token=" . time();
+            $response->download_link = add_query_arg(["token" => time()], Constants::PLUGIN_DOWNLOAD_URL);
             $response->plugin        = plugin_basename(self::$file);
             if (version_compare($this->version, $remote->version, '<')) {
                 $response->update = 1;
