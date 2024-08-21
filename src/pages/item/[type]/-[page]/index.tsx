@@ -66,7 +66,7 @@ export default function Component() {
     data: categories,
     isLoading: categoriesIsLoading,
     isFetching: isFetchingCategories,
-  } = useApiFetch<string[]>("item/categories", {
+  } = useApiFetch<Record<string,string>>("item/categories", {
     type,
   });
   const filters = useMemo<ReturnType<typeof useCollection>["options"]>(

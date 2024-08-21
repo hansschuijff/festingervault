@@ -1,8 +1,9 @@
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
+import { decodeEntities } from "@wordpress/html-entities";
 
-export default function catsToKeyValuePairs(cats: string[]) {
-	return cats.map(cat => ({
-		label: capitalizeHyphenatedWords(cat),
-		value: cat,
+export default function catsToKeyValuePairs(cats: Record<string,string>) {
+	return Object.entries(cats).map(([key,value]) => ({
+		label: decodeEntities(value),
+		value: key,
 	}));
 }
