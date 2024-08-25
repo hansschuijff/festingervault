@@ -53,13 +53,13 @@ export default function FilterBar({ collection }: FilterBarProps) {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" className="flex flex-row gap-2">
-                  {__("Filters", "festingervault")} <FilterIcon size={16} />
+                  {__("Filters", 'festingervault')} <FilterIcon size={16} />
                 </Button>
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>
-                    {__("Apply Filters", "festingervault")}
+                    {__("Apply Filters", 'festingervault')}
                   </SheetTitle>
                   <SheetDescription>
                     {__(

@@ -24,12 +24,14 @@ export type ViteWpReactOptions = {
    * The directory to write assets to.
    */
   assetsDir?: string;
+	constants?:string[];
 };
 
 export function viteWpReact({
   input = "js/main.js",
   outDir = "build",
   assetsDir,
+	constants,
 }: ViteWpReactOptions = {}): PluginOption {
   const mainPlugin: Plugin = {
     name: "vwpr:config",
@@ -62,7 +64,7 @@ export function viteWpReact({
 				}]],
       },
     }),
-    WPEnvProcess()
+    WPEnvProcess({constants})
   ];
 }
 

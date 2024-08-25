@@ -29,6 +29,7 @@ export default defineConfig({
     viteWpReact({
       input: { main: "src/index.tsx" },
       outDir: "build",
+      constants: ["ENGINE_URL"],
     }),
     ViteMinifyPlugin(),
   ],

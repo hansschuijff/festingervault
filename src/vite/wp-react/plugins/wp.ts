@@ -7,7 +7,7 @@ type Props = {
   envFile?: string;
   mainPluginFile?: string;
   composerJSON?: string;
-  constants?: Record<string, any>;
+  constants?: string[];
   constantsFile?: string;
   srcDir?: string;
 };
@@ -129,12 +129,14 @@ export default function WPEnvProcess({
     if (existsSync(filePath)) {
       if (constants) {
         let fileContent = readFileSync(filePath, "utf8");
-        Object.entries(constants).forEach(([key, value]) => {
+        constants.forEach(key => {
           const regexp = new RegExp(
-            `(const ${key}\\s?=\\s?'?"?)([^'";]+)('"?\\s?;)`,
+            `(const ${key}\\s?=\\s?'?"?)([^'";]+)('?"?\\s?;)`,
             "g",
           );
-          fileContent = fileContent.replace(regexp, `$1${value}$3`);
+					if(env[key]?.length>0){
+          	fileContent = fileContent.replace(regexp, `$1${env[key]}$3`);
+					}
         });
         writeFileSync(filePath, fileContent, "utf8");
       }

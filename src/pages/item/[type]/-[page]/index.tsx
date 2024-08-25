@@ -138,7 +138,7 @@ export default function Component() {
             },
             {
               id: "level",
-              label: __("Access", "festingervault"),
+              label: __("Access", 'festingervault'),
               isMulti: true,
               onBarView: true,
               options: [
@@ -214,7 +214,7 @@ export default function Component() {
         },
         {
           label: sprintf(
-            __("Page %d", "festingervault"),
+            __("Page %d", 'festingervault'),
             params.page.toLocaleString(),
           ),
         },
