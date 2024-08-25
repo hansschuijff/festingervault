@@ -20,6 +20,8 @@ jobs:
           ssh-keyscan -H ${{secrets.SSH_IP}} >> ~/.ssh/known_hosts
       - name: Install PHP and dependencies
         run: sudo apt-get update && sudo apt-get install php php-mbstring php-xml
+      - name: Setup ENV files
+        run: cp .env.beta .env
       - name: Install NPM Dependencies
         run: npm install && npm run namespace
       - name: Install Composer dependencies
