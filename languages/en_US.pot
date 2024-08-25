@@ -1,0 +1,547 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"X-Generator: babel-plugin-makepot\n"
+
+#: src/components/additional-download-button.tsx:111
+#: src/components/install-button.tsx:160
+msgid "%d download credit would be consumed from your account."
+msgstr ""
+
+#: src/components/additional-download-button.tsx:138
+#: src/components/install-button.tsx:211
+msgid "Download"
+msgstr ""
+
+#: src/components/additional-download-button.tsx:143
+#: src/components/install-button.tsx:236
+#: src/pages/activation/_components/activation-detail.tsx:131
+msgid "Cancel"
+msgstr ""
+
+#: src/components/additional-download-button.tsx:47
+#: src/components/install-button.tsx:50
+msgid "License not activated"
+msgstr ""
+
+#: src/components/additional-download-button.tsx:63
+#: src/components/install-button.tsx:82
+msgid "Successful"
+msgstr ""
+
+#: src/components/data-table-faceted-filter.tsx:127
+msgid "Clear filters"
+msgstr ""
+
+#: src/components/data-table-faceted-filter.tsx:58
+msgid "%d selected"
+msgstr ""
+
+#: src/components/data-table-faceted-filter.tsx:82
+#: src/components/filter/filter-item.tsx:83
+msgid "No results found."
+msgstr ""
+
+#: src/components/data-table-pagination.tsx:31
+msgid "%d result(s) found"
+msgstr ""
+
+#: src/components/data-table-pagination.tsx:36
+msgid "Items per page"
+msgstr ""
+
+#: src/components/data-table-pagination.tsx:64
+msgid "Page %d of %d"
+msgstr ""
+
+#: src/components/data-table.tsx:107
+msgid "No results"
+msgstr ""
+
+#: src/components/filter/collection-bar.tsx:56
+msgid "Filters"
+msgstr ""
+
+#: src/components/filter/collection-bar.tsx:62
+msgid "Apply Filters"
+msgstr ""
+
+#: src/components/filter/collection-bar.tsx:65
+msgid "Select Filters to fine tune your search criteria"
+msgstr ""
+
+#: src/components/filter/filter-item.tsx:130
+msgid "Clear Filter"
+msgstr ""
+
+#: src/components/filter/filter-item.tsx:80
+msgid "Search"
+msgstr ""
+
+#: src/components/filter/search-input.tsx:31
+msgid "Search Title"
+msgstr ""
+
+#: src/components/install-button.tsx:146
+msgid "Re-install version %s"
+msgstr ""
+
+#: src/components/install-button.tsx:168
+msgid "Daily Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:171
+msgid "Used Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:175
+msgid "Total Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:197
+#: src/pages/updates/_components/updates-table.tsx:68
+msgid "Update"
+msgstr ""
+
+#: src/components/install-button.tsx:198
+#: src/pages/updates/_components/updates-table.tsx:102
+msgid "Re-Install"
+msgstr ""
+
+#: src/components/install-button.tsx:199
+msgid "Install"
+msgstr ""
+
+#: src/components/install-button.tsx:230
+msgid "Roll-Back"
+msgstr ""
+
+#: src/components/install-button.tsx:69
+msgid "Downloading"
+msgstr ""
+
+#: src/components/install-button.tsx:71
+msgid "Roll-Back to version %s"
+msgstr ""
+
+#: src/components/install-button.tsx:74
+#: src/pages/updates/_components/updates-table.tsx:80
+msgid "Updating"
+msgstr ""
+
+#: src/components/install-button.tsx:75
+msgid "Re-Installing"
+msgstr ""
+
+#: src/components/install-button.tsx:76
+msgid "Installing"
+msgstr ""
+
+#: src/components/mode-toggle.tsx:20
+msgid "Toggle theme"
+msgstr ""
+
+#: src/components/mode-toggle.tsx:25
+msgid "Light"
+msgstr ""
+
+#: src/components/mode-toggle.tsx:28
+msgid "Dark"
+msgstr ""
+
+#: src/components/mode-toggle.tsx:31
+msgid "System"
+msgstr ""
+
+#: src/components/ui/pagination.tsx:80
+msgid "Previous"
+msgstr ""
+
+#: src/components/ui/pagination.tsx:95
+msgid "Next"
+msgstr ""
+
+#: src/pages/_app.tsx:20
+msgid "OOPS!"
+msgstr ""
+
+#: src/pages/_app.tsx:23
+msgid "Something Went Wrong"
+msgstr ""
+
+#: src/pages/_app.tsx:33
+msgid "Go Back"
+msgstr ""
+
+#: src/pages/_components/InstallStats.tsx:34
+msgid "Themes"
+msgstr ""
+
+#: src/pages/_components/InstallStats.tsx:40
+msgid "Plugins"
+msgstr ""
+
+#: src/pages/_components/InstallStats.tsx:51
+msgid "Installed Assets"
+msgstr ""
+
+#: src/pages/_components/InstallStats.tsx:54
+msgid "Installed"
+msgstr ""
+
+#: src/pages/_components/InstallStats.tsx:57
+msgid "Items"
+msgstr ""
+
+#: src/pages/_components/announcements.tsx:17
+msgid "Announcements"
+msgstr ""
+
+#: src/pages/_components/announcements.tsx:23
+msgid "View All"
+msgstr ""
+
+#: src/pages/_components/announcements.tsx:45
+msgid "Updated %s"
+msgstr ""
+
+#: src/pages/_components/announcements.tsx:54
+msgid "No new announcements"
+msgstr ""
+
+#: src/pages/_components/available-updates.tsx:22
+msgid "Item Updates"
+msgstr ""
+
+#: src/pages/_components/available-updates.tsx:45
+msgid "Available: %d"
+msgstr ""
+
+#: src/pages/_components/available-updates.tsx:48
+msgid "Installed: %d"
+msgstr ""
+
+#: src/pages/_components/available-updates.tsx:59
+msgid "No Update Found"
+msgstr ""
+
+#: src/pages/_components/available-updates.tsx:68
+msgid "View All Updates"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:111
+msgid "Are you absolutely sure?"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:114
+msgid "Do you want to deactivate license activation"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:125
+msgid "Deactivate"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:58
+msgid "License Deactivated Successfully"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:63
+msgid "Error Deactivating License"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:78
+msgid "Expires:"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:86
+msgid "Status:"
+msgstr ""
+
+#: src/pages/activation/_components/activation-detail.tsx:90
+msgid "Install ID:"
+msgstr ""
+
+#: src/pages/activation/_components/register-license.tsx:46
+msgid "License Activated Successfully"
+msgstr ""
+
+#: src/pages/activation/_components/register-license.tsx:52
+msgid "Error Activating License"
+msgstr ""
+
+#: src/pages/activation/_components/register-license.tsx:72
+msgid "Enter License Key"
+msgstr ""
+
+#: src/pages/activation/_components/register-license.tsx:89
+#: src/pages/activation/index.tsx:20
+msgid "Activate License"
+msgstr ""
+
+#: src/pages/activation/index.tsx:13
+msgid "License Activation"
+msgstr ""
+
+#: src/pages/activation/index.tsx:19
+msgid "Activation Detail"
+msgstr ""
+
+#: src/pages/history/-[page].tsx:17
+msgid "History"
+msgstr ""
+
+#: src/pages/history/_components/history-items.tsx:21
+msgid "Title"
+msgstr ""
+
+#: src/pages/history/_components/history-items.tsx:40
+msgid "Type"
+msgstr ""
+
+#: src/pages/history/_components/history-items.tsx:51
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:41
+msgid "Date"
+msgstr ""
+
+#: src/pages/history/_components/history-items.tsx:59
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:33
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:19
+msgid "Version"
+msgstr ""
+
+#: src/pages/item/[type]/-[page]/index.tsx:141
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:81
+msgid "Access"
+msgstr ""
+
+#: src/pages/item/[type]/-[page]/index.tsx:217
+msgid "Page %d"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:42
+#: src/pages/item/[type]/detail/[id]/_components/item-description.tsx:17
+msgid "Description"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:47
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:68
+#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:91
+msgid "Changelog"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:53
+msgid "Demo Contents [%d]"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:59
+msgid "Documentation"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:65
+#: src/pages/item/[type]/detail/[id]/_components/detail-tab-headers.tsx:31
+msgid "Support"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/-[tab].tsx:73
+msgid "Item Detail"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:75
+#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:33
+#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:108
+#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:104
+msgid "Loading..."
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:77
+#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:35
+#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:110
+#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:106
+msgid "No Items Found"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:86
+#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:44
+msgid "View More"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:26
+#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:87
+msgid "Demo Contents"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/detail-header.tsx:40
+msgid "Recently Updated"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/detail-header.tsx:52
+msgid "Demo Included"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/detail-tab-content.tsx:14
+msgid "Invalid Tab?"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/detail-tab-headers.tsx:57
+msgid "Live Preview"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:20
+msgid "Slug"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:21
+msgid "Status"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:23
+msgid "Updated"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:27
+msgid "Published"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:31
+msgid "Author"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:41
+msgid "Columns"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:50
+msgid "Gutenberg Optimized"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:61
+msgid "High Resolution"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:71
+msgid "Widget Ready"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:91
+msgid "Details"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:30
+msgid "Downloads"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:41
+msgid "Installs"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:51
+msgid "Tags"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:55
+msgid "Browsers"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:59
+msgid "Compatible With"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:63
+msgid "Included Files"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:67
+msgid "Software Versions"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:14
+msgid "Virus Total"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:21
+msgid "View Detail"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:34
+msgid "%d threats"
+msgstr ""
+
+#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:49
+msgid "Scanning..."
+msgstr ""
+
+#: src/pages/updates/_components/autoupdate-switch.tsx:35
+msgid "Updating Autoupdate"
+msgstr ""
+
+#: src/pages/updates/_components/autoupdate-switch.tsx:42
+msgid "Autoupdate Enabled"
+msgstr ""
+
+#: src/pages/updates/_components/autoupdate-switch.tsx:43
+msgid "Autoupdate Disabled"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:114
+msgid "Re-installing"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:117
+msgid "Re-Install Success"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:121
+msgid "Error Installing"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:136
+msgid "Enable Auto-Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:149
+msgid "Enabling Auto Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:152
+msgid "Auto Update Enabled"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:156
+msgid "Error Enabling Auto Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:176
+msgid "Disable Auto-Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:189
+msgid "Disabling Auto Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:192
+msgid "Auto Update Disabled"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:196
+msgid "Error Disabling Auto Update"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:83
+msgid "Success"
+msgstr ""
+
+#: src/pages/updates/_components/updates-table.tsx:87
+msgid "Error"
+msgstr ""
+
+#: src/pages/updates/index.tsx:14
+msgid "Updates"
+msgstr ""
+
+#: src/zod/license.ts:6
+msgid "License Key Field is empty"
+msgstr ""
+
+#: src/zod/license.ts:7
+msgid "Enter valid license key"
+msgstr ""
