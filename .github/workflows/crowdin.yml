@@ -3,7 +3,7 @@ name: Crowdin Translation Upload
 on:
   push:
     branches:
-      - main  # Adjust to the branch you want to trigger this action
+      - beta  # Adjust to the branch you want to trigger this action
 
 jobs:
   upload-pot-files:
