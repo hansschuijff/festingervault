@@ -1,7 +1,7 @@
-"project_id": "710101"
+"project_id": "CROWDIN_PROJECT_ID"
 "api_token_env": "CROWDIN_API_TOKEN"
 
-"base_path": "/languages"
+"base_path": "languages"
 "files":
-  - source: "/**/*.pot"
-    translation: "/%two_letters_code%/%original_file_name%.po"
+  - source: "**/*.pot"
+    translation: "%two_letters_code%-%original_file_name%.po"
