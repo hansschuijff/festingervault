@@ -3,7 +3,7 @@ name: Crowdin Translation Upload
 on:
   push:
     branches:
-      - beta  # Adjust to the branch you want to trigger this action
+      - main  # Adjust to the branch you want to trigger this action
 
 jobs:
   upload-pot-files:
@@ -17,6 +17,7 @@ jobs:
       uses: crowdin/github-action@v2
       with:
         upload_sources: true
-        config: crowdin.yml
       env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
         CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
