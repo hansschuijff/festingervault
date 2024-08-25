@@ -8,7 +8,6 @@
 		"start": "vite",
 		"deploy": "npm run build && node ./scripts/deploy.js",
 		"dist": "node ./scripts/release.js",
-		"release": "npm run build && npm run dist",
 		"build": "vite build",
 		"genlang": "po2json languages/festingervault.pot languages/translation.json -f jed1.x",
 		"namespace": "node ./scripts/namespace.js"
