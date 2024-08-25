@@ -5,6 +5,7 @@ import Paging from "@/pages/_components/Paging";
 import { Link, useParams } from "@/router";
 import { HistoryCollectionType, HistoryItemType } from "@/types/history";
 import { decodeEntities } from "@wordpress/html-entities";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 
@@ -17,7 +18,7 @@ export default function HistoryItems({ data }: Props) {
     () => [
       {
         id: "title",
-        label: "Title",
+        label: __("Title", 'festingervault'),
         className: "w-full whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return (
@@ -36,7 +37,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "type",
-        label: "Type",
+        label: __("Type", 'festingervault'),
         render({ row }) {
           return (
             <Badge variant="bronze" className="uppercase">
@@ -47,7 +48,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "date",
-        label: "Date",
+        label: __("Date", 'festingervault'),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return moment.unix(row.created).format("DD MMM, YYYY HH:mm a");
@@ -55,7 +56,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "version",
-        label: "Version",
+        label: __("Version", 'festingervault'),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return row?.media?.version ?? row.item.version;

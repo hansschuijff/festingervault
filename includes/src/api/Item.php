@@ -16,6 +16,9 @@ class Item extends ApiBase {
         ]);
 
     }
+    public function terms(\WP_REST_Request $request) {
+        return Helper::engine_post("item/terms");
+    }
 
     /**
      * @param \WP_REST_Request $request
@@ -81,6 +84,9 @@ class Item extends ApiBase {
             "list"         => [
                 'callback' => [$this, 'items'],
             ],
+            "terms"   => [
+                'callback' => [$this, 'terms'],
+            ],
             "categories"   => [
                 'callback' => [$this, 'categories'],
             ],
@@ -118,7 +124,7 @@ class Item extends ApiBase {
             "item_id" => $item_id,
         ]);
         if (is_wp_error($item_detail)) {
-            return new \WP_Error("item_detail", "Error getting Item detail");
+            return $item_detail;
         }
         $download_detail = Helper::engine_post("item/download", [
             "item_id"  => $item_id,
@@ -126,7 +132,7 @@ class Item extends ApiBase {
             "media_id" => $media_id,
         ]);
         if (is_wp_error($download_detail)) {
-            return new \WP_Error(400, "Error getting zip file information");
+			return $download_detail;
         }
         if ("elementor-template-kits" === $item_detail["type"] || "download" === $method) {
             return $download_detail;
@@ -134,7 +140,7 @@ class Item extends ApiBase {
         $installer = new Installer($item_detail, $download_detail);
         $status    = $installer->run();
         if (is_wp_error($status)) {
-            return new \WP_Error("item_install", "Error running item installation/update");
+            return new \WP_Error(400, "Error running item installation/update");
         }
         return ['success' => true];
     }

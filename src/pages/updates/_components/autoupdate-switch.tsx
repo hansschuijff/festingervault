@@ -32,15 +32,15 @@ export default function AutoUpdateSwitcher({ row }: Props) {
         }),
         {
           description: decodeEntities(row.original.title),
-          loading: __("Updating Autoupdate"),
+          loading: __("Updating Autoupdate", 'festingervault'),
           success() {
             setChecked(enabled);
             queryClient.invalidateQueries({
               queryKey: ["setting/get"],
             });
             return enabled
-              ? __("Autoupdate Enabled")
-              : __("Autoupdate Disabled");
+              ? __("Autoupdate Enabled", 'festingervault')
+              : __("Autoupdate Disabled", 'festingervault');
           },
           error: "Something went wrong. Try again later",
         },

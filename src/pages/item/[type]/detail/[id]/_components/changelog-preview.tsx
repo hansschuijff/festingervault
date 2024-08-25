@@ -13,6 +13,7 @@ import {
   PostItemType,
   PostMediaType,
 } from "@/types/item";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 
@@ -29,7 +30,7 @@ export default function ChangelogPreview({ item }: Props) {
     () => [
       {
         id: "version",
-        label: "Version",
+        label: __("Version", 'festingervault'),
         className: "",
         render({ row }) {
           return row.version;
@@ -37,7 +38,7 @@ export default function ChangelogPreview({ item }: Props) {
       },
       {
         id: "date",
-        label: "Date",
+        label: __("Date", 'festingervault'),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return moment.unix(row.updated).format("D MMM, YYYY");
@@ -64,16 +65,16 @@ export default function ChangelogPreview({ item }: Props) {
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
-        <CardHeader className="border-b p-5 sm:p-7">Changelog</CardHeader>
+        <CardHeader className="border-b p-5 sm:p-7">{__("Changelog", 'festingervault')}</CardHeader>
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
             <div className="flex flex-col gap-4">
               <SimpleTable columns={columns} data={data?.data.slice(0, 5)} />
             </div>
           ) : isLoading || isFetching ? (
-            <div className="">Loading...</div>
+            <div className="">{__("Loading...", 'festingervault')}</div>
           ) : (
-            <div className="">No Items Found</div>
+            <div className="">{__("No Items Found", 'festingervault')}</div>
           )}
         </CardContent>
         <CardFooter className="justify-center border-t border-border text-center">
@@ -82,7 +83,7 @@ export default function ChangelogPreview({ item }: Props) {
             params={{ ...params, tab: "changelog" }}
             className="border-b border-dashed border-blue-500 text-sm text-blue-500"
           >
-            View More
+            {__("View More", 'festingervault')}
           </Link>
         </CardFooter>
       </Card>

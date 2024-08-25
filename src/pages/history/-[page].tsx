@@ -14,7 +14,7 @@ export default function Component() {
     },
   );
   return (
-    <AppPageShell title={__("History")} isLoading={isLoading}>
+    <AppPageShell title={__("History", 'festingervault')} isLoading={isLoading}>
       <HistoryItems data={data} />
     </AppPageShell>
   );

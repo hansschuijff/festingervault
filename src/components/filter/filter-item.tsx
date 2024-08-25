@@ -77,10 +77,10 @@ export default function FilterItem({ item, collection }: FilterItemProps) {
 			<PopoverContent className="w-[200px] p-0" align="start">
 				<Command>
 					{item.options.length > 10 && (
-						<CommandInput placeholder={__("Search")} />
+						<CommandInput placeholder={__("Search", 'festingervault')} />
 					)}
 					<CommandList>
-						<CommandEmpty>{__("No results found.")}</CommandEmpty>
+						<CommandEmpty>{__("No results found.", 'festingervault')}</CommandEmpty>
 						<CommandGroup>
 							{item.options.map(option => {
 								const isSelected = selectedValues.has(option.value);
@@ -127,7 +127,7 @@ export default function FilterItem({ item, collection }: FilterItemProps) {
 										onSelect={() => collection.setFilter(item.id, [])}
 										className="justify-center text-center"
 									>
-										{__("Clear Filter")}
+										{__("Clear Filter", 'festingervault')}
 									</CommandItem>
 								</CommandGroup>
 							</>

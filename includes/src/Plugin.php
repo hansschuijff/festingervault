@@ -23,7 +23,7 @@ class Plugin {
     private static $file;
 
     /**
-     * @var mixed
+     * @var Plugin
      */
     private static $instance = null;
 
@@ -47,6 +47,13 @@ class Plugin {
         return self::$instance;
     }
 
+    public static function info() {
+        if (!function_exists('get_plugin_data')) {
+            require_once ABSPATH . 'wp-admin/includes/plugin.php';
+        }
+        return get_plugin_data(self::$file);
+    }
+
     /**
      * plugin_dir
      *
@@ -66,10 +73,12 @@ class Plugin {
     public static function p_url($path = "") {
         return plugins_url(trim($path, '/'), self::$file);
     }
-	public static function info(){
-		if (!function_exists('get_plugin_data')) {
-            require_once ABSPATH . 'wp-admin/includes/plugin.php';
-        }
-		return get_plugin_data(self::$file);
-	}
+
+    private function __clone() {
+        // Prevent cloning of the instance
+    }
+
+    private function __wakeup() {
+        // Prevent unserializing of the instance
+    }
 }

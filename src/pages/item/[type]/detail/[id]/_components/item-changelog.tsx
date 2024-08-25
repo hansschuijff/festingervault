@@ -7,10 +7,11 @@ import useInstall from "@/hooks/useInstall";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
 import {
-	PostChangelogCollectionResponse,
-	PostItemType,
-	PostMediaType,
+  PostChangelogCollectionResponse,
+  PostItemType,
+  PostMediaType,
 } from "@/types/item";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -86,7 +87,9 @@ export default function ItemChangeLog({ item }: Props) {
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
-        <CardHeader className="border-b p-5 sm:p-7">Changelog</CardHeader>
+        <CardHeader className="border-b p-5 sm:p-7">
+          {__("Changelog", 'festingervault')}
+        </CardHeader>
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
             <div className="flex flex-col gap-4">
@@ -102,9 +105,9 @@ export default function ItemChangeLog({ item }: Props) {
               )}
             </div>
           ) : isLoading || isFetching ? (
-            <div className="">Loading...</div>
+            <div className="">{__("Loading...", 'festingervault')}</div>
           ) : (
-            <div className="">No Items Found</div>
+            <div className="">{__("No Items Found", 'festingervault')}</div>
           )}
         </CardContent>
       </Card>

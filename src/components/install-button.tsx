@@ -48,7 +48,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
   const { tab } = useParams("/item/:type/detail/:id/:tab?");
   function install(is_download?: boolean) {
     if (typeof activation?.plan_type == "undefined") {
-      toast.error(__("License not activated"));
+      toast.error(__("License not activated", 'festingervault'));
       navigate("/activation");
       return;
     }
@@ -75,7 +75,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
             window.open(data.link, "_blank");
           }
           clearCache();
-          return __("Successful");
+          return __("Successful", 'festingervault');
         },
         error(err) {
           return err.message;
@@ -139,7 +139,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                               isInstalled.version,
                             )
                           : sprintf(
-                              __("Re-install version %s"),
+                              __("Re-install version %s", 'festingervault'),
                               media ? media.version : isInstalled.version,
                             )
                         : sprintf(
@@ -204,7 +204,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                   className="gap-2"
                 >
                   <Download size={16} />
-                  <span>{__("Download")}</span>
+                  <span>{__("Download", 'festingervault')}</span>
                 </Button>
               </DrawerClose>
               {tab !== "changelog" && (
@@ -223,12 +223,12 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                     className="gap-2"
                   >
                     <RefreshCw size={16} />
-                    <span>{__("Roll-Back")}</span>
+                    <span>{__("Roll-Back", 'festingervault')}</span>
                   </Button>
                 </DrawerClose>
               )}
               <DrawerClose asChild>
-                <Button variant="outline">{__("Cancel")}</Button>
+                <Button variant="outline">{__("Cancel", 'festingervault')}</Button>
               </DrawerClose>
             </div>
           </DrawerFooter>

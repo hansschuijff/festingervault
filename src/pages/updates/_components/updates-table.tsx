@@ -65,7 +65,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
   const bulkActions: BulkActionType<ThemePluginItemType>[] = [
     {
       id: "update",
-      label: __("Update"),
+      label: __("Update", 'festingervault'),
       action: async items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -77,14 +77,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Updating"),
+                  loading: __("Updating", 'festingervault'),
                   success(data) {
                     resolve(data);
-                    return __("Success");
+                    return __("Success", 'festingervault');
                   },
                   error(err) {
                     reject(err);
-                    return err.message ?? __("Error");
+                    return err.message ?? __("Error", 'festingervault');
                   },
                   finally() {
                     clearCache();
@@ -99,7 +99,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "reinstall",
-      label: __("Re-Install"),
+      label: __("Re-Install", 'festingervault'),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -111,14 +111,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Re-installing"),
+                  loading: __("Re-installing", 'festingervault'),
                   success() {
                     resolve(item);
-                    return __("Re-Install Success");
+                    return __("Re-Install Success", 'festingervault');
                   },
                   error(err) {
                     reject(err);
-                    return err.message ?? __("Error Installing");
+                    return err.message ?? __("Error Installing", 'festingervault');
                   },
                   finally() {
                     clearCache();
@@ -133,7 +133,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "autoupdate",
-      label: __("Enable Auto-Update"),
+      label: __("Enable Auto-Update", 'festingervault'),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -146,14 +146,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Enabling Auto Update"),
+                  loading: __("Enabling Auto Update", 'festingervault'),
                   success() {
                     resolve(item);
-                    return __("Auto Update Enabled");
+                    return __("Auto Update Enabled", 'festingervault');
                   },
                   error() {
                     reject(item);
-                    return __("Error Enabling Auto Update");
+                    return __("Error Enabling Auto Update", 'festingervault');
                   },
                   finally() {
                     queryClient.invalidateQueries(
@@ -173,7 +173,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "disable-autoupdate",
-      label: __("Disable Auto-Update"),
+      label: __("Disable Auto-Update", 'festingervault'),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -186,14 +186,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Disabling Auto Update"),
+                  loading: __("Disabling Auto Update", 'festingervault'),
                   success() {
                     resolve(item);
-                    return __("Auto Update Disabled");
+                    return __("Auto Update Disabled", 'festingervault');
                   },
                   error() {
                     reject(item);
-                    return __("Error Disabling Auto Update");
+                    return __("Error Disabling Auto Update", 'festingervault');
                   },
                   finally() {
                     queryClient.invalidateQueries({

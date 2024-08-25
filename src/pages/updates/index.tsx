@@ -6,12 +6,12 @@ export default function Component() {
   const { list, isLoading } = useInstalled();
   return (
     <AppPageShell
-      title={__("Updates")}
+      title={__("Updates", 'festingervault')}
       isLoading={isLoading}
       preloader={<UpdatesTableSkeleton />}
 			breadcrump={[
 				{
-					label:__("Updates")
+					label:__("Updates", 'festingervault')
 				}
 			]}
     >

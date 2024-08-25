@@ -1,6 +1,6 @@
 {
   "exclude": ["node_modules"],
-  "include": ["src/**/*"],
+  "include": ["src/**/*","scripts/**/*"],
   "compilerOptions": {
     "esModuleInterop": true,
     "moduleResolution": "node",

@@ -94,7 +94,7 @@ export function DataTable<TData, TValue>({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    {__("No results")}.
+                                    {__("No results", 'festingervault')}.
                                 </TableCell>
                             </TableRow>
                         )}

@@ -1,10 +1,5 @@
 import dotenv from "dotenv";
-import {
-	existsSync,
-	readFileSync,
-	watch,
-	writeFileSync
-} from "fs";
+import { existsSync, readFileSync, watch, writeFileSync } from "fs";
 import { sync } from "glob";
 import { dirname, relative, resolve } from "path";
 import { PluginOption, ResolvedConfig } from "vite";
@@ -16,6 +11,7 @@ type Props = {
   constantsFile?: string;
   srcDir?: string;
 };
+
 export default function WPEnvProcess({
   envFile,
   mainPluginFile,
@@ -50,11 +46,19 @@ export default function WPEnvProcess({
       "namespace " + chunks.join("\\") + ";",
     );
   };
-
   const replaceTextdomain = (content: string, textdomain: string) => {
     const pattern =
-      /((esc_attr__|esc_attr_e|esc_html_e|esc_html__|__|_e)\((\"|\'))(((?!\((\'|\")).)*)((\'|\")\s?,\s?(\'|\"))([\w_-]+)?((\'|\")\))/gi;
-    return content.replace(pattern, `$1$4$7${textdomain}$11`);
+      /((esc_attr__|esc_attr_e|esc_html_e|esc_html__|__|_e)\s*\(\s*(['"])(.*?)\3\s*(,\s*['"]\w+['"])?\s*\))/gi;
+
+    return content.replace(pattern, (match, p1, p2, p3, p4, p5) => {
+      if (p5) {
+        // If the text domain is already present, replace it with the new one
+        return `${p2}(${p3}${p4}${p3}, '${textdomain}')`;
+      } else {
+        // If the text domain is missing, add it
+        return `${p2}(${p3}${p4}${p3}, '${textdomain}')`;
+      }
+    });
   };
 
   const processPHPFiles = () => {
@@ -62,6 +66,20 @@ export default function WPEnvProcess({
       ignore: ["includes/lib/**", "vendor/**", "composer/**"],
       absolute: true,
       cwd: srcDir ?? "includes/src",
+    });
+    files.forEach(file => {
+      const filePath = resolve(file);
+      let fileContent = readFileSync(filePath, "utf8");
+      fileContent = replaceNamespace(fileContent, filePath);
+      fileContent = replaceTextdomain(fileContent, env.TEXTDOMAIN);
+      writeFileSync(filePath, fileContent, "utf8");
+    });
+  };
+  const processJSFiles = () => {
+    const files = sync(["**/*.{js,ts,jsx,tsx}"], {
+      ignore: ["includes/lib/**", "vendor/**", "composer/**", "vite/**"],
+      absolute: true,
+      cwd: "src/",
     });
     files.forEach(file => {
       const filePath = resolve(file);
@@ -106,23 +124,6 @@ export default function WPEnvProcess({
     }
   };
 
-  const updateComposer = () => {
-    const composerPath = composerJSON ?? "composer.json";
-    if (existsSync(composerPath)) {
-      const composerContent = JSON.parse(readFileSync(composerPath).toString());
-      const newContent = {
-        ...composerContent,
-        autoload: {
-          "psr-4": {},
-        },
-      };
-      newContent.autoload["psr-4"][`${env.NAMESPACE}\\`] = "includes/src/";
-      writeFileSync(composerPath, JSON.stringify(newContent, null, 4), "utf8");
-    } else {
-      console.log("Composer JSON file not found");
-    }
-  };
-
   const processConstantsFile = () => {
     const filePath = constantsFile ?? resolve("includes/src", "Constants.php");
     if (existsSync(filePath)) {
@@ -145,37 +146,39 @@ export default function WPEnvProcess({
   const runEvents = () => {
     loadEnv(true);
     processConstantsFile();
-    updateComposer();
     processPHPFiles();
+    processJSFiles();
     processMainFile();
   };
 
-  return {
-    name: "sovit:vite-wp-plugin",
-    configResolved(resolvedConfig) {
-      config = resolvedConfig;
-      runEvents();
-    },
-    buildStart() {
-      runEvents();
-    },
+  return [
+    {
+      name: "sovit:vite-wp-plugin",
+      configResolved(resolvedConfig) {
+        config = resolvedConfig;
+        runEvents();
+      },
+      buildStart() {
+        runEvents();
+      },
 
-    configureServer(server) {
-      if (server.config.mode === "development") {
-        watch(envFile ?? ".env", eventType => {
-          if (eventType === "change") {
-            if (!fsTimeout) {
-              console.log(
-                ".env file changed, reloading environment variables...",
-              );
-              fsTimeout = setTimeout(function () {
-                fsTimeout = null;
-                runEvents();
-              }, 5000);
+      configureServer(server) {
+        if (server.config.mode === "development") {
+          watch(envFile ?? ".env", eventType => {
+            if (eventType === "change") {
+              if (!fsTimeout) {
+                console.log(
+                  ".env file changed, reloading environment variables...",
+                );
+                fsTimeout = setTimeout(function () {
+                  fsTimeout = null;
+                  runEvents();
+                }, 5000);
+              }
             }
-          }
-        });
-      }
+          });
+        }
+      },
     },
-  };
+  ];
 }

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
 import { cn } from "@/lib/utils";
+import { AnnouncementItemType } from "@/types/announcement";
 import { __, sprintf } from "@wordpress/i18n";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
@@ -9,17 +10,17 @@ type Props = {
   className?: ClassNameValue;
 };
 export default function Announcements({ className }: Props) {
-  const { data: announcements } = useApiFetch<any>("announcement/latest");
+  const { data: announcements } = useApiFetch<AnnouncementItemType[]>("announcement/latest");
   return (
     <Card className={cn("flex flex-col ", className)}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 border-b">
-        <h3 className="text-lg">{__("Announcements")}</h3>
+        <h3 className="text-lg">{__("Announcements", 'festingervault')}</h3>
         <a
           href="https://meta.festingervault.com/c/announcements/11"
           target="_blank"
           className="border-b border-dashed border-blue-500 text-sm text-blue-500"
         >
-          View All
+          {__("View All", 'festingervault')}
         </a>
       </CardHeader>
       <CardContent>
@@ -41,7 +42,7 @@ export default function Announcements({ className }: Props) {
                 </div>
                 <div className="whitespace-nowrap text-muted-foreground">
                   {sprintf(
-                    __("Updated %s"),
+                    __("Updated %s", 'festingervault'),
                     moment(item.last_posted_at).fromNow(),
                   )}
                 </div>
@@ -50,7 +51,7 @@ export default function Announcements({ className }: Props) {
           </div>
         ) : (
           <div className="text-center text-sm italic text-muted-foreground">
-            No new announcements
+            {__("No new announcements", 'festingervault')}
           </div>
         )}
       </CardContent>

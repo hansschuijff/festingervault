@@ -2,9 +2,8 @@ import generouted from "@generouted/react-router/plugin";
 import Crypto from "crypto";
 import path from "path";
 import { defineConfig } from "vite";
-import viteWpReact from "./vite-plugins/wp-react";
 import { ViteMinifyPlugin } from "vite-plugin-minify";
-
+import viteWpReact from "./src/vite/wp-react";
 function randomString(size = 6) {
   return Crypto.randomBytes(size).toString("hex").slice(0, size);
 }
@@ -16,7 +15,7 @@ export default defineConfig({
     },
   },
   build: {
-		modulePreload: false,
+    modulePreload: false,
     rollupOptions: {
       output: {
         entryFileNames: `assets/[hash].${rand}.js`,
@@ -27,17 +26,10 @@ export default defineConfig({
   },
   plugins: [
     generouted(),
-    viteWpReact(
-      {
-        input: { main: "src/index.tsx" },
-        outDir: "build",
-      },
-      {
-        externalizeWpPackages: true,
-        extractWpDependencies: true,
-        enableReact: true,
-      },
-    ),
+    viteWpReact({
+      input: { main: "src/index.tsx" },
+      outDir: "build",
+    }),
     ViteMinifyPlugin(),
   ],
 });

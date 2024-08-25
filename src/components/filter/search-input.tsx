@@ -28,7 +28,7 @@ export default function Search({ collection }: SearchProps) {
       <Input
         value={text}
         className={cn("h-9 w-[300px] pr-7 transition-[width]")}
-        placeholder={__("Search Title")}
+        placeholder={__("Search Title", 'festingervault')}
         onChange={e => {
           setText(e.target.value);
           setInputChanged(true);

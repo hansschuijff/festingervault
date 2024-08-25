@@ -1,12 +1,13 @@
 <?php
 
 namespace FestingerVault;
+use WP_Error;
 
 class Helper {
     /**
      * @param string $path
      * @param array $data
-     * @return mixed
+     * @return array|WP_Error
      */
     public static function engine_post(string $path, $data = [], $cache = false) {
         $data = array_merge($data, [
@@ -35,7 +36,7 @@ class Helper {
     }
 
     /**
-     * @return mixed
+     * @return array|WP_Error
      */
     public static function get_item_updates() {
         $installed_themes  = Helper::installed_themes();
@@ -74,7 +75,7 @@ class Helper {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public static function get_site_information() {
         global $wpdb;
@@ -104,7 +105,7 @@ class Helper {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public static function installed_plugins() {
         if (!function_exists("get_plugins")) {
@@ -125,7 +126,7 @@ class Helper {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public static function installed_themes() {
         if (!function_exists("wp_get_themes")) {
@@ -145,7 +146,8 @@ class Helper {
     }
 
     /**
-     * @param $path
+     * @param string $path
+	 * @return string
      */
     public static function slug_from_path($path = "") {
         $parts = explode("/", $path);

@@ -3,6 +3,9 @@ import { InputOption } from "rollup";
 import { Plugin, PluginOption } from "vite";
 import { devServer, externalizeWpPackages } from "./plugins/index.js";
 import WPEnvProcess from "./plugins/wp.js";
+import { reactMakePot } from "./plugins/make-pot.js";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env" });
 
 export type ViteWpReactOptions = {
   /**
@@ -47,7 +50,20 @@ export function viteWpReact({
       };
     },
   };
-  return [mainPlugin, devServer(), externalizeWpPackages(), viteReact({ jsxRuntime: "automatic" }),WPEnvProcess()];
+  return [
+    mainPlugin,
+    devServer(),
+    externalizeWpPackages(),
+    viteReact({
+      jsxRuntime: "automatic",
+      babel: {
+        plugins: [["@wordpress/babel-plugin-makepot", {
+					output:`languages/${process.env.SLUG}.pot`
+				}]],
+      },
+    }),
+    WPEnvProcess()
+  ];
 }
 
 export default viteWpReact;

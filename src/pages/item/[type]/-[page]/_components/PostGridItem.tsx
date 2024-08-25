@@ -38,8 +38,6 @@ type Props = {
 };
 export default function PostGridItem({ item }: Props) {
   const navigate = useNavigate();
-  const { isInstalled } = useInstall(item);
-
   return (
     <Card className="group/item flex flex-col justify-between transition-all duration-300">
       <div>

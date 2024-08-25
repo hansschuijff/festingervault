@@ -7,7 +7,7 @@ import {
 import useInstalled from "@/hooks/use-is-installed";
 import { cn } from "@/lib/utils";
 import { Link } from "@/router";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
 
@@ -19,7 +19,7 @@ export default function AvailableUpdates({ className }: Props) {
   return (
     <Card className={cn("flex flex-col justify-between", className)}>
       <CardHeader className="border-b">
-        <h3 className="text-lg">{__("Item Updates")}</h3>
+        <h3 className="text-lg">{__("Item Updates", 'festingervault')}</h3>
       </CardHeader>
       <CardContent className="px-0">
         {updateable && updateable?.length > 0 ? (
@@ -42,10 +42,10 @@ export default function AvailableUpdates({ className }: Props) {
                 </div>
                 <div className="flex flex-row justify-between gap-4">
                   <div className="text-muted-foreground">
-                    Available: {item.version}
+                    {sprintf(__("Available: %d", 'festingervault'),item.version)}
                   </div>
                   <div className="text-muted-foreground">
-                    Installed: {item.installed_version}
+									{sprintf(__("Installed: %d", 'festingervault'),item.installed_version)}
                   </div>
                   <div className="text-muted-foreground">
                     {moment.unix(item.updated).fromNow()}
@@ -56,7 +56,7 @@ export default function AvailableUpdates({ className }: Props) {
           </div>
         ) : (
           <div className="text-center text-sm italic text-muted-foreground">
-            No Update Found
+            {__("No Update Found", 'festingervault')}
           </div>
         )}
       </CardContent>
@@ -65,7 +65,7 @@ export default function AvailableUpdates({ className }: Props) {
           to="/updates"
           className="border-b border-dashed border-blue-500 text-blue-500 text-sm"
         >
-          View All Updates
+          {__("View All Updates", 'festingervault')}
         </Link>
       </CardFooter>
     </Card>

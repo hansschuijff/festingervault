@@ -44,7 +44,7 @@ export default function AdditionalDownloadButton({
   const { clearCache } = useInstalled();
   function download() {
     if (typeof activation?.plan_type == "undefined") {
-      toast.error(__("License not activated"));
+      toast.error(__("License not activated", 'festingervault'));
       navigate("/activation");
       return;
     }
@@ -60,7 +60,7 @@ export default function AdditionalDownloadButton({
           if (data.link) {
             window.open(data.link, "_blank");
           }
-          return __("Successful");
+          return __("Successful", 'festingervault');
         },
         error(err) {
           return err.message;
@@ -135,12 +135,12 @@ export default function AdditionalDownloadButton({
               <DrawerClose asChild>
                 <Button onClick={() => download()} className="gap-2">
                   <Download size={16} />
-                  <span>{__("Download")}</span>
+                  <span>{__("Download", 'festingervault')}</span>
                 </Button>
               </DrawerClose>
 
               <DrawerClose asChild>
-                <Button variant="outline">{__("Cancel")}</Button>
+                <Button variant="outline">{__("Cancel", 'festingervault')}</Button>
               </DrawerClose>
             </div>
           </DrawerFooter>

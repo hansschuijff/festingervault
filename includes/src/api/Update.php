@@ -52,7 +52,7 @@ class Update extends ApiBase {
 
         update_option(Constants::SETTING_KEY, $setting);
         return [
-            "message" => __("Success", "festingervault"),
+            "message" => __("Success", 'festingervault'),
         ];
 
     }

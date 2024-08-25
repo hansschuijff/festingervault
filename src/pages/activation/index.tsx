@@ -10,14 +10,14 @@ export default function Component() {
 
   return (
     <AppPageShell
-      title={__("License Activation")}
+      title={__("License Activation", 'festingervault')}
       isLoading={isLoading}
       isFetching={isFetching}
       breadcrump={[
         {
           label: data?.activation_key
-            ? __("Activation Detail")
-            : __("Activate License"),
+            ? __("Activation Detail", 'festingervault')
+            : __("Activate License", 'festingervault'),
         },
       ]}
     >

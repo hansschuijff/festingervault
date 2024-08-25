@@ -14,6 +14,12 @@ type VirusTotal = {
   stats: Record<string, number>;
   updated: number;
 };
+type TTerm={
+	id:number;
+	name:string;
+	slug:string;
+	taxonomy:string;
+}
 export type PostItemType<Ex = never> = {
   id: string;
   title: string;
@@ -23,6 +29,7 @@ export type PostItemType<Ex = never> = {
   type: Exclude<z.infer<typeof ItemTypeEnum>, Ex>;
   author: string;
   category: string;
+	terms:TTerm[],
   updated: number;
   created: number;
   version: string;

@@ -13,7 +13,7 @@ abstract class ApiBase {
 
     }
 
-    function rest_api_init() {
+    final function rest_api_init() {
         $route_ns = Constants::API_SLUG . "/v1/" . $this->prefix();
         foreach ($this->endpoints() as $route => $args) {
             register_rest_route(
@@ -23,17 +23,17 @@ abstract class ApiBase {
                     'methods'             => "POST",
                     'permission_callback' => "__return_true",
 
-                ], $args,[
-					"callback"=>function(\WP_REST_Request $request) use($args){
-						$response=$args["callback"]($request);
-						$code=200;
-						if(is_wp_error($response)){
-							$code=400;
-							$response=["error"=>true,"message"=>$response->get_error_message()];
-						}
-						return new \WP_REST_Response($response, $code);
-					}
-				])
+                ], $args, [
+                    "callback" => function (\WP_REST_Request $request) use ($args) {
+                        $response = $args["callback"]($request);
+                        $code     = 200;
+                        if (is_wp_error($response)) {
+                            $code     = 400;
+                            $response = ["error" => true, "message" => $response->get_error_message()];
+                        }
+                        return new \WP_REST_Response($response, $code);
+                    },
+                ])
             );
         }
     }

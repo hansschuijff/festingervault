@@ -8,11 +8,16 @@ import useApiFetch from "@/hooks/useApiFetch";
 import { cn } from "@/lib/utils";
 import Paging from "@/pages/_components/Paging";
 import PostGridItem, {
-	PostGridItemSkeleton,
+  PostGridItemSkeleton,
 } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
-import { ItemTypeEnum, PostItemCollectionResponse } from "@/types/item";
+import {
+  ItemTypeEnum,
+  PostItemCollectionResponse,
+  PostItemType,
+} from "@/types/item";
 import catsToKeyValuePairs from "@/utils/catsToKeyValuePairs";
+import { decodeEntities } from "@wordpress/html-entities";
 import { __, sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
 import { useEffect, useMemo } from "react";
@@ -63,58 +68,113 @@ export default function Component() {
   const type = item_types[params.type].slug;
   const page = params.page || 1;
   const {
-    data: categories,
+    data: terms,
     isLoading: categoriesIsLoading,
     isFetching: isFetchingCategories,
-  } = useApiFetch<Record<string,string>>("item/categories", {
+  } = useApiFetch<PostItemType["terms"]>("item/terms", {
     type,
   });
   const filters = useMemo<ReturnType<typeof useCollection>["options"]>(
-    () => [
-      {
-        id: "level",
-        label: __("Access"),
-        isMulti: true,
-        options: [
-          {
-            label: "Bronze",
-            value: "bronze",
-          },
-          {
-            label: "Silver",
-            value: "silver",
-          },
-          {
-            label: "Gold",
-            value: "gold",
-          },
-        ],
-      },
-      {
-        id: "add_content",
-        label: "Additional Content",
-        isMulti: false,
-        enabled: params.type != "elementor-template-kits",
-        options: [
-          {
-            label: "Yes",
-            value: "yes",
-          },
-          {
-            label: "No",
-            value: "no",
-          },
-        ],
-      },
-      {
-        id: "category",
-        label: "Category",
-        enabled: params.type != "elementor-template-kits",
-        isMulti: true,
-        options: categories ? catsToKeyValuePairs(categories) : [],
-      },
-    ],
-    [categories, categoriesIsLoading, catsToKeyValuePairs, params],
+    () =>
+      terms
+        ? [
+            {
+              id: "category",
+              label: "Category",
+              enabled: params.type != "elementor-template-kits",
+              onBarView: true,
+              isMulti: true,
+              options: terms
+                ?.filter(i => i.taxonomy === "category")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "tag",
+              label: "Tag",
+              isMulti: true,
+              options: terms
+                ?.filter(i => i.taxonomy === "post_tag")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "widget-ready",
+              label: "Widget Ready",
+              enabled: params.type != "elementor-template-kits",
+              isMulti: false,
+              options: terms
+                ?.filter(i => i.taxonomy === "widget-ready")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "compatible-with",
+              label: "Compatible With",
+              isMulti: false,
+              options: terms
+                ?.filter(i => i.taxonomy === "compatible-with")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "files-included",
+              label: "Files Included",
+              enabled: params.type != "elementor-template-kits",
+              isMulti: false,
+              options: terms
+                ?.filter(i => i.taxonomy === "files-included")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "software-version",
+              label: "Software Versions",
+              isMulti: false,
+              options: terms
+                ?.filter(i => i.taxonomy === "software-version")
+                .sort((a, b) => a.slug.localeCompare(b.slug))
+                .map(i => ({ label: decodeEntities(i.name), value: i.slug })),
+            },
+            {
+              id: "level",
+              label: __("Access", "festingervault"),
+              isMulti: true,
+              onBarView: true,
+              options: [
+                {
+                  label: "Bronze",
+                  value: "bronze",
+                },
+                {
+                  label: "Silver",
+                  value: "silver",
+                },
+                {
+                  label: "Gold",
+                  value: "gold",
+                },
+              ],
+            },
+            {
+              id: "add_content",
+              label: "Additional Content",
+              isMulti: false,
+              enabled: params.type != "elementor-template-kits",
+              options: [
+                {
+                  label: "Yes",
+                  value: "yes",
+                },
+                {
+                  label: "No",
+                  value: "no",
+                },
+              ],
+            },
+          ]
+        : [],
+    [terms, categoriesIsLoading, catsToKeyValuePairs, params],
   );
   const collection = useCollection({
     options: filters,
@@ -128,7 +188,7 @@ export default function Component() {
       filter: collection.items,
       sort: collection.sorting,
       keyword: collection.search?.keyword,
-			per_page:Number(collection.pagination?.per_page),
+      per_page: Number(collection.pagination?.per_page),
     });
   useEffect(() => {
     window.scrollTo({
@@ -153,7 +213,10 @@ export default function Component() {
           href: `/item/${type}`,
         },
         {
-          label: sprintf(__("Page %d"), params.page.toLocaleString()),
+          label: sprintf(
+            __("Page %d", "festingervault"),
+            params.page.toLocaleString(),
+          ),
         },
       ]}
     >
@@ -165,9 +228,7 @@ export default function Component() {
             className={cn(["grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-7"])}
           >
             {data.data.length > 0 ? (
-              data.data.map(item => (
-                <PostGridItem key={item.id} item={item} />
-              ))
+              data.data.map(item => <PostGridItem key={item.id} item={item} />)
             ) : (
               <NoSearchResultFound />
             )}

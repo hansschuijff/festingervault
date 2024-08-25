@@ -6,6 +6,8 @@ import CountUp from "react-countup";
 import ChangelogPreview from "./changelog-preview";
 import ItemDetail from "./item-detail";
 import VirusTotalScan from "./item-virus-total";
+import ItemTerms from "./item-terms";
+import { __ } from "@wordpress/i18n";
 
 type Props = {
   item: PostItemType;
@@ -25,7 +27,7 @@ export default function ItemSidebar({ item }: Props) {
                 formattingFn={num => millify(num)}
               />
             </div>
-            <div className="text-sm text-muted-foreground">Downloads</div>
+            <div className="text-sm text-muted-foreground">{__("Downloads", 'festingervault')}</div>
           </div>
           <div className="p-2">
             <div className="text-2xl">
@@ -36,7 +38,7 @@ export default function ItemSidebar({ item }: Props) {
                 formattingFn={num => millify(num)}
               />
             </div>
-            <div className="text-sm text-muted-foreground">Installs</div>
+            <div className="text-sm text-muted-foreground">{__("Installs", 'festingervault')}</div>
           </div>
         </CardContent>
       </Card>
@@ -45,6 +47,26 @@ export default function ItemSidebar({ item }: Props) {
       {item.media_count > 0 && params.tab != "changelog" && (
         <ChangelogPreview item={item} />
       )}
+      <ItemTerms
+        title={__("Tags", 'festingervault')}
+        terms={item.terms.filter(i => i.taxonomy === "post_tag")}
+      />
+      <ItemTerms
+        title={__("Browsers", 'festingervault')}
+        terms={item.terms.filter(i => i.taxonomy === "compatible-browser")}
+      />
+      <ItemTerms
+        title={__("Compatible With", 'festingervault')}
+        terms={item.terms.filter(i => i.taxonomy === "compatible-with")}
+      />
+      <ItemTerms
+        title={__("Included Files", 'festingervault')}
+        terms={item.terms.filter(i => i.taxonomy === "files-included")}
+      />
+      <ItemTerms
+        title={__("Software Versions", 'festingervault')}
+        terms={item.terms.filter(i => i.taxonomy === "software-version")}
+      />
     </div>
   );
 }

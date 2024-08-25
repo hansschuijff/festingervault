@@ -4,8 +4,10 @@ import path from "path";
 import moment from "moment";
 import MarkdownIt from "markdown-it";
 import AdmZip from "adm-zip";
+import { config } from "dotenv";
 
-const packageContent = JSON.parse(fs.readFileSync("./package.json"));
+config();
+
 const zip = new AdmZip();
 
 const patterns = [
@@ -14,7 +16,7 @@ const patterns = [
   "includes/**",
   "languages/**",
   "public/**",
-  `${packageContent.name}.php`,
+  `${process.env.SLUG}.php`,
   "uninstall.php",
   "block.json",
   "changelog.*",
@@ -35,30 +37,30 @@ patterns.forEach(pattern => {
     fs.copySync(file, destPath);
   });
 });
-zip.addLocalFolder("./deploy", packageContent.name);
+zip.addLocalFolder("./deploy", process.env.SLUG);
 fs.ensureDirSync("./dist");
-zip.writeZip(`./dist/${packageContent.name}.zip`);
+zip.writeZip(`./dist/${process.env.SLUG}.zip`);
 (async () => {
   const markdown = MarkdownIt({
     html: true,
   });
   const data = {
-    name: packageContent.wp.name,
-    slug: packageContent.name,
-    version: packageContent.version,
-    author: packageContent.wp?.author?.name,
-    author_profile: packageContent.wp?.author?.uri,
-    requires: packageContent.wp.minWP,
-    tested: packageContent.wp.testedWP,
-    requires_php: packageContent.wp.minPHP,
-    requires_plugins: [],
+    name: process.env.NAME,
+    slug: process.env.SLUG,
+    version: process.env.VERSION,
+    author: process.env.AUTHOR_NAME,
+    author_profile: process.env.AUTHOR_URL,
+    requires: process.env.MIN_WP,
+    tested: process.env.TESTED_WP,
+    requires_php: process.env.MIN_PHP,
+    requires_plugins: process.env.REQUIRES_PLUGINS.split(",").map(i=>i.trim()),
     compatibility: [],
     last_updated: moment().utc().format(),
     added: moment().utc().format(),
-    homepage: packageContent.wp.uri,
+    homepage:process.env.URI,
     sections: {
-      description: packageContent.wp?.description,
-      installation:  markdown.render(fs.readFileSync("./INSTALL.md", "utf8")),
+      description: process.env.DESCRIPTION,
+      installation: markdown.render(fs.readFileSync("./INSTALL.md", "utf8")),
       changelog: markdown.render(fs.readFileSync("./CHANGELOG.md", "utf8")),
     },
     banners: {

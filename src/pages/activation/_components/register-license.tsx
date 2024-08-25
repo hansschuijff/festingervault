@@ -43,13 +43,13 @@ export default function RegisterLicenseForm() {
   async function onSubmit(data: LicenseActivationSchema) {
     try {
       await mutateAsync(data);
-      toast.success(__("License Activated Successfully"));
+      toast.success(__("License Activated Successfully", 'festingervault'));
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["license/detail"] });
     } catch (error) {
       toast.error(
         (error as { message?: string })?.message ??
-          __("Error Activating License"),
+          __("Error Activating License", 'festingervault'),
       );
       form.reset();
     }
@@ -59,7 +59,7 @@ export default function RegisterLicenseForm() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card>
           <CardHeader>
-            <CardTitle>{__("Activate License")}</CardTitle>
+            <CardTitle>{__("Activate License", 'festingervault')}</CardTitle>
           </CardHeader>
           <CardContent>
             <FormField
@@ -69,7 +69,7 @@ export default function RegisterLicenseForm() {
                 <FormItem>
                   <FormControl>
                     <Input
-                      placeholder={__("Enter License Key")}
+                      placeholder={__("Enter License Key", 'festingervault')}
                       disabled={isPending}
                       {...field}
                     />
@@ -86,7 +86,7 @@ export default function RegisterLicenseForm() {
               disabled={isPending}
               className="gap-2"
             >
-              <span>{__("Activate License")}</span>
+              <span>{__("Activate License", 'festingervault')}</span>
               {isPending ? <Loader className="h-4 w-4 animate-spin" /> : null}
             </Button>
           </CardFooter>

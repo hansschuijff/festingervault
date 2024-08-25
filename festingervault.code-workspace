@@ -2,10 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"name": "festinger-client",
-			"path": "../../.."
 		}
 	],
 	"settings": {

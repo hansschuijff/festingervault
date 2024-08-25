@@ -22,7 +22,9 @@ type FilterOption = {
   values?: string[];
   options: Option[];
   isMulti?: boolean;
+	onBarView?:boolean;
   enabled?: boolean;
+
 };
 // Create schemas dynamically
 const createFilterSchema = (options: FilterOption[]) => {
@@ -51,7 +53,14 @@ const createSortSchema = (sort_items: SortItem[]) => {
     order: z.enum(["asc", "desc"]).default("desc"),
   });
 };
-
+function removeEmptyParams(params: Record<string, any>) {
+  return Object.entries(params).reduce(function (acc, [key, val]) {
+    if (val.length > 0) {
+      acc[key] = val;
+    }
+    return acc;
+  }, {});
+}
 const paginationSchema = z.object({
   per_page: z.enum(["30", "60", "90"]).default("30"),
 });
@@ -121,8 +130,10 @@ export default function useCollection({
   // Update URL with new filter and sorting parameters
 
   function setFilter(key: string, values: string[]) {
-    const newItems = { ...initialState.items, [key]: values.sort() };
-    console.log(newItems);
+    const newItems = removeEmptyParams({
+      ...initialState.items,
+      [key]: values.length > 0 && values.sort(),
+    });
     resetPage();
     setSearchParams({
       ...initialState.search,
@@ -133,7 +144,10 @@ export default function useCollection({
   }
 
   function setSort(key: string, order: "asc" | "desc") {
-    const newSorting = { order_by: key ?? null, order: order ?? "asc" };
+    const newSorting = removeEmptyParams({
+      order_by: key ?? null,
+      order: order ?? "asc",
+    });
     setSearchParams({
       ...initialState.search,
       ...serializeQuery(initialState.items),

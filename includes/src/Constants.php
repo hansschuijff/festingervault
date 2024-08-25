@@ -2,26 +2,35 @@
 
 namespace FestingerVault;
 
-class Constants
-{
-	const ACTION_KEY = "festingervault";
+class Constants {
+    const ACTION_KEY = "festingervault";
 
-	const ACTIVATION_KEY = "vault_activation_key";
+    const ACTIVATION_KEY = "vault_activation_key";
 
-	const API_SLUG = "festingervault";
+    const ADMIN_MENU_TITLE = "FestingerVault";
 
-	const DEFAULT_SETTINGS = [
-		"autoupdate" => [
-			"wordpress-themes"  => [],
-			"wordpress-plugins" => [],
-		],
-	];
+    const ADMIN_PAGE_ID = "festingervault";
 
-	const ENGINE_URL = "https://engine.sovit.top";
+    const ADMIN_PAGE_TITLE = "FestingerVault";
 
-	const SETTING_KEY = "vault_settings";
+    const API_SLUG = "festingervault";
 
-	const TYPES = ["theme", "plugin", "kits", "wishlist"];
-	const PLUGIN_INFO_URL="https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/info.json";
-	const PLUGIN_DOWNLOAD_URL="https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/festingervault.zip";
+    const DEFAULT_SETTINGS = [
+        "autoupdate" => [
+            "wordpress-themes"  => [],
+            "wordpress-plugins" => [],
+        ],
+    ];
+
+    const ENGINE_URL = "https://engine.sovit.top";
+
+    const PLUGIN_DOWNLOAD_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/festingervault.zip";
+
+    const PLUGIN_INFO_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/info.json";
+
+    const SETTING_KEY = "vault_settings";
+
+    const TEXTDOMAIN = "festingervault";
+
+    const TYPES = ["theme", "plugin", "kits", "wishlist"];
 }

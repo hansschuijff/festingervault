@@ -28,7 +28,7 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
           >
             {external ? (
               <a href={external} target="_blank">
-                {__("Support")}
+                {__("Support", 'festingervault')}
               </a>
             ) : (
               <Link
@@ -54,7 +54,7 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
             size="default"
           >
             <a href={item.preview} target="_blank" referrerPolicy="no-referrer">
-              <span>{__("Live Preview")}</span>
+              <span>{__("Live Preview", 'festingervault')}</span>
               <ExternalLink size={16} />
             </a>
           </Button>

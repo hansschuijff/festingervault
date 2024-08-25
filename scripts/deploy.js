@@ -1,15 +1,15 @@
-import {sync as syncGlob} from "glob";
+import { config } from "dotenv";
 import fs from "fs-extra";
+import { sync } from "glob";
 import path from "path";
-const packageContent = JSON.parse( fs.readFileSync( './package.json' ) );
-
+config();
 const patterns = [
   "admin/**",
   "build/**",
   "includes/**",
   "languages/**",
   "public/**",
-  `${packageContent.name}.php`,
+  `${process.env.SLUG}.php`,
   "uninstall.php",
   "block.json",
   "changelog.*",
@@ -25,7 +25,7 @@ fs.ensureDirSync(destination);
 
 // Function to copy matched files to the destination
 patterns.forEach(pattern => {
-  const files = syncGlob(pattern, { caseSensitiveMatch: false });
+  const files = sync(pattern, { caseSensitiveMatch: false });
   files.forEach(file => {
     const destPath = path.join(destination, file);
     fs.ensureDirSync(path.dirname(destPath)); // Ensure the destination directory exists

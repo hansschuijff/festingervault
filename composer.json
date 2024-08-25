@@ -16,8 +16,5 @@
             "email": "sovit.tamrakar@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
-    "require": {
-        "woocommerce/action-scheduler": "^3.8"
-    }
+    "minimum-stability": "stable"
 }

@@ -15,6 +15,7 @@ import ItemDemoContents from "./_components/item-demo-contents";
 import ItemDescription from "./_components/item-description";
 import ItemDocumentation from "./_components/item-documentation";
 import ItemSidebar from "./_components/item-sidebar";
+import { __, sprintf } from "@wordpress/i18n";
 type TabRecordType = {
   id: string;
   label: string;
@@ -38,30 +39,30 @@ export default function Component() {
     return [
       {
         id: "description",
-        label: "Description",
+        label: __("Description", 'festingervault'),
         el: () => <ItemDescription item={data} />,
       },
       {
         id: "changelog",
-        label: "Changelog",
+        label: __("Changelog", 'festingervault'),
         el: () => <ItemChangeLog item={data} />,
         enabled: data.media_count > 0,
       },
       {
         id: "demo-contents",
-        label: `Demo Contents [${data.additional_content_count}]`,
+        label: sprintf(__("Demo Contents [%d]", 'festingervault'),data.additional_content_count),
         el: () => <ItemDemoContents item={data} />,
         enabled: data.additional_content_count > 0,
       },
       {
         id: "documentation",
-        label: "Documentation",
+        label: __("Documentation", 'festingervault'),
         el: () => <ItemDocumentation item={data} />,
         enabled: false,
       },
       {
         id: "support",
-        label: "Support",
+        label: __("Support", 'festingervault'),
         external: data.support_url, // TODO: add forum support to engine
         enabled: data?.support_url?.length > 0,
       },
@@ -69,7 +70,7 @@ export default function Component() {
   }, [data]);
   return (
     <AppPageShell
-      title={data?.title ?? "Item Detail"}
+      title={data?.title ?? __("Item Detail", 'festingervault')}
       description=""
       preloader={<ItemDetailHeaderSkeleton />}
       breadcrump={[

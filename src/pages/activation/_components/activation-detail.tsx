@@ -55,12 +55,12 @@ export default function ActivationDetailItem({  detail }: Props) {
   async function onSubmit() {
     try {
       await mutateAsync({});
-      toast.success(__("License Deactivated Successfully"));
+      toast.success(__("License Deactivated Successfully", 'festingervault'));
       queryClient.invalidateQueries({ queryKey: ["license/detail"] });
     } catch (error) {
       toast.error(
         (error as { message?: string })?.message ??
-          __("Error Deactivating License"),
+          __("Error Deactivating License", 'festingervault'),
       );
     }
   }
@@ -75,7 +75,7 @@ export default function ActivationDetailItem({  detail }: Props) {
       <CardContent className="space-y-2">
         <div className="text-xl font-bold">{detail.plan_title}</div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
-          <span>{__("Expires:")}</span>
+          <span>{__("Expires:", 'festingervault')}</span>
           <span>
             {detail.expires > 0
               ? moment.unix(detail.expires).fromNow()
@@ -83,11 +83,11 @@ export default function ActivationDetailItem({  detail }: Props) {
           </span>
         </div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
-          <span>{__("Status:")}</span>
+          <span>{__("Status:", 'festingervault')}</span>
           <span>{detail.status}</span>
         </div>
         <div className="flex flex-row gap-1 text-xs text-muted-foreground">
-          <span>{__("Install ID:")}</span>
+          <span>{__("Install ID:", 'festingervault')}</span>
           <span>{detail.activation_key}</span>
         </div>
       </CardContent>
@@ -100,7 +100,7 @@ export default function ActivationDetailItem({  detail }: Props) {
               disabled={isPending}
               className="flex-rowgap-2 flex"
             >
-              {__("Deactivate")}
+              {__("Deactivate", 'festingervault')}
               {isPending ? <Loader className="h-4 w-4 animate-spin" /> : null}
             </Button>
           </DrawerTrigger>
@@ -108,10 +108,10 @@ export default function ActivationDetailItem({  detail }: Props) {
             <div className="mx-auto w-full max-w-sm">
               <DrawerHeader className="text-center">
                 <DrawerTitle className="text-center">
-                  {__("Are you absolutely sure?")}
+                  {__("Are you absolutely sure?", 'festingervault')}
                 </DrawerTitle>
                 <DrawerDescription className="text-center">
-                  {__("Do you want to deactivate license activation")}
+                  {__("Do you want to deactivate license activation", 'festingervault')}
                 </DrawerDescription>
               </DrawerHeader>
               <DrawerFooter>
@@ -122,13 +122,13 @@ export default function ActivationDetailItem({  detail }: Props) {
                     disabled={isPending}
                     className="flex flex-row gap-2"
                   >
-                    {__("Deactivate")}
+                    {__("Deactivate", 'festingervault')}
                     {isPending ? (
                       <Loader className="h-4 w-4 animate-spin" />
                     ) : null}
                   </Button>
                   <DrawerClose asChild>
-                    <Button variant="outline">{__("Cancel")}</Button>
+                    <Button variant="outline">{__("Cancel", 'festingervault')}</Button>
                   </DrawerClose>
                 </div>
               </DrawerFooter>

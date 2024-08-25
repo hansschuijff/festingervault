@@ -4,65 +4,38 @@ namespace FestingerVault;
 
 class Upgrade {
     /**
-     * @var mixed
+     * @var boolean
      */
     public $cache_allowed;
 
     /**
-     * @var mixed
+     * @var string
      */
     public $cache_key;
 
     /**
-     * @var mixed
+     * @var string
      */
     public $plugin_slug;
 
     /**
-     * @var mixed
+     * @var string
      */
     public $version;
 
     /**
-     * @var mixed
+     * @var string
      */
     private static $file;
 
     /**
-     * @var mixed
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
-     */
-    /**
-     * @param $file
+     * @var static|null
      */
     private static $instance = null;
 
+    /**
+     * @param $file
+     */
     function __construct($file) {
         if (defined('WP_DEBUG') && WP_DEBUG === true) {
             add_filter('https_ssl_verify', '__return_false');
@@ -83,7 +56,7 @@ class Upgrade {
     }
 
     /**
-     * @param $file
+     * @param static|null
      */
     public static function get_instance($file) {
         if (is_null(self::$instance)) {
@@ -96,7 +69,7 @@ class Upgrade {
      * @param $response
      * @param $action
      * @param $args
-     * @return mixed
+     * @return boolean|stdClass
      */
     function info($response, $action, $args) {
         if (
@@ -114,7 +87,7 @@ class Upgrade {
     }
 
     /**
-     * @return mixed
+     * @return boolean|stdClass
      */
 
     public function request() {
@@ -172,7 +145,7 @@ class Upgrade {
 
     /**
      * @param $transient
-     * @return mixed
+     * @return stdClass
      */
     public function update($transient) {
 

@@ -139,3 +139,12 @@
     --chart-5: 340 75% 55%;
   }
 }
+.item-description{
+	@apply space-y-4;
+	h2{
+		@apply text-xl;
+	}
+	h3{
+		@apply text-lg;
+	}
+}

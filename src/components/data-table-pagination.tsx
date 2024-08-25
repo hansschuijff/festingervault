@@ -28,12 +28,12 @@ export function DataTablePagination<TData>({
     return (
         <div className="flex w-full flex-col items-center justify-between gap-4 overflow-auto px-2 py-1 sm:flex-row sm:gap-8">
             <p className="flex-1 text-sm text-muted-foreground">
-				{sprintf(_n("%s result found","%s results found",table.getRowCount()),table.getRowCount())}
+				{sprintf(__("%d result(s) found", 'festingervault'),table.getRowCount())}
             </p>
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
                 <div className="flex items-center space-x-2">
                     <p className="whitespace-nowrap text-sm font-medium">
-                        {__("Items per page")}
+                        {__("Items per page", 'festingervault')}
                     </p>
                     <Select
                         value={`${table.getState().pagination.pageSize}`}
@@ -61,7 +61,7 @@ export function DataTablePagination<TData>({
                     </Select>
                 </div>
                 <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-					{sprintf(__("Page %s of %s"),table.getState().pagination.pageIndex + 1,table.getPageCount())}
+					{sprintf(__("Page %d of %d", 'festingervault'),table.getState().pagination.pageIndex + 1,table.getPageCount())}
 
                 </div>
                 <div className="flex items-center space-x-2">
