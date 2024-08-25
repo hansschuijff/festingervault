@@ -71,7 +71,7 @@ class Admin {
         $assets->enqueue("src/index.tsx", [
             "handle" => "vault-main",
         ]);
-        wp_set_script_translations('vault-main', Constants::TEXTDOMAIN);
+        wp_set_script_translations('vault-main', Constants::TEXTDOMAIN,Plugin::p_dir("languages"));
         wp_localize_script("vault-main", "vault", [
             "logo" => Plugin::p_url("public/assets/logo-%s.png"),
         ]);

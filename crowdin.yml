@@ -4,4 +4,4 @@
 "base_path": "languages"
 "files":
   - source: "**/*.pot"
-    translation: "%original_file_name%-%locale_with_underscore%"
+    translation: "%file_name%-%locale_with_underscore%.po"

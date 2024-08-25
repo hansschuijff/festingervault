@@ -26,6 +26,10 @@ jobs:
         uses: crowdin/github-action@v2
         with:
           upload_sources: true
+          upload_translations: false
+          download_translations: true
+          push_translations: true
+          localization_branch_name: translation
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}

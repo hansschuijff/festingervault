@@ -23,6 +23,7 @@ export const reactMakePot = (
 ): PluginOption => {
 	const plugins = viteReact(getMakePotReactConfig(options));
 
+
 	for (const plugin of plugins) {
 		if (
 			plugin &&

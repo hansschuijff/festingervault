@@ -1,10 +1,10 @@
 import viteReact from "@vitejs/plugin-react";
+import dotenv from "dotenv";
 import { InputOption } from "rollup";
 import { Plugin, PluginOption } from "vite";
 import { devServer, externalizeWpPackages } from "./plugins/index.js";
 import WPEnvProcess from "./plugins/wp.js";
-import { reactMakePot } from "./plugins/make-pot.js";
-import dotenv from "dotenv";
+import { copyFileSync, mkdirSync } from "fs";
 dotenv.config({ path: ".env" });
 
 export type ViteWpReactOptions = {
@@ -24,15 +24,16 @@ export type ViteWpReactOptions = {
    * The directory to write assets to.
    */
   assetsDir?: string;
-	constants?:string[];
+  constants?: string[];
 };
 
 export function viteWpReact({
   input = "js/main.js",
   outDir = "build",
   assetsDir,
-	constants,
+  constants,
 }: ViteWpReactOptions = {}): PluginOption {
+  mkdirSync("languages", { recursive: true });
   const mainPlugin: Plugin = {
     name: "vwpr:config",
     enforce: "post",
@@ -59,12 +60,17 @@ export function viteWpReact({
     viteReact({
       jsxRuntime: "automatic",
       babel: {
-        plugins: [["@wordpress/babel-plugin-makepot", {
-					output:`languages/${process.env.TEXTDOMAIN}.pot`
-				}]],
+        plugins: [
+          [
+            "@wordpress/babel-plugin-makepot",
+            {
+              output: `languages/${process.env.TEXTDOMAIN}.pot`,
+            },
+          ],
+        ],
       },
     }),
-    WPEnvProcess({constants})
+    WPEnvProcess({ constants }),
   ];
 }
 
