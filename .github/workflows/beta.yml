@@ -32,7 +32,6 @@ jobs:
           download_translations: true
           create_pull_request: false
           push_translations: false
-          skip_untranslated_files: true
           skip_untranslated_strings: true
 
         env:
