@@ -22,7 +22,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
       - name: Build Scripts
         run: npm run build
-      - name: Copy crowdin file
+      - name: Setup Crowdin file
         run: cp crowdin.github.yml crowdin.yml
       - name: Upload translations to Crowdin
         uses: crowdin/github-action@v2
@@ -36,7 +36,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
-      - name: Build Release
+      - name: Make JSON from PO Files
+        run: npm run make-json
+      - name: Build Trunk
         run: npm run dist
       - name: Release Trunk
         uses: s0/git-publish-subdir-action@develop

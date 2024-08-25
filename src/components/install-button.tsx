@@ -157,9 +157,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                 </div>
                 <div>
                   {sprintf(
-                    __(
-                      "%d download credit would be consumed from your account.",
-                    ),
+                    __("%d download credit would be consumed from your account.", 'festingervault'),
                     1,
                   )}
                 </div>
