@@ -3,31 +3,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/additional-download-button.tsx:111
-#: src/components/install-button.tsx:156
-msgid "%d download credit would be consumed from your account."
-msgstr ""
-
-#: src/components/additional-download-button.tsx:138
-#: src/components/install-button.tsx:207
-msgid "Download"
-msgstr ""
-
-#: src/components/additional-download-button.tsx:143
-#: src/components/install-button.tsx:231
-msgid "Cancel"
-msgstr ""
-
-#: src/components/additional-download-button.tsx:47
-#: src/components/install-button.tsx:51
-msgid "License not activated"
-msgstr ""
-
-#: src/components/additional-download-button.tsx:63
-#: src/components/install-button.tsx:78
-msgid "Successful"
-msgstr ""
-
 #: src/components/filter/collection-bar.tsx:56
 msgid "Filters"
 msgstr ""
@@ -56,12 +31,76 @@ msgstr ""
 msgid "Search Title"
 msgstr ""
 
-#: src/components/install-button.tsx:142
+#: src/components/install-button.tsx:146
 msgid "Re-install version %s"
 msgstr ""
 
-#: src/components/install-button.tsx:226
+#: src/components/install-button.tsx:160
+msgid "%d download credit would be consumed from your account."
+msgstr ""
+
+#: src/components/install-button.tsx:168
+msgid "Daily Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:171
+msgid "Used Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:175
+msgid "Total Limit:"
+msgstr ""
+
+#: src/components/install-button.tsx:197
+msgid "Update"
+msgstr ""
+
+#: src/components/install-button.tsx:198
+msgid "Re-Install"
+msgstr ""
+
+#: src/components/install-button.tsx:199
+msgid "Install"
+msgstr ""
+
+#: src/components/install-button.tsx:211
+msgid "Download"
+msgstr ""
+
+#: src/components/install-button.tsx:230
 msgid "Roll-Back"
+msgstr ""
+
+#: src/components/install-button.tsx:236
+msgid "Cancel"
+msgstr ""
+
+#: src/components/install-button.tsx:50
+msgid "License not activated"
+msgstr ""
+
+#: src/components/install-button.tsx:69
+msgid "Downloading"
+msgstr ""
+
+#: src/components/install-button.tsx:71
+msgid "Roll-Back to version %s"
+msgstr ""
+
+#: src/components/install-button.tsx:74
+msgid "Updating"
+msgstr ""
+
+#: src/components/install-button.tsx:75
+msgid "Re-Installing"
+msgstr ""
+
+#: src/components/install-button.tsx:76
+msgid "Installing"
+msgstr ""
+
+#: src/components/install-button.tsx:82
+msgid "Successful"
 msgstr ""
 
 #: src/components/mode-toggle.tsx:20
@@ -101,171 +140,9 @@ msgid "Go Back"
 msgstr ""
 
 #: src/pages/item/[type]/-[page]/index.tsx:141
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:81
 msgid "Access"
 msgstr ""
 
 #: src/pages/item/[type]/-[page]/index.tsx:217
 msgid "Page %d"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:42
-#: src/pages/item/[type]/detail/[id]/_components/item-description.tsx:17
-msgid "Description"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:47
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:68
-#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:91
-msgid "Changelog"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:53
-msgid "Demo Contents [%d]"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:59
-msgid "Documentation"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:65
-#: src/pages/item/[type]/detail/[id]/_components/detail-tab-headers.tsx:31
-msgid "Support"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/-[tab].tsx:73
-msgid "Item Detail"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:33
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:19
-msgid "Version"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:41
-msgid "Date"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:75
-#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:33
-#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:108
-#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:104
-msgid "Loading..."
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:77
-#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:35
-#: src/pages/item/[type]/detail/[id]/_components/item-changelog.tsx:110
-#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:106
-msgid "No Items Found"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/changelog-preview.tsx:86
-#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:44
-msgid "View More"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/demo-content-preview.tsx:26
-#: src/pages/item/[type]/detail/[id]/_components/item-demo-contents.tsx:87
-msgid "Demo Contents"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/detail-header.tsx:40
-msgid "Recently Updated"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/detail-header.tsx:52
-msgid "Demo Included"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/detail-tab-content.tsx:14
-msgid "Invalid Tab?"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/detail-tab-headers.tsx:57
-msgid "Live Preview"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:20
-msgid "Slug"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:21
-msgid "Status"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:23
-msgid "Updated"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:27
-msgid "Published"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:31
-msgid "Author"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:41
-msgid "Columns"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:50
-msgid "Gutenberg Optimized"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:61
-msgid "High Resolution"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:71
-msgid "Widget Ready"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-detail.tsx:91
-msgid "Details"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:30
-msgid "Downloads"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:41
-msgid "Installs"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:51
-msgid "Tags"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:55
-msgid "Browsers"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:59
-msgid "Compatible With"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:63
-msgid "Included Files"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-sidebar.tsx:67
-msgid "Software Versions"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:14
-msgid "Virus Total"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:21
-msgid "View Detail"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:34
-msgid "%d threats"
-msgstr ""
-
-#: src/pages/item/[type]/detail/[id]/_components/item-virus-total.tsx:49
-msgid "Scanning..."
 msgstr ""

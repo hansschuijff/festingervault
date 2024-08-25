@@ -74,11 +74,11 @@ class Plugin {
         return plugins_url(trim($path, '/'), self::$file);
     }
 
-    private function __clone() {
+     function __clone() {
         // Prevent cloning of the instance
     }
 
-    private function __wakeup() {
+    function __wakeup() {
         // Prevent unserializing of the instance
     }
 }

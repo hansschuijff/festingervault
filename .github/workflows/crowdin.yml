@@ -1,0 +1,25 @@
+name: Upload POT files to Crowdin
+
+on:
+  push:
+    branches:
+      - beta
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Crowdin CLI
+        run: |
+          wget https://downloads.crowdin.com/cli/v3/crowdin-cli-linux.zip
+          unzip crowdin-cli-linux.zip -d crowdin-cli
+          sudo install crowdin-cli/crowdin /usr/local/bin/
+
+      - name: Upload POT files to Crowdin
+        env:
+          CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
+        run: crowdin upload sources

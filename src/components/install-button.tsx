@@ -37,7 +37,6 @@ type Props = {
 export default function InstallButton({ item, media, size, variant }: Props) {
   const navigate = useNavigate();
   const { data: activation } = useActivation();
-  const queryClient = useQueryClient();
   const { isPending: isInstallPending, mutateAsync: installPlugin } =
     useApiMutation<PluginInstallResponse, PluginInstallSchema>("item/install");
   const { isInstalled, isNewerVersion, isInstallable, isRollBack } = useInstall(
@@ -55,21 +54,26 @@ export default function InstallButton({ item, media, size, variant }: Props) {
     toast.promise(
       installPlugin({
         item_id: item.id,
-        method: is_download === true ? "download" : "install",
+        method:
+          is_download === true
+            ? "download"
+            : isInstalled
+              ? "update"
+              : "install",
         media_id: media?.id,
       }),
       {
         description: decodeEntities(item.title),
         loading:
           is_download === true
-            ? "Downloading"
+            ? __("Downloading", 'festingervault')
             : isRollBack
-              ? sprintf("Roll-Back to version %s", media.version)
+              ? sprintf(__("Roll-Back to version %s", 'festingervault'), media.version)
               : isInstalled
                 ? isNewerVersion
-                  ? "Updating"
-                  : "Re-Installing"
-                : "Installing",
+                  ? __("Updating", 'festingervault')
+                  : __("Re-Installing", 'festingervault')
+                : __("Installing", 'festingervault'),
         success(data) {
           if (data.link && is_download === true) {
             window.open(data.link, "_blank");
@@ -101,13 +105,13 @@ export default function InstallButton({ item, media, size, variant }: Props) {
             <span>
               {isInstallable
                 ? isRollBack
-                  ? "Roll-Back"
+                  ? __("Roll-Back", 'festingervault')
                   : isInstalled
                     ? isNewerVersion
-                      ? "Update"
-                      : "Re-Install"
-                    : "Install"
-                : "Download"}
+                      ? __("Update", 'festingervault')
+                      : __("Re-Install", 'festingervault')
+                    : __("Install", 'festingervault')
+                : __("Download", 'festingervault')}
             </span>
           )}
         </Button>
@@ -161,14 +165,14 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                 </div>
                 <div className="flex flex-row justify-center divide-x">
                   <div className="px-4">
-                    Daily Limit: {activation?.today_limit}
+                    {sprintf(__("Daily Limit:", 'festingervault'), activation?.today_limit)}
                   </div>
                   <div className="px-4">
-                    Used Limit: {activation?.today_limit_used}
+                    {sprintf(__("Used Limit:", 'festingervault'), activation?.today_limit_used)}
                   </div>
                   {activation?.plan_title === "recurring" && (
                     <div className="p-4">
-                      Total Limit: {activation?.total_limit}
+                      {sprintf(__("Total Limit:", 'festingervault'), activation?.total_limit)}
                     </div>
                   )}
                 </div>
@@ -187,12 +191,12 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                     <DownloadCloud size={16} />
                     <span>
                       {isRollBack
-                        ? "Roll-Back"
+                        ? __("Roll-Back", 'festingervault')
                         : isInstalled
                           ? isNewerVersion
-                            ? "Update"
-                            : "Re-Install"
-                          : "Install"}
+                            ? __("Update", 'festingervault')
+                            : __("Re-Install", 'festingervault')
+                          : __("Install", 'festingervault')}
                     </span>
                   </Button>
                 </DrawerClose>
@@ -228,7 +232,9 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                 </DrawerClose>
               )}
               <DrawerClose asChild>
-                <Button variant="outline">{__("Cancel", 'festingervault')}</Button>
+                <Button variant="outline">
+                  {__("Cancel", 'festingervault')}
+                </Button>
               </DrawerClose>
             </div>
           </DrawerFooter>

@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import type { Option } from "@/types/data-table";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { type Column } from "@tanstack/react-table";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -55,7 +55,7 @@ export function DataTableFacetedFilter<TData, TValue>({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+										{sprintf(__("%d selected", 'festingervault'),selectedValues.size)}
                   </Badge>
                 ) : (
                   options
