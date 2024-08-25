@@ -1,25 +1,22 @@
-name: Upload POT files to Crowdin
+name: Crowdin Translation Upload
 
 on:
   push:
     branches:
-      - beta
+      - main  # Adjust to the branch you want to trigger this action
 
 jobs:
-  upload:
+  upload-pot-files:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Install Crowdin CLI
-        run: |
-          wget https://downloads.crowdin.com/cli/v3/crowdin-cli-linux.zip
-          unzip crowdin-cli-linux.zip -d crowdin-cli
-          sudo install crowdin-cli/crowdin /usr/local/bin/
-
-      - name: Upload POT files to Crowdin
-        env:
-          CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
-        run: crowdin upload sources
+    - name: Upload translations to Crowdin
+      uses: crowdin/github-action@v2
+      with:
+        upload_sources: true
+        config: crowdin.yml
+      env:
+        CROWDIN_API_TOKEN: ${{ secrets.CROWDIN_API_TOKEN }}
