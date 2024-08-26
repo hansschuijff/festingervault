@@ -1,3 +1,5 @@
+[![Crowdin](https://badges.crowdin.net/festinger-vault/localized.svg)](https://crowdin.com)
+
 ## FestingerVault
 
 ### Installation
