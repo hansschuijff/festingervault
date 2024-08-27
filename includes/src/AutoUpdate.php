@@ -25,7 +25,7 @@ class AutoUpdate {
                         if (function_exists("as_schedule_single_action")) {
                             as_schedule_single_action(time(), Constants::ACTION_KEY . "/autoupdate/run-update", [
                                 $item["id"],
-                            ], Constants::API_SLUG);
+                            ], Constants::SLUG);
                         }
                     }
                 }
@@ -79,10 +79,10 @@ class AutoUpdate {
     function schedule_action() {
         if (function_exists('as_has_scheduled_action')) {
             if (false === as_has_scheduled_action(Constants::ACTION_KEY . "/autoupdate")) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate", [], Constants::API_SLUG, true);
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate", [], Constants::SLUG, true);
             }
             if (false === as_has_scheduled_action(Constants::ACTION_KEY . "/autoupdate/cleanup")) {
-                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate/cleanup", [], Constants::API_SLUG, true);
+                as_schedule_recurring_action(strtotime('1 hour'), 1 * HOUR_IN_SECONDS, Constants::ACTION_KEY . "/autoupdate/cleanup", [], Constants::SLUG, true);
             }
         }
     }

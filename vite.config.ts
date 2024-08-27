@@ -32,11 +32,9 @@ export default defineConfig({
       constants: [
         "SLUG",
         "ENGINE_URL",
-        "SCRIPT_HANDLE",
         "PLUGIN_DOWNLOAD_URL",
         "PLUGIN_INFO_URL",
         "ADMIN_MENU_TITLE",
-        "ACTION_KEY",
         "ACTIVATION_KEY",
         "ADMIN_MENU_TITLE",
         "ADMIN_PAGE_ID",

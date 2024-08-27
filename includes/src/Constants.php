@@ -26,8 +26,6 @@ class Constants {
 
     const PLUGIN_INFO_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/beta-release/info.json";
 
-    const SCRIPT_HANDLE = "fv-main";
-
     const SETTING_KEY = "vault_settings";
 
     const SLUG = "festingervault";
