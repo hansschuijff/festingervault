@@ -2,10 +2,10 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - development
 env:
   TRUNK_BRANCH: dev-trunk
-  RELEASE_BRANCH: development
+  RELEASE_BRANCH: dev-rc
   ENV_FILE: .env.dev
   CROWDIN_YML: crowdin.github.yml
 jobs:
