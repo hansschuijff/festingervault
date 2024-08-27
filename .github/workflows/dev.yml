@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - development
+      - dev
 env:
   TRUNK_BRANCH: dev-trunk
   RELEASE_BRANCH: dev-rc
