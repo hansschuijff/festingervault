@@ -4,8 +4,8 @@ on:
     branches:
       - main
 env:
-  TRUNK_BRANCH: main-trunk
-  RELEASE_BRANCH: main-release
+  TRUNK_BRANCH: dev-trunk
+  RELEASE_BRANCH: development
   ENV_FILE: .env.dev
   CROWDIN_YML: crowdin.github.yml
 jobs:
