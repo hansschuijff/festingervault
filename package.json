@@ -14,7 +14,7 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "GPLv2 or later",
 	"dependencies": {
 		"@emotion/styled": "^11.11.5",
 		"@floating-ui/react": "^0.26.16",

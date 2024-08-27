@@ -9,7 +9,7 @@ import {
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
-import { __ } from "@wordpress/i18n";
+import { __ } from "@/lib/i18n";
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -27,11 +27,13 @@ export function DataTableViewOptions<TData>({
           className="ml-auto hidden h-8 lg:flex"
         >
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
-          {__("View", 'festingervault')}
+          {__("View")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[150px]">
-        <DropdownMenuLabel>{__("Toggle columns", 'festingervault')}</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          {__("Toggle columns")}
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()

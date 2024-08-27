@@ -4,13 +4,6 @@ namespace FestingerVault;
 
 class Plugin {
     /**
-     * Class Constructor
-     *
-     *
-     */
-    public $hooks;
-
-    /**
      * @var mixed
      */
     public static $settings;
@@ -23,7 +16,7 @@ class Plugin {
     private static $file;
 
     /**
-     * @var Plugin
+     * @var static|null
      */
     private static $instance = null;
 

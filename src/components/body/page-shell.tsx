@@ -15,6 +15,7 @@ import {
 } from "../ui/breadcrumb";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
+import { __ } from "@/lib/i18n";
 type BreadCrumbType = {
   label: string;
   href?: string;
@@ -57,7 +58,7 @@ export function AppPageShell({
     ErrorComponent = (
       <Card>
         <CardContent className="p-5 text-center text-muted-foreground sm:p-7">
-          Invalid Request
+          {__("Invalid Request")}
         </CardContent>
       </Card>
     );
@@ -88,7 +89,7 @@ export function AppPageShell({
                   {
                     label: (
                       <span className="flex flex-row items-center gap-2">
-                        <Home size={16} /> Home
+                        <Home size={16} /> {__("Home")}
                       </span>
                     ),
                     href: "/",

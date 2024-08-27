@@ -1,23 +1,23 @@
 import useCollection from "@/hooks/use-collection";
 import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@/lib/utils";
-import { __ } from "@wordpress/i18n";
+import { __ } from "@/lib/i18n";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-type SearchProps = {
+type Props = {
   collection: ReturnType<typeof useCollection>;
 };
-export default function Search({ collection }: SearchProps) {
+export default function Search({ collection }: Props) {
   const [text, setText] = useState<string>(collection.search?.keyword || "");
   const [inputChanged, setInputChanged] = useState<boolean>(false);
   const debouncedSearchTerm = useDebounce(text, 500);
   useEffect(() => {
     if (inputChanged) {
-			/**
-			 * Reset page number when search keyword is changed via search input field
-			 */
-    	collection.setSearch(debouncedSearchTerm);
+      /**
+       * Reset page number when search keyword is changed via search input field
+       */
+      collection.setSearch(debouncedSearchTerm);
     }
   }, [debouncedSearchTerm]);
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Search({ collection }: SearchProps) {
       <Input
         value={text}
         className={cn("h-9 w-[300px] pr-7 transition-[width]")}
-        placeholder={__("Search Title", 'festingervault')}
+        placeholder={__("Search Title")}
         onChange={e => {
           setText(e.target.value);
           setInputChanged(true);

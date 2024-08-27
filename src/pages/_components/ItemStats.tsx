@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Grid } from "@/components/ui/grid";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { ItemStatsResponse } from "@/types/item";
 import {
@@ -59,20 +60,20 @@ export default function ItemStats() {
     <div className="grid grid-cols-2 gap-5 lg:gap-7 md:grid-cols-2">
       <ItemCard
         icon={Grid2X2}
-        title="Total Products"
+        title={__("Total Products")}
         count={data ? data.total : 0}
       />
       <ItemCard
         icon={Palette}
-        title="Total Themes"
+        title={__("Total Themes")}
         count={data ? data.themes : 0}
       />
       <ItemCard
         icon={ToyBrick}
-        title="Total Plugins"
+        title={__("Total Plugins")}
         count={data ? data.plugins : 0}
       />
-      <ItemCard icon={Drum} title="Total Kits" count={data ? data.kits : 0} />
+      <ItemCard icon={Drum} title={__("Total Kits")} count={data ? data.kits : 0} />
     </div>
   );
 }

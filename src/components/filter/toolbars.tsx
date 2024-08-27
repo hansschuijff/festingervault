@@ -1,16 +1,17 @@
 import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import useCollection from "@/hooks/use-collection";
 import { cn } from "@/lib/utils";
 import { SelectLabel } from "@radix-ui/react-select";
 import { SortAsc, SortDesc } from "lucide-react";
 import { Button } from "../ui/button";
+import { __ } from "@/lib/i18n";
 
 export type Props = {
   label: string;
@@ -32,7 +33,7 @@ export default function FilterToolbar({ label, collection }: Props) {
         <SelectContent>
           <SelectGroup>
             <SelectLabel className="p-2 text-sm text-muted-foreground">
-              Order By
+              {__("Order By")}
             </SelectLabel>
             {collection.sort.map(item => (
               <SelectItem key={item.value} value={item.value}>

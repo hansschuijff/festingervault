@@ -1,12 +1,14 @@
 import { AppPageShell } from "@/components/body/page-shell";
 import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
+import { sprintf } from "@wordpress/i18n";
 import { useMemo } from "react";
 import ItemDetailHeader, {
-  ItemDetailHeaderSkeleton,
+	ItemDetailHeaderSkeleton,
 } from "./_components/detail-header";
 import DetailTabContent from "./_components/detail-tab-content";
 import DetailTabHeaders from "./_components/detail-tab-headers";
@@ -15,7 +17,7 @@ import ItemDemoContents from "./_components/item-demo-contents";
 import ItemDescription from "./_components/item-description";
 import ItemDocumentation from "./_components/item-documentation";
 import ItemSidebar from "./_components/item-sidebar";
-import { __, sprintf } from "@wordpress/i18n";
+
 type TabRecordType = {
   id: string;
   label: string;
@@ -39,30 +41,33 @@ export default function Component() {
     return [
       {
         id: "description",
-        label: __("Description", 'festingervault'),
+        label: __("Description"),
         el: () => <ItemDescription item={data} />,
       },
       {
         id: "changelog",
-        label: __("Changelog", 'festingervault'),
+        label: __("Changelog"),
         el: () => <ItemChangeLog item={data} />,
         enabled: data.media_count > 0,
       },
       {
         id: "demo-contents",
-        label: sprintf(__("Demo Contents [%d]", 'festingervault'),data.additional_content_count),
+        label: sprintf(
+          __("Demo Contents [%d]"),
+          data.additional_content_count,
+        ),
         el: () => <ItemDemoContents item={data} />,
         enabled: data.additional_content_count > 0,
       },
       {
         id: "documentation",
-        label: __("Documentation", 'festingervault'),
+        label: __("Documentation"),
         el: () => <ItemDocumentation item={data} />,
         enabled: false,
       },
       {
         id: "support",
-        label: __("Support", 'festingervault'),
+        label: __("Support"),
         external: data.support_url, // TODO: add forum support to engine
         enabled: data?.support_url?.length > 0,
       },
@@ -70,7 +75,7 @@ export default function Component() {
   }, [data]);
   return (
     <AppPageShell
-      title={data?.title ?? __("Item Detail", 'festingervault')}
+      title={data?.title ?? __("Item Detail")}
       description=""
       preloader={<ItemDetailHeaderSkeleton />}
       breadcrump={[

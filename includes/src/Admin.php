@@ -23,7 +23,7 @@ class Admin {
         add_action('admin_menu', [$this, 'admin_menu'], PHP_INT_MAX);
         add_action('admin_enqueue_scripts', [$this, 'admin_enqueue_scripts'], PHP_INT_MAX);
         add_action("admin_init", [$this, 'admin_init']);
-        add_filter("dependencies/vault-main", [$this, 'added_dependencies']);
+        add_filter("dependencies/".Constants::SLUG."-script", [$this, 'added_dependencies']);
     }
 
     function added_dependencies($dependencies = []) {
@@ -69,10 +69,10 @@ class Admin {
     function enqueue_scripts() {
         $assets = new ViteAssets(Plugin::p_dir("build"), Plugin::p_url("build"));
         $assets->enqueue("src/index.tsx", [
-            "handle" => "vault-main",
+            "handle" => Constants::SLUG."-script",
         ]);
-        wp_set_script_translations('vault-main', Constants::TEXTDOMAIN,Plugin::p_dir("languages"));
-        wp_localize_script("vault-main", "vault", [
+        wp_set_script_translations(Constants::SLUG."-script", Constants::TEXTDOMAIN,Plugin::p_dir("languages"));
+        wp_localize_script(Constants::SLUG."-script", "vault", [
             "logo" => Plugin::p_url("public/assets/logo-%s.png"),
         ]);
     }
@@ -89,8 +89,7 @@ class Admin {
     }
 
     function render_page() {
-        global $title, $hook_suffix, $current_screen, $wp_locale, $pagenow,
-        $update_title, $total_update_count, $parent_file, $typenow;
+
         require __DIR__ . '/view/admin.php';
     }
 }

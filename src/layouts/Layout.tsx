@@ -1,14 +1,14 @@
 import { AppHeader } from "@/components/header/app-header";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { Outlet, useNavigation } from "react-router-dom";
-type LayoutProps = {
+type Props = {
   sideNavRemoveIds?: string[];
   sideNavIncludedIds?: string[];
 };
 export default function Layout({
   sideNavIncludedIds,
   sideNavRemoveIds,
-}: LayoutProps) {
+}: Props) {
   const { state } = useNavigation();
   return (
     <div className="container flex items-start gap-8">

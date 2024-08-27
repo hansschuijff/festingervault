@@ -9,7 +9,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import cn from "@/utils/cn";
+import { __ } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
 import { Languages } from "lucide-react";
 import { useState } from "react";
@@ -17,12 +18,12 @@ import { Button } from "./ui/button";
 const languages = [
   {
     value: "english",
-    label: "English",
+    label: __("English"),
     alias: "EN",
   },
   {
     value: "french",
-    label: "French",
+    label: __("French"),
     alias: "FR",
   },
 ];

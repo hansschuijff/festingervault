@@ -51,7 +51,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
           <div className="aspect-square w-12">
             <img
               src={row.original.image}
-              className="h-12 w-12 rounded-sm aspect-square object-cover"
+              className="aspect-square h-12 w-12 rounded-sm object-cover"
             />
           </div>
           <div className=" flex-1 space-y-1">
@@ -72,7 +72,6 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
         </div>
       );
     },
-
   },
   {
     accessorKey: "type",
@@ -110,7 +109,6 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
       );
     },
     enableSorting: true,
-
   },
   {
     accessorKey: "autoupdate",
@@ -119,15 +117,15 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
       return <AutoUpdateSwitcher row={row} />;
     },
     enableSorting: true,
-		sortingFn:(rowA, rowB, columnId)=>{
-			const isNewA = version_compare(
+    sortingFn: (rowA, rowB, columnId) => {
+      const isNewA = version_compare(
         rowA.original.version,
         rowA.original.installed_version,
         "gt",
       );
-			return isNewA?-1:1;
-		},
-	  },
+      return isNewA ? -1 : 1;
+    },
+  },
   {
     accessorKey: "actions",
     header: "",

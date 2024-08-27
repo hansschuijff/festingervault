@@ -1,4 +1,4 @@
-import cn from "@/utils/cn";
+import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 type Props = {

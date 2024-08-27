@@ -9,28 +9,15 @@ const files = sync(patterns, { nocase: true, nodir: true });
 files.forEach(file => {
   const jsonData = po2json.parseFileSync(file, {
     fuzzy: false,
-    format: "raw",
+    format: "jed1.x",
     domain: process.env.TEXTDOMAIN,
-    "fallback-to-msgid": true,
-  });
-  const res = Object.entries(jsonData).map(([key, val]) => {
-    if (key == "" && !Array.isArray(val)) {
-      return [
-        key,
-        {
-          domain: process.env.TEXTDOMAIN,
-          plural_forms: val["plural-forms"],
-          lang: val.language,
-        },
-      ];
-    }
-    return [key, Array.isArray(val) ? val.filter(i => i !== null) : val];
+    "fallback-to-msgid": false,
   });
   fs.writeFileSync(
-    path.join("languages", `${path.parse(file).name}-vault-main.json`),
-    JSON.stringify({
-      domain: process.env.TEXTDOMAIN,
-      locale_data: { [process.env.TEXTDOMAIN]: Object.fromEntries(res) },
-    }),
+    path.join(
+      "languages",
+      `${path.parse(file).name}-${process.env.SLUG}-script.json`,
+    ),
+    JSON.stringify(jsonData),
   );
 });

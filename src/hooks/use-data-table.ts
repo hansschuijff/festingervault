@@ -1,3 +1,7 @@
+import type {
+	DataTableFilterableColumn,
+	DataTableSearchableColumn,
+} from "@/types/data-table";
 import {
 	getCoreRowModel,
 	getFacetedRowModel,
@@ -10,14 +14,9 @@ import {
 	type ColumnFiltersState,
 	type PaginationState,
 	type SortingState,
-	type VisibilityState
+	type VisibilityState,
 } from "@tanstack/react-table";
-import * as React from "react";
-
-import type {
-	DataTableFilterableColumn,
-	DataTableSearchableColumn,
-} from "@/types/data-table";
+import { useEffect, useMemo, useState } from "react";
 
 interface UseDataTableProps<TData, TValue> {
   /**
@@ -55,19 +54,19 @@ export function useDataTable<TData, TValue>({
   columns,
 }: UseDataTableProps<TData, TValue>) {
   // Table states
-  const [rowSelection, setRowSelection] = React.useState({});
+  const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
     [],
   );
 
   const [{ pageIndex, pageSize }, setPagination] =
-    React.useState<PaginationState>({
+    useState<PaginationState>({
       pageIndex: 0,
       pageSize: 10,
     });
-  const pagination = React.useMemo(
+  const pagination = useMemo(
     () => ({
       pageIndex,
       pageSize,
@@ -75,10 +74,8 @@ export function useDataTable<TData, TValue>({
     [pageIndex, pageSize],
   );
   // Handle server-side sorting
-  const [sorting, setSorting] = React.useState<SortingState>([
-
-  ]);
-  React.useEffect(() => {
+  const [sorting, setSorting] = useState<SortingState>([]);
+  useEffect(() => {
     // reset selected rows when paging state changes
     setRowSelection({});
   }, [pagination]);
@@ -106,7 +103,7 @@ export function useDataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-	keepPinnedRows:false,
+    keepPinnedRows: false,
   });
 
   return { table };

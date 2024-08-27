@@ -1,11 +1,11 @@
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { __ } from "@/lib/i18n";
 import Paging from "@/pages/_components/Paging";
 import { Link, useParams } from "@/router";
 import { HistoryCollectionType, HistoryItemType } from "@/types/history";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 
@@ -18,7 +18,7 @@ export default function HistoryItems({ data }: Props) {
     () => [
       {
         id: "title",
-        label: __("Title", 'festingervault'),
+        label: __("Title"),
         className: "w-full whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return (
@@ -37,7 +37,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "type",
-        label: __("Type", 'festingervault'),
+        label: __("Type"),
         render({ row }) {
           return (
             <Badge variant="bronze" className="uppercase">
@@ -48,7 +48,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "date",
-        label: __("Date", 'festingervault'),
+        label: __("Date"),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return moment.unix(row.created).format("DD MMM, YYYY HH:mm a");
@@ -56,7 +56,7 @@ export default function HistoryItems({ data }: Props) {
       },
       {
         id: "version",
-        label: __("Version", 'festingervault'),
+        label: __("Version"),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return row?.media?.version ?? row.item.version;

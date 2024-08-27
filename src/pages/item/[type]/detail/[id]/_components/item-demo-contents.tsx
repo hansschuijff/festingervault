@@ -2,6 +2,7 @@ import AdditionalDownloadButton from "@/components/additional-download-button";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
 import {
@@ -11,7 +12,6 @@ import {
 } from "@/types/item";
 import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -84,7 +84,7 @@ export default function ItemDemoContents({ item }: Props) {
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
         <CardHeader className="border-b p-5 sm:p-7">
-          {__("Demo Contents", 'festingervault')}
+          {__("Demo Contents")}
         </CardHeader>
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
@@ -101,9 +101,9 @@ export default function ItemDemoContents({ item }: Props) {
               )}
             </div>
           ) : isLoading || isFetching ? (
-            <div className="">{__("Loading...", 'festingervault')}</div>
+            <div className="">{__("Loading...")}</div>
           ) : (
-            <div className="">{__("No Items Found", 'festingervault')}</div>
+            <div className="">{__("No Items Found")}</div>
           )}
         </CardContent>
       </Card>

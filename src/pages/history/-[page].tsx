@@ -1,8 +1,8 @@
 import { AppPageShell } from "@/components/body/page-shell";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import { HistoryCollectionType } from "@/types/history";
-import { __ } from "@wordpress/i18n";
 import HistoryItems from "./_components/history-items";
 
 export default function Component() {
@@ -14,7 +14,7 @@ export default function Component() {
     },
   );
   return (
-    <AppPageShell title={__("History", 'festingervault')} isLoading={isLoading}>
+    <AppPageShell title={__("History")} isLoading={isLoading}>
       <HistoryItems data={data} />
     </AppPageShell>
   );

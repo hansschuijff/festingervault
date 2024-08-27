@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { __ } from "@/lib/i18n";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 
@@ -16,19 +16,19 @@ type Row = {
 export default function ItemDetail({ item }: Props) {
   const items = useMemo<Row[]>(
     () => [
-      { label: __("Version", 'festingervault'), el: () => item.version },
-      { label: __("Slug", 'festingervault'), el: () => item.slug },
-      { label: __("Status", 'festingervault'), el: () => "Functional" },
+      { label: __("Version"), el: () => item.version },
+      { label: __("Slug"), el: () => item.slug },
+      { label: __("Status"), el: () => "Functional" },
       {
-        label: __("Updated", 'festingervault'),
+        label: __("Updated"),
         el: () => moment.unix(item.updated).format("MMM D, YYYY"),
       },
       {
-        label: __("Published", 'festingervault'),
+        label: __("Published"),
         el: () => moment.unix(item.created).format("MMM D, YYYY"),
       },
       {
-        label: __("Author", 'festingervault'),
+        label: __("Author"),
         el: () =>
           item.terms
             .filter(i => i.taxonomy === "item_author")
@@ -38,7 +38,7 @@ export default function ItemDetail({ item }: Props) {
           item.terms.filter(i => i.taxonomy === "item_author").length > 0,
       },
       {
-        label: __("Columns", 'festingervault'),
+        label: __("Columns"),
         el: () =>
           item.terms
             .filter(i => i.taxonomy === "columns")
@@ -47,7 +47,7 @@ export default function ItemDetail({ item }: Props) {
         enabled: item.terms.filter(i => i.taxonomy === "columns").length > 0,
       },
       {
-        label: __("Gutenberg Optimized", 'festingervault'),
+        label: __("Gutenberg Optimized"),
         el: () =>
           item.terms
             .filter(i => i.taxonomy === "gutenberg-optimized")
@@ -58,7 +58,7 @@ export default function ItemDetail({ item }: Props) {
           0,
       },
       {
-        label: __("High Resolution", 'festingervault'),
+        label: __("High Resolution"),
         el: () =>
           item.terms
             .filter(i => i.taxonomy === "high-resolution")
@@ -68,7 +68,7 @@ export default function ItemDetail({ item }: Props) {
           item.terms.filter(i => i.taxonomy === "high-resolution").length > 0,
       },
       {
-        label: __("Widget Ready", 'festingervault'),
+        label: __("Widget Ready"),
         el: () =>
           item.terms
             .filter(i => i.taxonomy === "widget-ready")
@@ -78,7 +78,7 @@ export default function ItemDetail({ item }: Props) {
           item.terms.filter(i => i.taxonomy === "widget-ready").length > 0,
       },
       {
-        label: __("Access", 'festingervault'),
+        label: __("Access"),
         el: () => <span className="capitalize">{item.access}</span>,
       },
     ],
@@ -88,7 +88,7 @@ export default function ItemDetail({ item }: Props) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between border-b">
-        {__("Details", 'festingervault')}
+        {__("Details")}
       </CardHeader>
       <CardContent className="space-y-3">
         {items.map(

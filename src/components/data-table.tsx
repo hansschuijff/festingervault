@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type {
   DataTableFilterableColumn,
@@ -16,8 +17,6 @@ import {
   type Table as TanstackTable,
   flexRender,
 } from "@tanstack/react-table";
-import { __ } from "@wordpress/i18n";
-import * as React from "react";
 import { BulkActionType } from "./data-table-bulk-action";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
@@ -104,7 +103,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  {__("No results", 'festingervault')}.
+                  {__("No results found")}.
                 </TableCell>
               </TableRow>
             )}

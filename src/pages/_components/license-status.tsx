@@ -2,11 +2,12 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import moment from "moment";
-import { ClassNameValue } from "tailwind-merge";
 import { ActivationDetailType } from "@/types/license";
 import { decodeEntities } from "@wordpress/html-entities";
+import moment from "moment";
+import { ClassNameValue } from "tailwind-merge";
 
 type Props = {
   className?: ClassNameValue;
@@ -24,9 +25,9 @@ export default function LicenseStatus({ className }: Props) {
           >
             {data?.expires > 0
               ? data?.plan_type === "recurring"
-                ? "Monthly Plan"
-                : "One-Time Plan"
-              : "Lifetime Plan"}
+                ? __("Monthly Plan")
+                : __("One-Time Plan")
+              : __("Lifetime Plan")}
           </Badge>
         </h2>
         <div className="text-muted-foreground">
@@ -36,34 +37,34 @@ export default function LicenseStatus({ className }: Props) {
       <div className="flex flex-col gap-4 lg:flex-row">
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg capitalize">{data?.status ?? "---"}</div>
-          <div className="text-sm text-muted-foreground">Status</div>
+          <div className="text-sm text-muted-foreground">{__("Status")}</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">{data?.today_limit?.toLocaleString()}</div>
-          <div className="text-sm text-muted-foreground">Daily Today</div>
+          <div className="text-sm text-muted-foreground">{__("Daily Today")}</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
-          <div className="text-sm text-muted-foreground">All-Time Limit</div>
+          <div className="text-sm text-muted-foreground">{__("All-Time Limit")}</div>
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">Lifetime</div>
-          <div className="text-sm text-muted-foreground">Updates</div>
+          <div className="text-sm text-muted-foreground">{__("Updates")}</div>
         </div>
 
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">
             {data?.expires > 0
               ? moment.unix(data?.expires).format("DD MM,YYYY")
-              : "Never"}
+              : __("Never")}
           </div>
-          <div className="text-sm text-muted-foreground">Expires</div>
+          <div className="text-sm text-muted-foreground">{__("Expires")}</div>
         </div>
       </div>
       <div className="flex flex-col items-center gap-12 lg:flex-row">
         <div className="flex flex-1 flex-col gap-2">
           <div className="space-x-1">
-            <span className="text-muted-foreground">Downloads used:</span>
+            <span className="text-muted-foreground">{__("Downloads used:")}</span>
             <span>
               {data?.today_limit_used} of {data?.today_limit?.toLocaleString()}
             </span>
@@ -76,7 +77,7 @@ export default function LicenseStatus({ className }: Props) {
         </div>
         <div className="">
           <div>
-            <span className="text-muted-foreground">Domains:</span>{" "}
+            <span className="text-muted-foreground">{__("Domains:")}</span>{" "}
             {data?.activation_count?.toLocaleString()}/
             {data?.activation_limit?.toLocaleString()}
           </div>

@@ -1,9 +1,8 @@
 import { Grid } from "@/components/ui/grid";
 import { Skeleton } from "@/components/ui/skeleton";
+import { __ } from "@/lib/i18n";
 import { PostItemType } from "@/types/item";
-import capitalizeHyphenatedWords from "@/utils/capitalizeHyphenatedWords";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __ } from "@wordpress/i18n";
 import { Calendar, CheckCircle2 } from "lucide-react";
 import moment from "moment";
 export function ItemDetailHeaderSkeleton() {
@@ -21,7 +20,9 @@ type Props = {
   item: PostItemType;
 };
 export default function ItemDetailHeader({ item }: Props) {
-	const category=item.terms?.filter(term=>term.taxonomy==="category").map(term=>decodeEntities(term.name));
+  const category = item.terms
+    ?.filter(term => term.taxonomy === "category")
+    .map(term => decodeEntities(term.name));
   return (
     <div className="relative flex flex-col items-center gap-3 p-6 py-12">
       <Grid size={50} />
@@ -37,7 +38,8 @@ export default function ItemDetailHeader({ item }: Props) {
         <div className="flex flex-row items-center gap-1 text-green-600">
           {moment.unix(item.updated).isBefore(moment().add(1, "week")) ? (
             <>
-              <CheckCircle2 size={18} /> <span>{__("Recently Updated", 'festingervault')}</span>
+              <CheckCircle2 size={18} />{" "}
+              <span>{__("Recently Updated")}</span>
             </>
           ) : (
             <>
@@ -49,7 +51,7 @@ export default function ItemDetailHeader({ item }: Props) {
         {item.additional_content_count > 0 && (
           <div className="flex flex-row items-center gap-1 text-green-600">
             <CheckCircle2 size={18} />
-            <span>{__("Demo Included", 'festingervault')}</span>
+            <span>{__("Demo Included")}</span>
           </div>
         )}
       </div>

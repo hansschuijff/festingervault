@@ -2,15 +2,14 @@ import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardHeader,
+	CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import useInstall from "@/hooks/useInstall";
 import { cn } from "@/lib/utils";
 import { PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";

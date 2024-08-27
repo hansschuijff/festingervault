@@ -6,15 +6,15 @@ import useInstalled from "@/hooks/use-is-installed";
 import useTaskQueue from "@/hooks/use-task-queue";
 import useApiMutation from "@/hooks/useApiMutation";
 import { PluginInstallResponse, PluginInstallSchema } from "@/hooks/useInstall";
+import { __ } from "@/lib/i18n";
 import {
-  DataTableFilterableColumn,
-  DataTableSearchableColumn,
+	DataTableFilterableColumn,
+	DataTableSearchableColumn,
 } from "@/types/data-table";
 import { ThemePluginItemType } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
 import { useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
-import { __ } from "@wordpress/i18n";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { getColumns } from "./columns";
@@ -65,7 +65,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
   const bulkActions: BulkActionType<ThemePluginItemType>[] = [
     {
       id: "update",
-      label: __("Update", 'festingervault'),
+      label: __("Update"),
       action: async items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -77,14 +77,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Updating", 'festingervault'),
+                  loading: __("Updating"),
                   success(data) {
                     resolve(data);
-                    return __("Success", 'festingervault');
+                    return __("Success");
                   },
                   error(err) {
                     reject(err);
-                    return err.message ?? __("Error", 'festingervault');
+                    return err.message ?? __("Error");
                   },
                   finally() {
                     clearCache();
@@ -99,7 +99,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "reinstall",
-      label: __("Re-Install", 'festingervault'),
+      label: __("Re-Install"),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -111,14 +111,16 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Re-installing", 'festingervault'),
+                  loading: __("Re-installing"),
                   success() {
                     resolve(item);
-                    return __("Re-Install Success", 'festingervault');
+                    return __("Re-Install Success");
                   },
                   error(err) {
                     reject(err);
-                    return err.message ?? __("Error Installing", 'festingervault');
+                    return (
+                      err.message ?? __("Error Installing")
+                    );
                   },
                   finally() {
                     clearCache();
@@ -133,7 +135,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "autoupdate",
-      label: __("Enable Auto-Update", 'festingervault'),
+      label: __("Enable Auto-Update"),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -146,14 +148,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Enabling Auto Update", 'festingervault'),
+                  loading: __("Enabling Auto Update"),
                   success() {
                     resolve(item);
-                    return __("Auto Update Enabled", 'festingervault');
+                    return __("Auto Update Enabled");
                   },
                   error() {
                     reject(item);
-                    return __("Error Enabling Auto Update", 'festingervault');
+                    return __("Error Enabling Auto Update");
                   },
                   finally() {
                     queryClient.invalidateQueries(
@@ -173,7 +175,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
     },
     {
       id: "disable-autoupdate",
-      label: __("Disable Auto-Update", 'festingervault'),
+      label: __("Disable Auto-Update"),
       action: items => {
         items.forEach(({ original: item }) => {
           addTask(() => {
@@ -186,14 +188,14 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
                 }),
                 {
                   description: item.title,
-                  loading: __("Disabling Auto Update", 'festingervault'),
+                  loading: __("Disabling Auto Update"),
                   success() {
                     resolve(item);
-                    return __("Auto Update Disabled", 'festingervault');
+                    return __("Auto Update Disabled");
                   },
                   error() {
                     reject(item);
-                    return __("Error Disabling Auto Update", 'festingervault');
+                    return __("Error Disabling Auto Update");
                   },
                   finally() {
                     queryClient.invalidateQueries({

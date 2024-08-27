@@ -1,22 +1,19 @@
-import useCollection from "@/hooks/use-collection";
-import { FilterIcon, X } from "lucide-react";
-import { Button } from "../ui/button";
-import FilterItem from "./filter-item";
-import Search from "./search-input";
-import FilterToolbar from "./toolbars";
-import { Select } from "@radix-ui/react-select";
-import PerPage from "./collection-per-page";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { __ } from "@wordpress/i18n";
+import useCollection from "@/hooks/use-collection";
+import { __ } from "@/lib/i18n";
+import { FilterIcon, X } from "lucide-react";
+import { Button } from "../ui/button";
+import PerPage from "./collection-per-page";
+import FilterItem from "./filter-item";
+import Search from "./search-input";
+import FilterToolbar from "./toolbars";
 type FilterBarProps = {
   collection: ReturnType<typeof useCollection>;
 };
@@ -53,18 +50,17 @@ export default function FilterBar({ collection }: FilterBarProps) {
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="outline" className="flex flex-row gap-2">
-                  {__("Filters", 'festingervault')} <FilterIcon size={16} />
+                  {__("Filters")} <FilterIcon size={16} />
                 </Button>
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>
-                    {__("Apply Filters", 'festingervault')}
+                    {__("Apply Filters")}
                   </SheetTitle>
                   <SheetDescription>
                     {__(
                       "Select Filters to fine tune your search criteria",
-                      "festingervault",
                     )}
                   </SheetDescription>
                 </SheetHeader>
@@ -94,7 +90,7 @@ export default function FilterBar({ collection }: FilterBarProps) {
                   className="flex flex-row gap-2"
                   onClick={collection.clearFilter}
                 >
-                  <span>Clear Filters</span> <X size="14" />
+                  <span>{__("Clear Filters")}</span> <X size="14" />
                 </Button>
               </div>
             )}

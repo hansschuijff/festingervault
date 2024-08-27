@@ -8,7 +8,7 @@
  * Requires PHP: 7.4
  * Author: FestingerVault
  * Author URI: https://festingervault.com
- * License: GPL-2.0+
+ * License: GPLv2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI: https://festingervault.com
  * Text Domain: festingervault

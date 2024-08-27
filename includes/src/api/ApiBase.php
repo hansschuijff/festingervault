@@ -14,7 +14,7 @@ abstract class ApiBase {
     }
 
     final function rest_api_init() {
-        $route_ns = Constants::API_SLUG . "/v1/" . $this->prefix();
+        $route_ns = Constants::SLUG . "/v1/" . $this->prefix();
         foreach ($this->endpoints() as $route => $args) {
             register_rest_route(
                 $route_ns,

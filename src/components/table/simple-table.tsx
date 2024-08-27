@@ -1,4 +1,4 @@
-import cn from "@/utils/cn";
+import { cn } from "@/lib/utils";
 import { ClassValue } from "clsx";
 
 type ColumnRenderProps<TData> = {
@@ -15,7 +15,7 @@ type Props<TData> = {
   columns: SimpleColumnDef<TData>[];
   data: ({ id: string | number } & TData)[];
 };
-export default function SimpleTable<TData, TValue>({
+export default function SimpleTable<TData>({
   columns,
   data,
 }: Props<TData>) {

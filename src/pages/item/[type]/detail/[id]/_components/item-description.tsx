@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";
-import { __ } from "@wordpress/i18n";
 import parse from "html-react-parser";
 import DemoContentPreview from "./demo-content-preview";
 
@@ -14,7 +14,7 @@ export default function ItemDescription({ item }: Props) {
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
         <CardHeader className="border-b p-5 sm:p-7">
-          {__("Description", 'festingervault')}
+          {__("Description")}
         </CardHeader>
         <CardContent className="item-description p-5 text-sm leading-relaxed sm:p-7">
           {parse(item.summary ?? "")}

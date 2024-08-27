@@ -16,7 +16,9 @@ import { PluginInstallResponse } from "@/hooks/useInstall";
 import { useNavigate } from "@/router";
 import { DemoContentType, PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __, sprintf } from "@wordpress/i18n";
+import { sprintf } from "@wordpress/i18n";
+import { __ } from "@/lib/i18n";
+
 import { CloudDownload, Download, Loader } from "lucide-react";
 import { toast } from "sonner";
 type AdditionalContentDownloadSchema = {
@@ -44,7 +46,7 @@ export default function AdditionalDownloadButton({
   const { clearCache } = useInstalled();
   function download() {
     if (typeof activation?.plan_type == "undefined") {
-      toast.error(__("License not activated", 'festingervault'));
+      toast.error(__("License not activated"));
       navigate("/activation");
       return;
     }
@@ -60,7 +62,7 @@ export default function AdditionalDownloadButton({
           if (data.link) {
             window.open(data.link, "_blank");
           }
-          return __("Successful", 'festingervault');
+          return __("Successful");
         },
         error(err) {
           return err.message;
@@ -101,7 +103,7 @@ export default function AdditionalDownloadButton({
               <div>
                 <div>
                   {sprintf(
-                    "Download demo content %s of %s",
+                    __("Download demo content %s of %s"),
                     media.title,
                     item.title,
                   )}
@@ -116,14 +118,17 @@ export default function AdditionalDownloadButton({
                 </div>
                 <div className="flex flex-row justify-center divide-x">
                   <div className="px-4">
-                    Daily Limit: {activation?.today_limit}
+                    {sprintf(__("Daily Limit: %d"), activation?.today_limit)}
                   </div>
                   <div className="px-4">
-                    Used Limit: {activation?.today_limit_used}
+                    {sprintf(
+                      __("Used Limit: %d"),
+                      activation?.today_limit_used,
+                    )}
                   </div>
                   {activation?.plan_title === "recurring" && (
                     <div className="p-4">
-                      Total Limit: {activation?.total_limit}
+                      {sprintf(__("Total Limit: %d"), activation?.total_limit)}
                     </div>
                   )}
                 </div>
@@ -135,12 +140,12 @@ export default function AdditionalDownloadButton({
               <DrawerClose asChild>
                 <Button onClick={() => download()} className="gap-2">
                   <Download size={16} />
-                  <span>{__("Download", 'festingervault')}</span>
+                  <span>{__("Download")}</span>
                 </Button>
               </DrawerClose>
 
               <DrawerClose asChild>
-                <Button variant="outline">{__("Cancel", 'festingervault')}</Button>
+                <Button variant="outline">{__("Cancel")}</Button>
               </DrawerClose>
             </div>
           </DrawerFooter>

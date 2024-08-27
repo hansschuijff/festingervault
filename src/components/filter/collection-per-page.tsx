@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { __ } from "@/lib/i18n";
 
 export type Props = {
   collection: ReturnType<typeof useCollection>;
@@ -25,7 +26,7 @@ export default function PerPage({ collection }: Props) {
       <SelectContent>
         <SelectGroup>
           <SelectLabel className="p-2 text-sm text-muted-foreground">
-            Per Page
+            {__("Per Page")}
           </SelectLabel>
           {[30, 60, 90].map(val => (
             <SelectItem key={val} value={String(val)}>

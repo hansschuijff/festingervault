@@ -107,8 +107,7 @@ export default function WPEnvProcess({
         "Update URI": env.UPDATE_URI,
         "Requires Plugins": env.REQUIRES_PLUGINS,
         License: env.LICENSE,
-        "License URI": env.LICENSE_URL,
-        "Domain Path": env.DOMAIN_PATH,
+        "License URI": env.LICENSE_URL
       };
       Object.entries(headers).forEach(([key, value]) => {
         if (value && value.length > 0) {
@@ -149,7 +148,7 @@ export default function WPEnvProcess({
     loadEnv(true);
     processConstantsFile();
     processPHPFiles();
-    processJSFiles();
+    //processJSFiles();
     processMainFile();
   };
 

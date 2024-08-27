@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -14,33 +13,34 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
+import useCollection from "@/hooks/use-collection";
 import { cn } from "@/lib/utils";
-import type { Option } from "@/types/data-table";
-import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { type Column } from "@tanstack/react-table";
-import { sprintf } from "@wordpress/i18n";
+import { PlusCircledIcon } from "@radix-ui/react-icons";
 import { __ } from "@/lib/i18n";
+import { CheckIcon } from "lucide-react";
+import { Badge } from "../ui/badge";
+import { Separator } from "../ui/separator";
+import { sprintf } from "@wordpress/i18n";
+type ArrayItemType<T, K extends keyof T> = T[K] extends (infer U)[] ? U : never;
 
-interface DataTableFacetedFilterProps<TData, TValue> {
-  column?: Column<TData, TValue>;
-  title?: string;
-  options: Option[];
-}
-
-export function DataTableFacetedFilter<TData, TValue>({
-  column,
-  title,
-  options,
-}: DataTableFacetedFilterProps<TData, TValue>) {
-  const selectedValues = new Set(column?.getFilterValue() as string[]);
-
+export type Props = {
+  collection: ReturnType<typeof useCollection>;
+  item: ArrayItemType<ReturnType<typeof useCollection>, "options">;
+};
+export default function FilterItemList({ item, collection }: Props) {
+  const selectedValues = new Set<string>(
+    item.isMulti
+      ? collection.items[item.id]
+      : collection.items[item.id]
+        ? [collection.items[item.id]]
+        : null,
+  );
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="h-8 border-dashed">
+        <Button variant="outline" size="sm" className="h-9 border-dashed">
           <PlusCircledIcon className="mr-2 h-4 w-4" />
-          {title}
+          {item.label}
           {selectedValues?.size > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
@@ -56,13 +56,10 @@ export function DataTableFacetedFilter<TData, TValue>({
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {sprintf(
-                      __("%d selected"),
-                      selectedValues.size,
-                    )}
+                    {sprintf(__("%d selected"),selectedValues.size)}
                   </Badge>
                 ) : (
-                  options
+                  item.options
                     .filter(option => selectedValues.has(option.value))
                     .map(option => (
                       <Badge
@@ -81,27 +78,31 @@ export function DataTableFacetedFilter<TData, TValue>({
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0" align="start">
         <Command>
-          <CommandInput placeholder={title} />
+          {item.options.length > 10 && (
+            <CommandInput placeholder={__("Search")} />
+          )}
           <CommandList>
             <CommandEmpty>
               {__("No results found.")}
             </CommandEmpty>
             <CommandGroup>
-              {options.map(option => {
+              {item.options.map(option => {
                 const isSelected = selectedValues.has(option.value);
                 return (
                   <CommandItem
                     key={option.value}
-                    onSelect={() => {
+                    onSelect={newValue => {
                       if (isSelected) {
                         selectedValues.delete(option.value);
                       } else {
+                        if (item.isMulti === false) {
+                          selectedValues.clear();
+                        }
                         selectedValues.add(option.value);
                       }
                       const filterValues = Array.from(selectedValues);
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined,
-                      );
+
+                      collection.setFilter(item.id, filterValues);
                     }}
                   >
                     <div
@@ -127,10 +128,10 @@ export function DataTableFacetedFilter<TData, TValue>({
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => collection.setFilter(item.id, [])}
                     className="justify-center text-center"
                   >
-                    {__("Clear filters")}
+                    {__("Clear Filter")}
                   </CommandItem>
                 </CommandGroup>
               </>

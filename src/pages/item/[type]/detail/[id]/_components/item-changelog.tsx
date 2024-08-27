@@ -4,14 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
 import useInstall from "@/hooks/useInstall";
+import { __ } from "@/lib/i18n";
 import Paging from "@/pages/_components/Paging";
 import { useParams } from "@/router";
 import {
-  PostChangelogCollectionResponse,
-  PostItemType,
-  PostMediaType,
+	PostChangelogCollectionResponse,
+	PostItemType,
+	PostMediaType,
 } from "@/types/item";
-import { __ } from "@wordpress/i18n";
 import moment from "moment";
 import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -88,7 +88,7 @@ export default function ItemChangeLog({ item }: Props) {
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>
         <CardHeader className="border-b p-5 sm:p-7">
-          {__("Changelog", 'festingervault')}
+          {__("Changelog")}
         </CardHeader>
         <CardContent className="p-5 text-sm sm:p-7">
           {data?.data ? (
@@ -105,9 +105,9 @@ export default function ItemChangeLog({ item }: Props) {
               )}
             </div>
           ) : isLoading || isFetching ? (
-            <div className="">{__("Loading...", 'festingervault')}</div>
+            <div className="">{__("Loading...")}</div>
           ) : (
-            <div className="">{__("No Items Found", 'festingervault')}</div>
+            <div className="">{__("No Items Found")}</div>
           )}
         </CardContent>
       </Card>

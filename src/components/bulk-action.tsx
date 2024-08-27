@@ -1,12 +1,12 @@
 import {
-	Sheet,
-	SheetClose,
-	SheetContent,
-	SheetDescription,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
@@ -37,10 +37,5 @@ export default function BulkAction() {
         </SheetFooter>
       </SheetContent>
     </Sheet>
-  );
-  return (
-    <Button variant="outline" size="icon">
-      <ShoppingBag size={16} />
-    </Button>
   );
 }

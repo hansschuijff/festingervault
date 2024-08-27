@@ -10,9 +10,9 @@ class AutoUpdate {
 
     function __construct() {
         add_action('init', [$this, 'schedule_action']);
-        add_action(Constants::ACTION_KEY . "/autoupdate", [$this, 'auto_update']);
-        add_action(Constants::ACTION_KEY . "/autoupdate/run-update", [$this, 'auto_update_run']);
-        add_action(Constants::ACTION_KEY . "/autoupdate/cleanup", [$this, 'cleanup']);
+        add_action(Constants::SLUG . "/autoupdate", [$this, 'auto_update']);
+        add_action(Constants::SLUG . "/autoupdate/run-update", [$this, 'auto_update_run']);
+        add_action(Constants::SLUG . "/autoupdate/cleanup", [$this, 'cleanup']);
     }
 
     function auto_update() {
@@ -63,7 +63,7 @@ class AutoUpdate {
 
     function cleanup() {
         global $wpdb;
-        $group_id = $wpdb->get_var($wpdb->prepare("SELECT group_id FROM {$wpdb->prefix}actionscheduler_groups WHERE slug=%s", Constants::API_SLUG));
+        $group_id = $wpdb->get_var($wpdb->prepare("SELECT group_id FROM {$wpdb->prefix}actionscheduler_groups WHERE slug=%s", Constants::SLUG));
         if ($group_id) {
             $wpdb->query($wpdb->prepare("DELETE actions, logs FROM {$wpdb->prefix}actionscheduler_actions actions LEFT JOIN {$wpdb->prefix}actionscheduler_logs logs ON ( logs.action_id = actions.action_id) WHERE group_id=%d AND scheduled_date_gmt < (NOW() - INTERVAL 1 HOUR) AND status=%s", $group_id, "complete"));
         }

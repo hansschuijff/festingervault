@@ -1,13 +1,14 @@
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
+	Card,
+	CardContent,
+	CardFooter,
+	CardHeader,
 } from "@/components/ui/card";
 import useInstalled from "@/hooks/use-is-installed";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { Link } from "@/router";
-import { __, sprintf } from "@wordpress/i18n";
+import { sprintf } from "@wordpress/i18n";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
 
@@ -19,7 +20,7 @@ export default function AvailableUpdates({ className }: Props) {
   return (
     <Card className={cn("flex flex-col justify-between", className)}>
       <CardHeader className="border-b">
-        <h3 className="text-lg">{__("Item Updates", 'festingervault')}</h3>
+        <h3 className="text-lg">{__("Item Updates")}</h3>
       </CardHeader>
       <CardContent className="px-0">
         {updateable && updateable?.length > 0 ? (
@@ -42,10 +43,16 @@ export default function AvailableUpdates({ className }: Props) {
                 </div>
                 <div className="flex flex-row justify-between gap-4">
                   <div className="text-muted-foreground">
-                    {sprintf(__("Available: %d", 'festingervault'),item.version)}
+                    {sprintf(
+                      __("Available: %d"),
+                      item.version,
+                    )}
                   </div>
                   <div className="text-muted-foreground">
-									{sprintf(__("Installed: %d", 'festingervault'),item.installed_version)}
+                    {sprintf(
+                      __("Installed: %d"),
+                      item.installed_version,
+                    )}
                   </div>
                   <div className="text-muted-foreground">
                     {moment.unix(item.updated).fromNow()}
@@ -56,16 +63,16 @@ export default function AvailableUpdates({ className }: Props) {
           </div>
         ) : (
           <div className="text-center text-sm italic text-muted-foreground">
-            {__("No Update Found", 'festingervault')}
+            {__("No Update Found")}
           </div>
         )}
       </CardContent>
       <CardFooter className="justify-center border-t border-border text-center">
         <Link
           to="/updates"
-          className="border-b border-dashed border-blue-500 text-blue-500 text-sm"
+          className="border-b border-dashed border-blue-500 text-sm text-blue-500"
         >
-          {__("View All Updates", 'festingervault')}
+          {__("View All Updates")}
         </Link>
       </CardFooter>
     </Card>

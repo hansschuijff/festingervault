@@ -1,6 +1,7 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Grid } from "@/components/ui/grid";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { AvatarImage } from "@radix-ui/react-avatar";
 import { ClassNameValue } from "tailwind-merge";
@@ -48,13 +49,14 @@ export default function DashboardWelcome({ className }: Props) {
                 </Avatar>
               </div>
             </div>
-            <h2 className="text-2xl font-semibold text-card-foreground space-x-1">
-              <span>Unlimited WordPress themes, plugins and kits,</span>
-              <span className="text-blue-500">all in one place</span>
+            <h2 className="space-x-1 text-2xl font-semibold text-card-foreground">
+              <span>{__("Unlimited WordPress themes, plugins and kits,")}</span>
+              <span className="text-blue-500">{__("all in one place")}</span>
             </h2>
             <p className="text-sm font-medium leading-5 text-muted-foreground">
-              Access and unrivaled range of quality WordPress themes, plugins
-              and kits, with one simple subscription for a fraction of cost
+              {__(
+                "Access and unrivaled range of quality WordPress themes, plugins and kits, with one simple subscription for a fraction of cost",
+              )}
             </p>
           </div>
           <div className="grid-cols-1"></div>
@@ -66,7 +68,7 @@ export default function DashboardWelcome({ className }: Props) {
           target="_blank"
           className="border-b border-dashed border-blue-500 text-sm text-blue-500"
         >
-          Get Started
+          {__("Get Started")}
         </a>
       </CardFooter>
     </Card>

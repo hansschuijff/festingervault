@@ -5,20 +5,21 @@ import { Card } from "@/components/ui/card";
 import { item_types } from "@/config/item";
 import useCollection from "@/hooks/use-collection";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import Paging from "@/pages/_components/Paging";
 import PostGridItem, {
-  PostGridItemSkeleton,
+	PostGridItemSkeleton,
 } from "@/pages/item/[type]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import {
-  ItemTypeEnum,
-  PostItemCollectionResponse,
-  PostItemType,
+	ItemTypeEnum,
+	PostItemCollectionResponse,
+	PostItemType,
 } from "@/types/item";
 import catsToKeyValuePairs from "@/utils/catsToKeyValuePairs";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __, sprintf } from "@wordpress/i18n";
+import { sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
@@ -138,7 +139,7 @@ export default function Component() {
             },
             {
               id: "level",
-              label: __("Access", 'festingervault'),
+              label: __("Access"),
               isMulti: true,
               onBarView: true,
               options: [
@@ -158,7 +159,7 @@ export default function Component() {
             },
             {
               id: "add_content",
-              label: "Additional Content",
+              label: __("Additional Content"),
               isMulti: false,
               enabled: params.type != "elementor-template-kits",
               options: [
@@ -214,7 +215,7 @@ export default function Component() {
         },
         {
           label: sprintf(
-            __("Page %d", 'festingervault'),
+            __("Page %d"),
             params.page.toLocaleString(),
           ),
         },

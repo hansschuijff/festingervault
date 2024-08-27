@@ -15,7 +15,7 @@ import {
 	type Table as TanstackTable,
 	flexRender,
 } from "@tanstack/react-table";
-import { __ } from "@wordpress/i18n";
+import { __ } from "@/lib/i18n";
 import * as React from "react";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
@@ -94,7 +94,7 @@ export function DataTable<TData, TValue>({
                                     colSpan={columns.length}
                                     className="h-24 text-center"
                                 >
-                                    {__("No results", 'festingervault')}.
+                                    {__("No results")}.
                                 </TableCell>
                             </TableRow>
                         )}

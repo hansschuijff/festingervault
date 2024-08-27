@@ -1,10 +1,10 @@
 import InstallButton from "@/components/install-button";
 import { Button } from "@/components/ui/button";
+import { __ } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 import { Link, useParams } from "@/router";
 import { PostItemType } from "@/types/item";
-import cn from "@/utils/cn";
 import { Slot } from "@radix-ui/react-slot";
-import { __ } from "@wordpress/i18n";
 import { EllipsisVertical, ExternalLink, Heart } from "lucide-react";
 import { DetailTabType } from "../-[tab]";
 
@@ -28,7 +28,7 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
           >
             {external ? (
               <a href={external} target="_blank">
-                {__("Support", 'festingervault')}
+                {__("Support")}
               </a>
             ) : (
               <Link
@@ -54,7 +54,7 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
             size="default"
           >
             <a href={item.preview} target="_blank" referrerPolicy="no-referrer">
-              <span>{__("Live Preview", 'festingervault')}</span>
+              <span>{__("Live Preview")}</span>
               <ExternalLink size={16} />
             </a>
           </Button>

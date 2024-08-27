@@ -97,7 +97,7 @@ class Helper {
             /**
              * @todo `plugin` key to be deprecated soon as `plugin` holds data which we won't need except `Version`
              */
-            'plugin'       => $info,
+            //'plugin'       => $info,
             'wp_version'   => get_bloginfo('version'),
             'fv_version'   => $info["Version"] ?? null,
         ];

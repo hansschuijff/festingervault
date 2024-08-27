@@ -65,6 +65,8 @@ export function viteWpReact({
             "@wordpress/babel-plugin-makepot",
             {
               output: `languages/${process.env.TEXTDOMAIN}.pot`,
+							// functions:{
+							// }
             },
           ],
         ],

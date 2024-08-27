@@ -1,10 +1,6 @@
-/**
- * @purpose This file is used to store the site configuration.
- *
- * Add all the general site-wide configuration here.
- */
+import { __ } from "@/lib/i18n";
 
 export const siteConfig = {
-    name: "FestingerVault",
-	slug:"festingervault",
+  name: __("FestingerVault"),
+  slug: "festingervault",
 } as const;

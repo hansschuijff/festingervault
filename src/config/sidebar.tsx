@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import useInstalled from "@/hooks/use-is-installed";
+import { __ } from "@/lib/i18n";
 import {
 	ArrowLeft,
 	Drum,
@@ -81,11 +82,11 @@ const navIds = {
 const navigation: SidebarNavItems[] = [
   {
     id: "back-dashboard",
-    label: "WP Dashboard",
+    label: __("WP Dashboard"),
     showLabel: false,
     items: [
       {
-        label: "WP Dashboard",
+        label: __("WP Dashboard"),
         icon: ArrowLeft,
         href: "index.php",
         as: "a",
@@ -94,21 +95,21 @@ const navigation: SidebarNavItems[] = [
   },
   {
     id: navIds.discover,
-    label: "Discover",
+    label: __("Discover"),
     showLabel: true,
     items: [
       {
-        label: "Home",
+        label: __("Home"),
         icon: HomeIcon,
         href: "/",
       },
       {
-        label: "Browse",
+        label:__( "Browse"),
         icon: Grid2x2,
         href: "/browse",
       },
       {
-        label: "Most Polular",
+        label: __("Most Polular"),
         icon: Radio,
         href: "/popular",
       },
@@ -116,36 +117,36 @@ const navigation: SidebarNavItems[] = [
   },
   {
     id: navIds.library,
-    label: "Library",
+    label: __("Library"),
     showLabel: true,
     items: [
       {
-        label: "Themes",
+        label: __("Themes"),
         icon: Palette,
         href: "/item/wordpress-themes",
       },
       {
-        label: "Plugins",
+        label: __("Plugins"),
         icon: ToyBrick,
         href: "/item/wordpress-plugins",
       },
       {
-        label: "Elementor Kits",
+        label: __("Elementor Kits"),
         icon: Drum,
         href: "/item/elementor-template-kits",
       },
       {
-        label: "Requests",
+        label: __("Requests"),
         icon: Library,
         href: "/requests",
       },
       {
-        label: "Collections",
+        label: __("Collections"),
         icon: Heart,
         href: "/collections",
       },
       {
-        label: "Updates",
+        label: __("Updates"),
         icon: Repeat,
         href: "/updates",
         notice: () => {
@@ -160,7 +161,7 @@ const navigation: SidebarNavItems[] = [
         },
       },
 			{
-        label: "History",
+        label: __("History"),
         icon: List,
         href: "/history",
       },
@@ -168,21 +169,21 @@ const navigation: SidebarNavItems[] = [
   },
   {
     id: navIds.settings,
-    label: "Settings",
+    label: __("Settings"),
     showLabel: true,
     items: [
       {
-        label: "License Activation",
+        label: __("License Activation"),
         icon: ShieldCheck,
         href: "/activation",
       },
       {
-        label: "Settings",
+        label: __("Settings"),
         icon: Settings,
         href: "/settings",
       },
       {
-        label: "Need Help?",
+        label: __("Need Help?"),
         icon: LifeBuoy,
         href: "/need-help",
       },

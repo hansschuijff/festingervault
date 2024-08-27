@@ -1,12 +1,12 @@
 import { Switch } from "@/components/ui/switch";
 import useApiMutation from "@/hooks/useApiMutation";
 import useSetting from "@/hooks/useSetting";
+import { __ } from "@/lib/i18n";
 import { ThemePluginItemType } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
 import { useQueryClient } from "@tanstack/react-query";
 import { Row } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __ } from "@wordpress/i18n";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -32,15 +32,15 @@ export default function AutoUpdateSwitcher({ row }: Props) {
         }),
         {
           description: decodeEntities(row.original.title),
-          loading: __("Updating Autoupdate", 'festingervault'),
+          loading: __("Updating Autoupdate"),
           success() {
             setChecked(enabled);
             queryClient.invalidateQueries({
               queryKey: ["setting/get"],
             });
             return enabled
-              ? __("Autoupdate Enabled", 'festingervault')
-              : __("Autoupdate Disabled", 'festingervault');
+              ? __("Autoupdate Enabled")
+              : __("Autoupdate Disabled");
           },
           error: "Something went wrong. Try again later",
         },
