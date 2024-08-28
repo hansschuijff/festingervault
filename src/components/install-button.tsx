@@ -163,16 +163,16 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                     1,
                   )}
                 </div>
-                <div className="flex flex-row justify-center divide-x">
+                <div className="flex flex-row items-center justify-center divide-x whitespace-nowrap">
                   <div className="px-4">
-                    {sprintf(__("Daily Limit:"), activation?.today_limit)}
+                    {sprintf(__("Daily Limit: %s"), activation?.today_limit?.toLocaleString())}
                   </div>
                   <div className="px-4">
-                    {sprintf(__("Used Limit:"), activation?.today_limit_used)}
+                    {sprintf(__("Used Limit: %s"), activation?.today_limit_used?.toLocaleString())}
                   </div>
-                  {activation?.plan_title === "recurring" && (
-                    <div className="p-4">
-                      {sprintf(__("Total Limit:"), activation?.total_limit)}
+                  {activation?.plan_type === "onetime" && (
+                    <div className="px-4 ">
+                      {sprintf(__("Total Limit: %s"), activation?.total_limit?.toLocaleString())}
                     </div>
                   )}
                 </div>

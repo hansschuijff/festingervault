@@ -58,11 +58,16 @@ class Installer {
             $destination = trailingslashit(get_theme_root()) . $this->download_detail["slug"];
         }
         if (false !== $destination) {
-            return $this->wp_installer->run([
+            $installed= $this->wp_installer->run([
                 "package"                     => $this->download_detail["link"],
                 "destination"                 => $destination,
                 "abort_if_destination_exists" => false,
             ]);
+			if(\is_wp_error($installed)){
+				error_log($installed->get_error_message());
+				return new WP_Error(400,__("Error while Installing"));
+			}
+			return $installed;
         }
         return new WP_Error("invalid_destination", "Installation failed");
     }

@@ -41,12 +41,18 @@ export default function LicenseStatus({ className }: Props) {
         </div>
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">{data?.today_limit?.toLocaleString()}</div>
-          <div className="text-sm text-muted-foreground">{__("Daily Today")}</div>
+          <div className="text-sm text-muted-foreground">
+            {__("Daily Today")}
+          </div>
         </div>
-        <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
-          <div className="text-sm text-muted-foreground">{__("All-Time Limit")}</div>
-        </div>
+        {data?.plan_type === "onetime" && (
+          <div className="rounded-sm border border-dashed border-muted-foreground p-4">
+            <div className="text-lg">{data?.total_limit?.toLocaleString()}</div>
+            <div className="text-sm text-muted-foreground">
+              {__("All-Time Limit")}
+            </div>
+          </div>
+        )}
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">Lifetime</div>
           <div className="text-sm text-muted-foreground">{__("Updates")}</div>
@@ -64,7 +70,9 @@ export default function LicenseStatus({ className }: Props) {
       <div className="flex flex-col items-center gap-12 lg:flex-row">
         <div className="flex flex-1 flex-col gap-2">
           <div className="space-x-1">
-            <span className="text-muted-foreground">{__("Downloads used:")}</span>
+            <span className="text-muted-foreground">
+              {__("Credits used:")}
+            </span>
             <span>
               {data?.today_limit_used} of {data?.today_limit?.toLocaleString()}
             </span>
