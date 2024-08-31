@@ -175,7 +175,7 @@ export default function Component() {
             },
           ]
         : [],
-    [terms, categoriesIsLoading, catsToKeyValuePairs, params],
+    [terms, categoriesIsLoading, params],
   );
   const collection = useCollection({
     options: filters,
@@ -186,7 +186,7 @@ export default function Component() {
     useApiFetch<PostItemCollectionResponse>("item/list", {
       type,
       page,
-      filter: collection.items,
+      filter: collection.filter,
       sort: collection.sorting,
       keyword: collection.search?.keyword,
       per_page: Number(collection.pagination?.per_page),

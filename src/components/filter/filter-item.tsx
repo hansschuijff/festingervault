@@ -16,21 +16,18 @@ import {
 import useCollection from "@/hooks/use-collection";
 import { cn } from "@/lib/utils";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-import { __ } from "@/lib/i18n";
+import { __, _x } from "@/lib/i18n";
 import { CheckIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
+import { sprintf } from "@wordpress/i18n";
 export type FilterItemProps = {
   collection: ReturnType<typeof useCollection>;
   item: ReturnType<typeof useCollection>["options"][0];
 };
 export default function FilterItem({ item, collection }: FilterItemProps) {
   const selectedValues = new Set<string>(
-    item.isMulti
-      ? collection.items[item.id]
-      : collection.items[item.id]
-        ? [collection.items[item.id]]
-        : null,
+    collection.filter[item.id]
   );
   return (
     <Popover>
@@ -53,7 +50,10 @@ export default function FilterItem({ item, collection }: FilterItemProps) {
                     variant="secondary"
                     className="rounded-sm px-1 font-normal"
                   >
-                    {selectedValues.size} selected
+                    {sprintf(
+                      _x("%d selected", "Number of selected filter items"),
+                      selectedValues.size,
+                    )}
                   </Badge>
                 ) : (
                   item.options
@@ -79,9 +79,7 @@ export default function FilterItem({ item, collection }: FilterItemProps) {
             <CommandInput placeholder={__("Search")} />
           )}
           <CommandList>
-            <CommandEmpty>
-              {__("No results found.")}
-            </CommandEmpty>
+            <CommandEmpty>{__("No results found.")}</CommandEmpty>
             <CommandGroup>
               {item.options.map(option => {
                 const isSelected = selectedValues.has(option.value);

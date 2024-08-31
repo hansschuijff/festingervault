@@ -26,6 +26,7 @@ export type PostItemType<Ex = never> = {
   slug: string;
   summary: string;
   image: string;
+  thumbnail: string;
   type: Exclude<z.infer<typeof ItemTypeEnum>, Ex>;
   author: string;
   category: string;
@@ -43,6 +44,8 @@ export type PostItemType<Ex = never> = {
   preview?: string;
   support_url?: string;
   virus_total?: VirusTotal;
+	path?:string;
+	install_dir?:string;
 };
 export type PostMediaType = {
   id: number;

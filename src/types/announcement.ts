@@ -1,4 +1,3 @@
-
 export type AnnouncementItemType = {
   id: number;
   title: string;

@@ -104,7 +104,7 @@ const navigation: SidebarNavItems[] = [
         href: "/",
       },
       {
-        label:__( "Browse"),
+        label: __("Browse"),
         icon: Grid2x2,
         href: "/browse",
       },
@@ -160,12 +160,12 @@ const navigation: SidebarNavItems[] = [
           }
         },
       },
-			{
+      {
         label: __("History"),
         icon: List,
         href: "/history",
       },
-   ],
+    ],
   },
   {
     id: navIds.settings,

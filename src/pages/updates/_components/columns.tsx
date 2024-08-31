@@ -7,6 +7,8 @@ import version_compare from "@/utils/version_compare";
 import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
+import { __ } from "@/lib/i18n";
+import { sprintf } from "@wordpress/i18n";
 
 export function getColumns(): ColumnDef<ThemePluginItemType>[] {
   return columns;
@@ -50,7 +52,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
         <div className="flex flex-row gap-4">
           <div className="aspect-square w-12">
             <img
-              src={row.original.image}
+              src={row.original.thumbnail??row.original.image}
               className="aspect-square h-12 w-12 rounded-sm object-cover"
             />
           </div>
@@ -66,7 +68,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
               </div>
             </div>
             <div className="text-muted-foreground">
-              {type_labels[row.original.type]}
+              {sprintf(__("Path: %s"),row.original.install_dir)}
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ import useInstall, {
 	PluginInstallResponse,
 	PluginInstallSchema,
 } from "@/hooks/useInstall";
-import { __ } from "@/lib/i18n";
+import { __, _x } from "@/lib/i18n";
 import { useNavigate, useParams } from "@/router";
 import { PostItemType, PostMediaType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
@@ -165,14 +165,14 @@ export default function InstallButton({ item, media, size, variant }: Props) {
                 </div>
                 <div className="flex flex-row items-center justify-center divide-x whitespace-nowrap">
                   <div className="px-4">
-                    {sprintf(__("Daily Limit: %s"), activation?.today_limit?.toLocaleString())}
+                    {sprintf(_x("Daily Limit: %s", "Plan Daily Limit"), activation?.today_limit?.toLocaleString())}
                   </div>
                   <div className="px-4">
-                    {sprintf(__("Used Limit: %s"), activation?.today_limit_used?.toLocaleString())}
+                    {sprintf(_x("Used Limit: %s", "Plan Used Limit (today)"), activation?.today_limit_used?.toLocaleString())}
                   </div>
                   {activation?.plan_type === "onetime" && (
                     <div className="px-4 ">
-                      {sprintf(__("Total Limit: %s"), activation?.total_limit?.toLocaleString())}
+                      {sprintf(_x("Total Limit: %s","Plan total available limit (applicable to onetime plans)"), activation?.total_limit?.toLocaleString())}
                     </div>
                   )}
                 </div>

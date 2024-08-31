@@ -2,8 +2,10 @@
 
 namespace FestingerVault\api;
 
-use FestingerVault\Helper;
-use FestingerVault\Constants;
+use FestingerVault\{
+    Constants,
+    Helper
+};
 
 class License extends ApiBase {
     /**

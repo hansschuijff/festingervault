@@ -65,7 +65,7 @@ class Installer {
             ]);
 			if(\is_wp_error($installed)){
 				error_log($installed->get_error_message());
-				return new WP_Error(400,__("Error while Installing"));
+				return new WP_Error(400,__("Error while Installing", 'festingervault'));
 			}
 			return $installed;
         }

@@ -3,6 +3,7 @@ import fs from "fs-extra";
 import { sync } from "glob";
 import path from "path";
 config();
+
 const patterns = [
   "admin/**",
   "build/**",

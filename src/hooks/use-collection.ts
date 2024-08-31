@@ -1,10 +1,11 @@
+import { removeEmptyParams } from "@/lib/utils";
 import { Params, useNavigate, useParams } from "@/router";
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
 // Define types
-type FilterState = Record<string, string[] | string>;
+type FilterState = Record<string, string[]>;
 
 type SortItem = {
   value: string;
@@ -22,9 +23,8 @@ type FilterOption = {
   values?: string[];
   options: Option[];
   isMulti?: boolean;
-	onBarView?:boolean;
+  onBarView?: boolean;
   enabled?: boolean;
-
 };
 // Create schemas dynamically
 const createFilterSchema = (options: FilterOption[]) => {
@@ -33,10 +33,7 @@ const createFilterSchema = (options: FilterOption[]) => {
     if (option.enabled === false) {
       return;
     }
-    schemaShape[option.id] =
-      option.isMulti === true
-        ? z.array(z.string()).optional()
-        : z.string().optional();
+    schemaShape[option.id] = z.array(z.string()).optional();
   });
   return z.object(schemaShape);
 };
@@ -53,14 +50,7 @@ const createSortSchema = (sort_items: SortItem[]) => {
     order: z.enum(["asc", "desc"]).default("desc"),
   });
 };
-function removeEmptyParams(params: Record<string, any>) {
-  return Object.entries(params).reduce(function (acc, [key, val]) {
-    if (val.length > 0) {
-      acc[key] = val;
-    }
-    return acc;
-  }, {});
-}
+
 const paginationSchema = z.object({
   per_page: z.enum(["30", "60", "90"]).default("30"),
 });
@@ -71,7 +61,7 @@ const serializeQuery = (items: FilterState): Record<string, string> => {
   return Object.fromEntries(
     Object.entries(items).map(([key, values]) => [
       key,
-      Array.isArray(values) ? (values as string[]).sort().join(",") : values,
+      values.sort().join(","),
     ]),
   );
 };
@@ -99,9 +89,7 @@ export default function useCollection({
       Array.from(searchParams.entries()).forEach(([key, value]) => {
         const option = options.find(i => i.id === key);
         if (option) {
-          result[key] = option.isMulti
-            ? value.split(",").filter(v => v.length > 0)
-            : value;
+          result[key] = value.split(",").filter(v => v.length > 0);
         }
       });
       return result as FilterState;
@@ -121,7 +109,7 @@ export default function useCollection({
       Object.fromEntries(searchParams),
     );
     return {
-      items: filterResult.success ? filterResult.data : {},
+      filter: filterResult.success ? filterResult.data : {},
       sorting: sortResult.success ? sortResult.data : {},
       search: searchResult.success ? searchResult.data : {},
       pagination: paginationResult.success ? paginationResult.data : {},
@@ -131,7 +119,7 @@ export default function useCollection({
 
   function setFilter(key: string, values: string[]) {
     const newItems = removeEmptyParams({
-      ...initialState.items,
+      ...initialState.filter,
       [key]: values.length > 0 && values.sort(),
     });
     resetPage();
@@ -142,6 +130,15 @@ export default function useCollection({
       ...initialState.pagination,
     });
   }
+	function setFilters(values:FilterState){
+		resetPage();
+    setSearchParams({
+      ...initialState.search,
+      ...serializeQuery(values),
+      ...initialState.sorting,
+      ...initialState.pagination,
+    });
+	}
 
   function setSort(key: string, order: "asc" | "desc") {
     const newSorting = removeEmptyParams({
@@ -150,7 +147,7 @@ export default function useCollection({
     });
     setSearchParams({
       ...initialState.search,
-      ...serializeQuery(initialState.items),
+      ...serializeQuery(initialState.filter),
       ...newSorting,
       ...initialState.pagination,
     });
@@ -159,7 +156,7 @@ export default function useCollection({
     resetPage();
     setSearchParams({
       ...(keyword.length > 0 ? { keyword } : {}),
-      ...serializeQuery(initialState.items),
+      ...serializeQuery(initialState.filter),
       ...initialState.sorting,
       ...initialState.pagination,
     });
@@ -168,7 +165,7 @@ export default function useCollection({
     resetPage();
     setSearchParams({
       ...initialState.search,
-      ...serializeQuery(initialState.items),
+      ...serializeQuery(initialState.filter),
       ...initialState.sorting,
       per_page: String(per_page),
     });
@@ -189,10 +186,11 @@ export default function useCollection({
     searchParams,
     sort,
     search: initialState.search,
-    items: initialState.items,
+    filter: initialState.filter,
     sorting: initialState.sorting,
     pagination: initialState.pagination,
     setFilter,
+    setFilters,
     setSort,
     resetPage,
     setSearch,

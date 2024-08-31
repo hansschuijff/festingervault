@@ -1,6 +1,6 @@
 /** @type {import('prettier').Config} */
 export default {
-  tailwindFunctions: ["clsx","cn"],
+  tailwindFunctions: ["clsx"],
   plugins: ["prettier-plugin-tailwindcss"],
   tailwindConfig: "./tailwind.config.ts",
   arrowParens: "avoid",

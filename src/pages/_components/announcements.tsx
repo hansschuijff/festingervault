@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/useApiFetch";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { AnnouncementItemType } from "@/types/announcement";
 import { sprintf } from "@wordpress/i18n";
 import moment from "moment";
 import { ClassNameValue } from "tailwind-merge";
-import { __ } from "@/lib/i18n";
 
 type Props = {
   className?: ClassNameValue;
