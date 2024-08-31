@@ -21,9 +21,9 @@ class Constants
 
 	const ENGINE_URL = "https://engine.sovit.top";
 
-	const PLUGIN_DOWNLOAD_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/${GH_RELEASE_BRANCH}/festingervault.zip";
+	const PLUGIN_DOWNLOAD_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/dev-rc/festingervault.zip";
 
-	const PLUGIN_INFO_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/${GH_RELEASE_BRANCH}/info.json";
+	const PLUGIN_INFO_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/dev-rc/info.json";
 
 	const SETTING_KEY = "vault_settings";
 
