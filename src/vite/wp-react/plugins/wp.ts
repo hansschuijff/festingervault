@@ -97,7 +97,7 @@ export default function WPEnvProcess({
       const headers = {
         "Plugin Name": env.NAME,
         "Plugin URI": env.URI,
-        Version: env.VERSION,
+        Version: env.VERSION ?? Date.now().toString(),
         Description: env.DESCRIPTION,
         Author: env.AUTHOR_NAME,
         "Author URI": env.AUTHOR_URL,

@@ -7,7 +7,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import generatePaginationArray from "@/utils/generatePaginationArray";
+import generatePaginationArray from "@/lib/generatePaginationArray";
 import { useMemo } from "react";
 type PagingProps = {
   totalPages: number;

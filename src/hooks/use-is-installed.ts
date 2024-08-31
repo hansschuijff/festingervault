@@ -1,6 +1,6 @@
 import { CollectionResponse } from "@/types/api";
 import { ThemePluginItemType } from "@/types/item";
-import version_compare from "@/utils/version_compare";
+import version_compare from "@/lib/version_compare";
 import { useMemo } from "react";
 import useApiFetch from "./useApiFetch";
 import { useQueryClient } from "@tanstack/react-query";

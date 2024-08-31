@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "@/router";
 import { ThemePluginItemType } from "@/types/item";
-import version_compare from "@/utils/version_compare";
+import version_compare from "@/lib/version_compare";
 import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";

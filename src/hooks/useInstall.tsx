@@ -1,5 +1,5 @@
 import { PostItemType, PostMediaType } from "@/types/item";
-import version_compare from "@/utils/version_compare";
+import version_compare from "@/lib/version_compare";
 import { useMemo } from "react";
 import useInstalled from "./use-is-installed";
 export type PluginInstallResponse = {

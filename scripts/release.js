@@ -47,7 +47,7 @@ zip.writeZip(`./dist/${process.env.SLUG}.zip`);
   const data = {
     name: process.env.NAME,
     slug: process.env.SLUG,
-    version: process.env.VERSION,
+    version: process.env.VERSION ?? Date.now().toString(),
     author: process.env.AUTHOR_NAME,
     author_profile: process.env.AUTHOR_URL,
     requires: process.env.MIN_WP,
