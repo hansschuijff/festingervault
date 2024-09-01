@@ -1,10 +1,10 @@
 import AdditionalDownloadButton from "@/components/additional-download-button";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import capitalizeHyphenatedWords from "@/lib/capitalizeHyphenatedWords";
 import { __ } from "@/lib/i18n";
-import Paging from "@/pages/_components/Paging";
+import Paging from "@/pages/_components/paging";
 import { useParams } from "@/router";
 import {
 	DemoContentCollectionResponse,
@@ -29,7 +29,7 @@ export function DemoContentTable({ item, data }: DemoContentTableProps) {
 		() => [
 			{
 				id: "name",
-				label: "Name",
+				label: __("Name"),
 				className: "w-full",
 				render({ row }) {
 					return decodeEntities(row.title);
@@ -37,7 +37,7 @@ export function DemoContentTable({ item, data }: DemoContentTableProps) {
 			},
 			{
 				id: "type",
-				label: "Type",
+				label: __("Type"),
 				className: "whitespace-nowrap whitespace-nowrap",
 				render({ row }) {
 					return capitalizeHyphenatedWords(row?.type);
@@ -45,7 +45,7 @@ export function DemoContentTable({ item, data }: DemoContentTableProps) {
 			},
 			{
 				id: "date",
-				label: "Date",
+				label: __("Date"),
 				className: "whitespace-nowrap text-muted-foreground",
 				render({ row }) {
 					return moment.unix(row.updated).format("D MMM, YYYY");

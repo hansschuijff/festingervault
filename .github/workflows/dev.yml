@@ -13,7 +13,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: set release date
+      - name: Set dev version to timestamp
         run: |
           echo "VERSION=$(date +%s)" >> ${GITHUB_ENV}
       - name: Checkout repository

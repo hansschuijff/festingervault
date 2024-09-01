@@ -19,7 +19,6 @@ class Item extends ApiBase
 		return Helper::engine_post("item/categories", [
 			"type" => $type,
 		]);
-
 	}
 	public function terms(WP_REST_Request $request)
 	{
@@ -46,7 +45,6 @@ class Item extends ApiBase
 			"item_id" => $item_id,
 			"page" => $page,
 		]);
-
 	}
 
 
@@ -57,10 +55,7 @@ class Item extends ApiBase
 		return Helper::engine_post("item/detail", [
 			"item_id" => $item_id,
 		]);
-
 	}
-
-
 	public function download_additional(WP_REST_Request $request)
 	{
 		$item_id = $request->get_param("item_id");
@@ -69,16 +64,13 @@ class Item extends ApiBase
 			"item_id" => $item_id,
 		]);
 		if (is_wp_error($item_detail)) {
-			return new WP_Error("item_detail", "Error getting Item detail");
+			return new WP_Error(400, __("Error getting Item detail", 'festingervault'));
 		}
 		return Helper::engine_post("item/download-additional", [
 			"item_id" => $item_id,
 			"media_id" => $media_id,
 		]);
-
-
 	}
-
 	public function endpoints()
 	{
 
@@ -141,7 +133,7 @@ class Item extends ApiBase
 		$installer = new Installer($item_detail, $download_detail);
 		$status = $installer->run();
 		if (is_wp_error($status)) {
-			return new WP_Error(400, "Error running item installation/update");
+			return new WP_Error(400, __("Error running item installation/update", 'festingervault'));
 		}
 		return ['success' => true];
 	}
@@ -163,18 +155,12 @@ class Item extends ApiBase
 			"sort" => $sort,
 			"per_page" => $per_page,
 		]);
-
 	}
 
 
 	public function stats(WP_REST_Request $request)
 	{
 		return Helper::engine_post("item/stats");
-
 	}
 
-	protected function prefix()
-	{
-		return "item";
-	}
 }

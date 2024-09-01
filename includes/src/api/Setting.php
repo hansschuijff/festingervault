@@ -22,9 +22,4 @@ class Setting extends ApiBase {
     public function get_setting(\WP_REST_Request $request) {
         return get_option(Constants::SETTING_KEY, Constants::DEFAULT_SETTINGS);
     }
-
-
-    protected function prefix() {
-        return "setting";
-    }
 }

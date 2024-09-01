@@ -1,18 +1,15 @@
 import {
 	Command,
-	CommandEmpty,
 	CommandGroup,
 	CommandInput,
 	CommandItem,
 	CommandList,
-	CommandSeparator,
 } from "@/components/ui/command";
 import useCollection from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { CheckIcon, Search, X } from "lucide-react";
-import { KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
-import { Input } from "../ui/input";
+import { CheckIcon, X } from "lucide-react";
+import { KeyboardEvent, useCallback, useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 type ArrayItemType<T, K extends keyof T> = T[K] extends (infer U)[] ? U : never;
 type Item = ArrayItemType<ReturnType<typeof useCollection>, "options">;
@@ -46,13 +43,9 @@ export default function FilterItemList({
 			if (!input) {
 				return;
 			}
-
-			// Keep the options displayed when the user is typing
 			if (!isOpen) {
 				setOpen(true);
 			}
-
-			// This is not a default behaviour of the <input /> field
 			if (event.key === "Enter" && input.value !== "") {
 				const optionToSelect = item.options.find(
 					option => option.label === input.value,

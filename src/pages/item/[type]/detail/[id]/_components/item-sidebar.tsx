@@ -22,7 +22,7 @@ export default function ItemSidebar({ item }: Props) {
             <div className="text-2xl font-semibold">
               <CountUp
                 start={0}
-                end={item.download_count}
+                end={item.download_count??0}
                 duration={2.75}
                 formattingFn={num => millify(num)}
               />
@@ -35,7 +35,7 @@ export default function ItemSidebar({ item }: Props) {
             <div className="text-2xl">
               <CountUp
                 start={0}
-                end={item.install_count}
+                end={item.install_count??0}
                 duration={2.75}
                 formattingFn={num => millify(num)}
               />
@@ -48,7 +48,7 @@ export default function ItemSidebar({ item }: Props) {
       </Card>
       <VirusTotalScan item={item} />
       <ItemDetail item={item} />
-      {item.media_count > 0 && params.tab != "changelog" && (
+      {item.media_count && item.media_count > 0 && params.tab != "changelog" && (
         <ChangelogPreview item={item} />
       )}
       <ItemTerms

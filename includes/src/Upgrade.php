@@ -52,7 +52,6 @@ class Upgrade
 	/**
 	 * Get Instance
 	 * @param string $file
-	 * @return Upgrade|null
 	 */
 	public static function get_instance($file)
 	{

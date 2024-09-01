@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/drawer";
 import useActivation from "@/hooks/use-activation";
 import useInstalled from "@/hooks/use-is-installed";
-import useApiMutation from "@/hooks/useApiMutation";
-import { PluginInstallResponse } from "@/hooks/useInstall";
+import useApiMutation from "@/hooks/use-api-mutation";
+import { PluginInstallResponse } from "@/hooks/use-install";
 import { useNavigate } from "@/router";
 import { DemoContentType, PostItemType } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
@@ -57,7 +57,7 @@ export default function AdditionalDownloadButton({
       }),
       {
         description: decodeEntities(media.title),
-        loading: "Downloading",
+        loading: __("Downloading"),
         success(data) {
           if (data.link) {
             window.open(data.link, "_blank");

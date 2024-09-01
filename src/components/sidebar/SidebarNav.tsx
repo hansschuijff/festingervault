@@ -208,7 +208,7 @@ function NavLink({
   external,
   notice: Notice,
 }: NavLinkProps) {
-  const isExternal = href.startsWith("http") ?? external;
+  const isExternal = href?.startsWith("http") ?? external;
   const linkTarget = isExternal ? "_blank" : "_self";
   const content = (
     <>
@@ -229,7 +229,7 @@ function NavLink({
   if (as == "link") {
     return (
       <Link
-        to={href}
+        to={href??""}
         className={linkStyle({ active, disabled, size })}
         target={linkTarget}
         rel="noreferrer"

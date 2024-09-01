@@ -27,7 +27,6 @@ class History extends ApiBase
 				'methods' => "POST",
 				'callback' => [$this, 'list'],
 			],
-
 		];
 	}
 }

@@ -26,7 +26,7 @@ export default function useInstall(item: PostItemType, media?: PostMediaType) {
       return (
         version_compare(
           isInstalled.version,
-          isInstalled.installed_version,
+          isInstalled.installed_version??"0.0.0",
           "gt",
         ) === true
       );
@@ -37,7 +37,7 @@ export default function useInstall(item: PostItemType, media?: PostMediaType) {
   const isRollBack = useMemo(() => {
     if (isInstalled && media) {
       return (
-        version_compare(isInstalled.installed_version, media.version, "gt") ===
+        version_compare(isInstalled.installed_version??"0.0.0", media.version, "gt") ===
         true
       );
     }

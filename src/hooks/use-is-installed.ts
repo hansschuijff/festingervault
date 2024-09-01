@@ -2,7 +2,7 @@ import { CollectionResponse } from "@/types/api";
 import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/lib/version_compare";
 import { useMemo } from "react";
-import useApiFetch from "./useApiFetch";
+import useApiFetch from "./use-api-fetch";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function useInstalled() {
@@ -13,7 +13,7 @@ export default function useInstalled() {
     () =>
       data?.data?.filter(
         item =>
-          version_compare(item.version, item.installed_version, "gt") === true,
+          version_compare(item.version, item.installed_version??"", "gt") === true,
       ),
     [data],
   );

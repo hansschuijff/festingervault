@@ -1,7 +1,7 @@
 import { Icons } from "@/components/ui/icons";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
-import useTheme from "@/hooks/useTheme";
+import useTheme from "@/hooks/use-theme";
 import { cn } from "@/lib/utils";
 import { sprintf } from "@wordpress/i18n";
 import { Link } from "react-router-dom";

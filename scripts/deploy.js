@@ -5,17 +5,13 @@ import path from "path";
 config();
 
 const patterns = [
-  "admin/**",
-  "build/**",
-  "includes/**",
-  "languages/**",
-  "public/**",
-  `${process.env.SLUG}.php`,
-  "uninstall.php",
-  "block.json",
-  "changelog.*",
-  "license.*",
-  "readme.*",
+	"admin/**",
+	"build/**",
+	"includes/**",
+	"languages/**",
+	"public/**",
+	`${process.env.SLUG}.php`,
+	"uninstall.php",
 ];
 
 // Define the destination directory
@@ -26,12 +22,12 @@ fs.ensureDirSync(destination);
 
 // Function to copy matched files to the destination
 patterns.forEach(pattern => {
-  const files = sync(pattern, { caseSensitiveMatch: false });
-  files.forEach(file => {
-    const destPath = path.join(destination, file);
-    fs.ensureDirSync(path.dirname(destPath)); // Ensure the destination directory exists
-    fs.copySync(file, destPath);
-  });
+	const files = sync(pattern, { nocase: true, nodir: true });
+	files.forEach(file => {
+		const destPath = path.join(destination, file);
+		fs.ensureDirSync(path.dirname(destPath)); // Ensure the destination directory exists
+		fs.copySync(file, destPath);
+	});
 });
 
 console.log("All files have been copied successfully.");

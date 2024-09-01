@@ -101,6 +101,7 @@
 		"@types/react": "^18.3.3",
 		"@types/read-pkg-up": "^6.0.0",
 		"@types/rimraf": "^4.0.5",
+		"@types/typescript": "^2.0.0",
 		"@vitejs/plugin-react": "^4.3.1",
 		"@wordpress/babel-plugin-makepot": "^6.6.0",
 		"adm-zip": "^0.5.14",
@@ -116,6 +117,7 @@
 		"rimraf": "^6.0.1",
 		"rollup-plugin-external-globals": "^0.11.0",
 		"ts-node": "^10.9.2",
+		"typescript": "^5.5.4",
 		"vite-plugin-external": "^4.3.1",
 		"vite-plugin-minify": "^1.5.2"
 	}

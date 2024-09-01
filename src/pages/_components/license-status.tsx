@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { ActivationDetailType } from "@/types/license";
@@ -23,7 +23,7 @@ export default function LicenseStatus({ className }: Props) {
             variant="outline"
             className="border-green-600 bg-green-600/10 text-green-600"
           >
-            {data?.expires > 0
+            {data && data?.expires > 0
               ? data?.plan_type === "recurring"
                 ? __("Monthly Plan")
                 : __("One-Time Plan")
@@ -31,7 +31,7 @@ export default function LicenseStatus({ className }: Props) {
           </Badge>
         </h2>
         <div className="text-muted-foreground">
-          {decodeEntities(data?.plan_detail)}
+          {data && decodeEntities(data?.plan_detail)}
         </div>
       </div>
       <div className="flex flex-col gap-4 lg:flex-row">
@@ -54,13 +54,13 @@ export default function LicenseStatus({ className }: Props) {
           </div>
         )}
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
-          <div className="text-lg">Lifetime</div>
+          <div className="text-lg">{__("Lifetime")}</div>
           <div className="text-sm text-muted-foreground">{__("Updates")}</div>
         </div>
 
         <div className="rounded-sm border border-dashed border-muted-foreground p-4">
           <div className="text-lg">
-            {data?.expires > 0
+            {data && data?.expires > 0
               ? moment.unix(data?.expires).format("DD MM,YYYY")
               : __("Never")}
           </div>

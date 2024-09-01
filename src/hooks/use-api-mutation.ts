@@ -15,7 +15,6 @@ export default function useApiMutation<
       });
 
     },
-
   });
   return mutation;
 }

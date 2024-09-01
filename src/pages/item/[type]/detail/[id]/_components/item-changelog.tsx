@@ -2,10 +2,10 @@ import InstallButton from "@/components/install-button";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import useApiFetch from "@/hooks/useApiFetch";
-import useInstall from "@/hooks/useInstall";
+import useApiFetch from "@/hooks/use-api-fetch";
+import useInstall from "@/hooks/use-install";
 import { __ } from "@/lib/i18n";
-import Paging from "@/pages/_components/Paging";
+import Paging from "@/pages/_components/paging";
 import { useParams } from "@/router";
 import {
 	PostChangelogCollectionResponse,
@@ -31,7 +31,7 @@ function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
     () => [
       {
         id: "version",
-        label: "Version",
+        label: __("Version"),
         className: "w-full",
         render({ row }) {
           return (
@@ -39,7 +39,7 @@ function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
               <span className="text-xl">{row.version}</span>
               {isInstalled && isInstalled.installed_version === row.version && (
                 <Badge variant="info" size="sm">
-                  Installed
+                  {__("Installed")}
                 </Badge>
               )}
             </div>
@@ -48,7 +48,7 @@ function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
       },
       {
         id: "date",
-        label: "Date",
+        label: __("Date"),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
           return moment.unix(row.updated).format("D MMM, YYYY");

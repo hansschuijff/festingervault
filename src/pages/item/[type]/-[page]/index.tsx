@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { item_types } from "@/config/item";
 import useCollection from "@/hooks/use-collection";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import Paging from "@/pages/_components/Paging";
+import Paging from "@/pages/_components/paging";
 import PostGridItem, {
 	PostGridItemSkeleton,
 } from "@/pages/item/[type]/-[page]/_components/PostGridItem";

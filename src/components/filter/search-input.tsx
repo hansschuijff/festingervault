@@ -9,7 +9,7 @@ type Props = {
   collection: ReturnType<typeof useCollection>;
 };
 export default function Search({ collection }: Props) {
-  const [text, setText] = useState<string>(collection.search?.keyword || "");
+  const [text, setText] = useState<string>(collection.search?.keyword ?? "");
   const [inputChanged, setInputChanged] = useState<boolean>(false);
   const debouncedSearchTerm = useDebounce(text, 500);
   useEffect(() => {

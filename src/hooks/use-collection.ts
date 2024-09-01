@@ -112,7 +112,7 @@ export default function useCollection({
       filter: filterResult.success ? filterResult.data : {},
       sorting: sortResult.success ? sortResult.data : {},
       search: searchResult.success ? searchResult.data : {},
-      pagination: paginationResult.success ? paginationResult.data : {},
+      pagination: paginationResult.success ? paginationResult.data : { per_page:"30"},
     };
   }, [searchParams, filterSchema, sortSchema, searchSchema, paginationSchema]);
   // Update URL with new filter and sorting parameters

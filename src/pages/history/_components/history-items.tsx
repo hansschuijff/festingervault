@@ -2,7 +2,7 @@ import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
-import Paging from "@/pages/_components/Paging";
+import Paging from "@/pages/_components/paging";
 import { Link, useParams } from "@/router";
 import { HistoryCollectionType, HistoryItemType } from "@/types/history";
 import { decodeEntities } from "@wordpress/html-entities";

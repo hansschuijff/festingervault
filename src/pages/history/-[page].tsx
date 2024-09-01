@@ -1,5 +1,5 @@
 import { AppPageShell } from "@/components/body/page-shell";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import { HistoryCollectionType } from "@/types/history";

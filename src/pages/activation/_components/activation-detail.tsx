@@ -17,7 +17,7 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import { Skeleton } from "@/components/ui/skeleton";
-import useApiMutation from "@/hooks/useApiMutation";
+import useApiMutation from "@/hooks/use-api-mutation";
 import { __ } from "@/lib/i18n";
 import { ActivationDetailType } from "@/types/license";
 import { useQueryClient } from "@tanstack/react-query";

@@ -19,9 +19,9 @@ class License extends ApiBase {
         ]);
         if (!is_wp_error($result)) {
             update_option(Constants::ACTIVATION_KEY, $result["activation_key"]);
-            return ["message" => "Activation Successful"];
+            return ["message" => __("Activation Successful", 'festingervault')];
         }
-        return new \WP_Error(400, "Error Activating License");
+        return new \WP_Error(400, __("Error Activating License", 'festingervault'));
     }
 
     /**
@@ -40,7 +40,7 @@ class License extends ApiBase {
             }
             return $result;
         }
-        return new \WP_Error(400, "Error deactivating license");
+        return new \WP_Error(400, __("Error deactivating license", 'festingervault'));
     }
 
     /**
@@ -66,7 +66,4 @@ class License extends ApiBase {
         ];
     }
 
-    protected function prefix() {
-        return "license";
-    }
 }

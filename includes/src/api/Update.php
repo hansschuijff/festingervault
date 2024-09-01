@@ -62,8 +62,4 @@ class Update extends ApiBase
 		];
 	}
 
-	protected function prefix()
-	{
-		return "update";
-	}
 }

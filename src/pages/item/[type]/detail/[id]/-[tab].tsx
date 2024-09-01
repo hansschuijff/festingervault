@@ -1,6 +1,6 @@
 import { AppPageShell } from "@/components/body/page-shell";
 import { item_types } from "@/config/item";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import { PostItemType } from "@/types/item";

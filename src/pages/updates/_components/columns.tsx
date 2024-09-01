@@ -30,14 +30,14 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
               : false
         }
         onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
+        aria-label={__("Select all")}
       />
     ),
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label="Select row"
+        aria-label={__("Select row")}
       />
     ),
     enableSorting: false,
@@ -77,7 +77,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
   },
   {
     accessorKey: "type",
-    header: "Type",
+    header: __("Type"),
     cell: ({ row }) => type_labels[row.original.type],
     filterFn: (row, id, value) => {
       return !!value.includes(row.original.type);
@@ -86,7 +86,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
 
   {
     accessorKey: "installed_version",
-    header: "Installed Version",
+    header: __("Installed Version"),
     cell: ({ row }) => {
       return (
         <Badge variant="secondary" className="capitalize">
@@ -97,11 +97,11 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
   },
   {
     accessorKey: "version",
-    header: "Available",
+    header: __("Available"),
     cell: ({ row }) => {
       const isNew = version_compare(
         row.original.version,
-        row.original.installed_version,
+        row.original.installed_version??"",
         "gt",
       );
       return (
@@ -114,7 +114,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
   },
   {
     accessorKey: "autoupdate",
-    header: "Auto Update",
+    header: __("Auto Update"),
     cell: ({ row }) => {
       return <AutoUpdateSwitcher row={row} />;
     },
@@ -122,7 +122,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
     sortingFn: (rowA, rowB, columnId) => {
       const isNewA = version_compare(
         rowA.original.version,
-        rowA.original.installed_version,
+        rowA.original.installed_version??"",
         "gt",
       );
       return isNewA ? -1 : 1;

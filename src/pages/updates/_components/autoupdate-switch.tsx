@@ -1,6 +1,6 @@
 import { Switch } from "@/components/ui/switch";
-import useApiMutation from "@/hooks/useApiMutation";
-import useSetting from "@/hooks/useSetting";
+import useApiMutation from "@/hooks/use-api-mutation";
+import useSetting from "@/hooks/use-setting";
 import { __ } from "@/lib/i18n";
 import { ThemePluginItemType } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
@@ -49,7 +49,8 @@ export default function AutoUpdateSwitcher({ row }: Props) {
     [row, queryClient, setChecked],
   );
   useEffect(() => {
-    if (setting && setting.autoupdate[row.original.type][row.original.slug]) {
+		const autoupdates=setting && setting.autoupdate[row.original.type];
+    if (autoupdates &&  autoupdates[row.original.slug]) {
       setChecked(true);
     } else {
       setChecked(false);

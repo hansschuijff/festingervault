@@ -4,8 +4,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDataTable } from "@/hooks/use-data-table";
 import useInstalled from "@/hooks/use-is-installed";
 import useTaskQueue from "@/hooks/use-task-queue";
-import useApiMutation from "@/hooks/useApiMutation";
-import { PluginInstallResponse, PluginInstallSchema } from "@/hooks/useInstall";
+import useApiMutation from "@/hooks/use-api-mutation";
+import { PluginInstallResponse, PluginInstallSchema } from "@/hooks/use-install";
 import { __ } from "@/lib/i18n";
 import {
 	DataTableFilterableColumn,
@@ -22,21 +22,21 @@ import { getColumns } from "./columns";
 const filterableColumns: DataTableFilterableColumn<ThemePluginItemType>[] = [
   {
     id: "type",
-    title: "Type",
+    title: __("Type"),
     options: [
       {
-        label: "Themes",
+        label: __("Themes"),
         value: "wordpress-themes",
       },
       {
-        label: "Plugins",
+        label: __("Plugins"),
         value: "wordpress-plugins",
       },
     ],
   },
 ];
 const searchableColumns: DataTableSearchableColumn<ThemePluginItemType>[] = [
-  { id: "title", placeholder: "Search downloads..." },
+  { id: "title", placeholder: __("Search downloads...") },
 ];
 type UpdateTableProps = {
   data: ThemePluginItemType[];

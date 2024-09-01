@@ -18,10 +18,6 @@ class Announcement extends ApiBase
 		];
 	}
 
-	/**
-	 * @param WP_REST_Request $request
-	 * @return mixed
-	 */
 	public function latest(WP_REST_Request $request)
 	{
 		$url = "https://meta.festingervault.com/c/announcements/11.json";
@@ -37,8 +33,6 @@ class Announcement extends ApiBase
 			set_transient($key, $topics, 30 * MINUTE_IN_SECONDS);
 			return rest_ensure_response($topics);
 		}
-		return new WP_Error(400, "Error loading announcements.");
+		return new WP_Error(400, __("Error loading announcements.", 'festingervault'));
 	}
-
-
 }

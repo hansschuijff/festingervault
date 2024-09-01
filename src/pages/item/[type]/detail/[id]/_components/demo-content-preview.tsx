@@ -4,7 +4,7 @@ import {
 	CardFooter,
 	CardHeader,
 } from "@/components/ui/card";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { Link, useParams } from "@/router";
 import { DemoContentCollectionResponse, PostItemType } from "@/types/item";

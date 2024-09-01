@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import useApiFetch from "@/hooks/useApiFetch";
+import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { PostItemCollectionResponse } from "@/types/item";
 import { useMemo } from "react";
 import { ClassNameValue } from "tailwind-merge";
-import { StackedBarChart, StackedBarChartDataType } from "./StackedBarChart";
+import { StackedBarChart, StackedBarChartDataType } from "./stacked-bar-chart";
 
 type Props = {
   className?: ClassNameValue;

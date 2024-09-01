@@ -1,7 +1,7 @@
-import useApiFetch from "./useApiFetch";
+import useApiFetch from "./use-api-fetch";
 type AutoUpdateType = Record<string, boolean>;
 type SettingType = {
-  autoupdate?: {
+  autoupdate: {
     "wordpress-themes"?: AutoUpdateType;
     "wordpress-plugins"?: AutoUpdateType;
     "elementor-template-kits"?: AutoUpdateType;
