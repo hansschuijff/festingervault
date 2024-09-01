@@ -1,11 +1,11 @@
 import InstallButton from "@/components/install-button";
+import Paging from "@/components/paging";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/use-api-fetch";
 import useInstall from "@/hooks/use-install";
 import { __ } from "@/lib/i18n";
-import Paging from "@/pages/_components/paging";
 import { useParams } from "@/router";
 import {
 	PostChangelogCollectionResponse,

@@ -1,10 +1,10 @@
 import AdditionalDownloadButton from "@/components/additional-download-button";
+import Paging from "@/components/paging";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/use-api-fetch";
 import capitalizeHyphenatedWords from "@/lib/capitalizeHyphenatedWords";
 import { __ } from "@/lib/i18n";
-import Paging from "@/pages/_components/paging";
 import { useParams } from "@/router";
 import {
 	DemoContentCollectionResponse,
