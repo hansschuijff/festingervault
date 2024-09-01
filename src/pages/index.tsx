@@ -7,7 +7,7 @@ import AvailableUpdates from "./_components/available-updates";
 import InstallStats from "./_components/install-stats";
 import ItemStats from "./_components/item-stats";
 import LicenseStatus from "./_components/license-status";
-import DashboardWelcome from "./_components/welcome";
+import DashboardWelcome from "./_components/dashboard-welcome";
 import { __, _x } from "@/lib/i18n";
 
 export default function Component() {
