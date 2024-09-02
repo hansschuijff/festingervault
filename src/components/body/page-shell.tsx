@@ -16,6 +16,8 @@ import {
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
 import { __ } from "@/lib/i18n";
+import useDownload from "@/hooks/use-download";
+import DownloadManager from "../download-manager";
 type BreadCrumbType = {
   label: string;
   href?: string;
@@ -139,6 +141,7 @@ function PageHeader({ title, description }: PageHeaderProps) {
       <div className="flex flex-row gap-2">
         <ModeToggle />
         <BulkAction />
+				<DownloadManager />
         <LanguageSelector />
       </div>
     </header>

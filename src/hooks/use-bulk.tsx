@@ -13,6 +13,7 @@ import useInstalled from "./use-is-installed";
 import useTaskQueue from "./use-task-queue";
 import useApiMutation from "./use-api-mutation";
 import { PluginInstallResponse, PluginInstallSchema } from "./use-install";
+import useDownload from "./use-download";
 type BulkProviderProps = {
 	children: React.ReactNode;
 	storageKey?: string;
@@ -33,6 +34,7 @@ const itemsSchema = z.array(itemSchema);
 type BulkProviderState = {
 	items: z.infer<typeof itemSchema>[];
 	install: () => void;
+	download: () => void;
 	addItem: (item: BulkItemType) => void;
 	removeItem: (item_id: number | string) => void;
 	clearItems: () => void;
@@ -41,6 +43,7 @@ type BulkProviderState = {
 const BulkProviderContext = createContext<BulkProviderState>({
 	items: [],
 	install: () => {},
+	download: () => {},
 	addItem: item => {},
 	removeItem: item => {},
 	clearItems: () => {},
@@ -53,6 +56,7 @@ export function BulkProvider({
 	storageKey = "bulk_cart",
 	...props
 }: BulkProviderProps) {
+	const {downloads, addDownloadTask}=useDownload();
 	const [items, setItems] = useState<BulkItemType[]>(() => {
 		try {
 			const initialState = itemsSchema.safeParse(
@@ -103,6 +107,37 @@ export function BulkProvider({
 		toast.info(__("Cart Cleared"));
 		setItems(prev => []);
 	};
+	const download=()=>{
+		items.forEach(item => {
+			addQueueTask(() => {
+				return new Promise((resolve, reject) => {
+					toast.promise(
+						installAsync({
+							item_id: item.id,
+							method: "download",
+						}),
+						{
+							description: item.title,
+							loading: __('Fetching Download Link'),
+							success(data) {
+								resolve(data);
+								removeItem(item.id);
+								data.link && data.filename && addDownloadTask(data.link,data.filename);
+								return __("Added to queue");
+							},
+							error(err) {
+								reject(err);
+								return err.message ?? __("Error");
+							},
+							finally() {
+								clearCache();
+							},
+						},
+					);
+				});
+			});
+		})
+	}
 	const install = () => {
 		items.forEach(item => {
 			addQueueTask(() => {
@@ -137,6 +172,7 @@ export function BulkProvider({
 	const value = {
 		items,
 		install,
+		download,
 		addItem,
 		removeItem,
 		clearItems,

@@ -5,6 +5,7 @@ import useInstalled from "./use-is-installed";
 export type PluginInstallResponse = {
   message: string;
   link?: string;
+	filename?:string;
 };
 export type PluginInstallSchema = {
   item_id: number | string;

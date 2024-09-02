@@ -29,12 +29,15 @@ import {
 	RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
+import useDownload from "@/hooks/use-download";
+
 type Props = {
 	item: PostItemType;
 	media?: PostMediaType;
 } & ButtonProps;
 
 export default function InstallButton({ item, media, size, variant }: Props) {
+	const {addDownloadTask}=useDownload();
 	const navigate = useNavigate();
 	const { data: activation } = useActivation();
 	const { isPending: isInstallPending, mutateAsync: installPlugin } =
@@ -66,7 +69,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 				description: decodeEntities(item.title),
 				loading:
 					is_download === true
-						? __("Downloading")
+						? __("Fetching Download Link")
 						: isRollBack
 							? sprintf(__("Roll-Back to version %s"), media?.version)
 							: isInstalled
@@ -75,10 +78,11 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 									: __("Re-Installing")
 								: __("Installing"),
 				success(data) {
-					if (data.link && is_download === true) {
-						window.open(data.link, "_blank");
-					}
 					clearCache();
+					if (data.link && is_download === true && data.filename) {
+						addDownloadTask(data.link,data.filename);
+						return __("Add item to download queue.");
+					}
 					return __("Successful");
 				},
 				error(err) {

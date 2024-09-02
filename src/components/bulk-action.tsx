@@ -16,7 +16,7 @@ import { __, _x } from "@/lib/i18n";
 import { sprintf } from "@wordpress/i18n";
 import { Alert } from "./ui/alert";
 export default function BulkAction() {
-	const { items, removeItem, install } = useBulk();
+	const { items, removeItem, install, download } = useBulk();
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
@@ -68,7 +68,7 @@ export default function BulkAction() {
 						<Button disabled={items.length===0} onClick={install}>{__("Install")}</Button>
 					</SheetClose>
 					<SheetClose asChild>
-						<Button disabled={items.length===0}>Download</Button>
+						<Button disabled={items.length===0} onClick={download}>Download</Button>
 					</SheetClose>
 				</SheetFooter>
 			</SheetContent>

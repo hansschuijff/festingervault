@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "./ui/sonner";
 import { BulkProvider } from "@/hooks/use-bulk";
+import { DownloadProvider } from "@/hooks/use-download";
 
 type ProvidersProps = {
 	children: React.ReactNode;
@@ -18,18 +19,20 @@ const queryClient = new QueryClient({
 export function Providers({ children }: ProvidersProps) {
 	return (
 		<QueryClientProvider client={queryClient}>
-			<BulkProvider>
-				<ThemeProvider defaultTheme="system" storageKey="vault-theme">
-					{children}
-					<Toaster
-						richColors
-						position="bottom-left"
-						expand
-						pauseWhenPageIsHidden={true}
-					/>
-					<ReactQueryDevtools initialIsOpen={false} />
-				</ThemeProvider>
-			</BulkProvider>
+			<DownloadProvider>
+				<BulkProvider>
+					<ThemeProvider defaultTheme="system" storageKey="vault-theme">
+						{children}
+						<Toaster
+							richColors
+							position="bottom-left"
+							expand
+							pauseWhenPageIsHidden={true}
+						/>
+						<ReactQueryDevtools initialIsOpen={false} />
+					</ThemeProvider>
+				</BulkProvider>
+			</DownloadProvider>
 		</QueryClientProvider>
 	);
 }
