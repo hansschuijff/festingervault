@@ -26,15 +26,15 @@ import { z } from "zod";
 
 const sort_items: ReturnType<typeof useCollection>["sort"] = [
 	{
-		label: "Updated",
+		label: __("Updated"),
 		value: "updated",
 	},
 	{
-		label: "Title",
+		label: __("Title"),
 		value: "title",
 	},
 	{
-		label: "Popularity",
+		label: __("Popularity"),
 		value: "popularity",
 	},
 ];
@@ -52,11 +52,12 @@ function NoSearchResultFound() {
 					<SearchX size={48} />
 				</div>
 				<div className="text-center text-sm italic text-muted-foreground">
-					We couldn't find the item you're looking for, you can make a wish
-					request
+					{__(
+						"We couldn't find the item you're looking for, you can make a wish request",
+					)}
 				</div>
 				<Button asChild variant="outline">
-					<Link to={`/requests?type=${params.type}`}>Add Request</Link>
+					<Link to={`/requests?type=${params.type}`}>{__("Add Request")}</Link>
 				</Button>
 			</div>
 		</Card>
@@ -80,7 +81,7 @@ export default function Component() {
 				? [
 						{
 							id: "category",
-							label: "Category",
+							label: __("Category"),
 							enabled: params.type != "elementor-template-kits",
 							onBarView: true,
 							isMulti: true,
@@ -91,7 +92,7 @@ export default function Component() {
 						},
 						{
 							id: "post_tag",
-							label: "Tag",
+							label: __("Tag"),
 							isMulti: true,
 							options: terms
 								?.filter(i => i.taxonomy === "post_tag")
@@ -100,7 +101,7 @@ export default function Component() {
 						},
 						{
 							id: "widget-ready",
-							label: "Widget Ready",
+							label: __("Widget Ready"),
 							enabled: params.type != "elementor-template-kits",
 							isMulti: false,
 							options: terms
@@ -110,7 +111,7 @@ export default function Component() {
 						},
 						{
 							id: "compatible-with",
-							label: "Compatible With",
+							label: __("Compatible With"),
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "compatible-with")
@@ -119,7 +120,7 @@ export default function Component() {
 						},
 						{
 							id: "files-included",
-							label: "Files Included",
+							label: __("Files Included"),
 							enabled: params.type != "elementor-template-kits",
 							isMulti: false,
 							options: terms
@@ -129,7 +130,7 @@ export default function Component() {
 						},
 						{
 							id: "software-version",
-							label: "Software Versions",
+							label: __("Software Versions"),
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "software-version")
@@ -143,15 +144,15 @@ export default function Component() {
 							onBarView: true,
 							options: [
 								{
-									label: "Bronze",
+									label: __("Bronze"),
 									value: "bronze",
 								},
 								{
-									label: "Silver",
+									label: __("Silver"),
 									value: "silver",
 								},
 								{
-									label: "Gold",
+									label: __("Gold"),
 									value: "gold",
 								},
 							],

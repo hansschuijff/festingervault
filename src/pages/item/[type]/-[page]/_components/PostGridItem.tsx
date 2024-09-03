@@ -60,7 +60,7 @@ export default function PostGridItem({ item }: Props) {
 								"left-1",
 							])}
 							variant="background"
-							title="Version"
+							title={__("Version")}
 						>
 							{item.version}
 						</Badge>
