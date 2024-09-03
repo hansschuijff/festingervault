@@ -18,7 +18,7 @@ export default function ItemDescription({ item }: Props) {
           {parse(item.summary ?? "")}
         </CardContent>
       </Card>
-      {item.additional_content_count && item.additional_content_count > 0 && <DemoContentPreview item={item} />}
+      {item.additional_content_count && item.additional_content_count > 0 ? <DemoContentPreview item={item} />:null}
     </div>
   );
 }

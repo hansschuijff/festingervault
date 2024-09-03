@@ -44,13 +44,13 @@ export default function AvailableUpdates({ className }: Props) {
                 <div className="flex flex-row justify-between gap-4">
                   <div className="text-muted-foreground">
                     {sprintf(
-                      __("Available: %d"),
+                      __("Available: %s"),
                       item.version,
                     )}
                   </div>
                   <div className="text-muted-foreground">
                     {sprintf(
-                      __("Installed: %d"),
+                      __("Installed: %s"),
                       item.installed_version,
                     )}
                   </div>

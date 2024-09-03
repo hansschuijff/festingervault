@@ -22,6 +22,9 @@ export default function useInstalled() {
 			queryKey: ["update/list"],
 		});
 		queryClient.invalidateQueries({
+			queryKey: ["license/detail"],
+		});
+		queryClient.invalidateQueries({
 			queryKey: ["item/detail"],
 		});
 		queryClient.invalidateQueries({
