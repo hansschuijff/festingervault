@@ -1,9 +1,9 @@
+import Paging from "@/components/paging";
 import SimpleTable, { SimpleColumnDef } from "@/components/table/simple-table";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
-import Paging from "@/components/paging";
-import { Link, useParams } from "@/router";
+import { Link } from "@/router";
 import { HistoryCollectionType, HistoryItemType } from "@/types/history";
 import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
@@ -13,7 +13,6 @@ type Props = {
   data: HistoryCollectionType;
 };
 export default function HistoryItems({ data }: Props) {
-  const params = useParams("/history/:page?");
   const columns = useMemo<SimpleColumnDef<HistoryItemType>[]>(
     () => [
       {
@@ -21,13 +20,13 @@ export default function HistoryItems({ data }: Props) {
         label: __("Title"),
         className: "w-full whitespace-nowrap text-muted-foreground",
         render({ row }) {
-          return (
+          return row.item && (
             <Link
               to="/item/:type/detail/:id/:tab?"
               params={{ id: row.item.id, type: row.item.type }}
               className="flex flex-col gap-2"
             >
-              <span>{decodeEntities(row.item.title)}</span>
+              <span>{decodeEntities(row?.item?.title)}</span>
               {row.type === "download_additional" && (
                 <span className="text-xs">{row.media?.title}</span>
               )}
@@ -59,7 +58,7 @@ export default function HistoryItems({ data }: Props) {
         label: __("Version"),
         className: "whitespace-nowrap text-muted-foreground",
         render({ row }) {
-          return row?.media?.version ?? row.item.version;
+          return row?.media?.version ?? row?.item?.version;
         },
       },
     ],

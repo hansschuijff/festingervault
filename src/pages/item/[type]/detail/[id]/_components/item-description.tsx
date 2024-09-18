@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
+import renderHtml from "@/lib/render-html";
 import { PostItemType } from "@/types/item";
-import parse from "html-react-parser";
 import DemoContentPreview from "./demo-content-preview";
 
 type Props = {
@@ -15,7 +15,7 @@ export default function ItemDescription({ item }: Props) {
           {__("Description")}
         </CardHeader>
         <CardContent className="item-description p-5 text-sm leading-relaxed sm:p-7">
-          {parse(item.summary ?? "")}
+          {renderHtml(item.summary ?? "")}
         </CardContent>
       </Card>
       {item.additional_content_count && item.additional_content_count > 0 ? <DemoContentPreview item={item} />:null}

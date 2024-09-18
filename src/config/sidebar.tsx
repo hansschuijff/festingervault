@@ -143,7 +143,7 @@ const navigation: SidebarNavItems[] = [
       {
         label: __("Collections"),
         icon: Heart,
-        href: "/collections",
+        href: "/collection",
       },
       {
         label: __("Updates"),

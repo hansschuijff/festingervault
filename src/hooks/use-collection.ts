@@ -4,7 +4,6 @@ import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
-// Define types
 type FilterState = Record<string, string[]>;
 
 type SortItem = {
@@ -17,12 +16,13 @@ type Option = {
   icon?: React.ComponentType<{ className?: string }>;
 };
 
-type FilterOption = {
+export type FilterOption = {
   id: string;
   label: string;
   values?: string[];
   options: Option[];
   isMulti?: boolean;
+	showAll?:boolean;
   onBarView?: boolean;
   enabled?: boolean;
 };
@@ -85,14 +85,14 @@ export default function useCollection({
   const navigate = useNavigate();
   const unserializeQuery = useCallback(
     (searchParams: URLSearchParams): FilterState => {
-      const result = {};
+      const result:FilterState = {};
       Array.from(searchParams.entries()).forEach(([key, value]) => {
         const option = options.find(i => i.id === key);
         if (option) {
           result[key] = value.split(",").filter(v => v.length > 0);
         }
       });
-      return result as FilterState;
+      return result;
     },
     [options],
   );

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CollectionResponse } from "./api";
+import {  CollectionResponse } from "./api";
 export const ItemTypeEnum = z.enum([
   "wordpress-themes",
   "wordpress-plugins",
@@ -14,7 +14,7 @@ type VirusTotal = {
   stats: Record<string, number>;
   updated: number;
 };
-type TTerm={
+type Term={
 	id:number;
 	name:string;
 	slug:string;
@@ -30,7 +30,7 @@ export type PostItemType<Ex = never> = {
   type: Exclude<z.infer<typeof ItemTypeEnum>, Ex>;
   author: string;
   category: string;
-	terms:TTerm[],
+	terms:Term[],
   updated: number;
   created: number;
   version: string;
@@ -46,6 +46,7 @@ export type PostItemType<Ex = never> = {
   virus_total?: VirusTotal;
 	path?:string;
 	install_dir?:string;
+	collections?:number[];
 };
 export type PostMediaType = {
   id: number;

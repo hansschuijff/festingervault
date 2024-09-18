@@ -1,16 +1,18 @@
 {
-  "exclude": ["node_modules"],
-  "include": ["src/**/*","scripts/**/*"],
-  "compilerOptions": {
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "target": "ES2020",
-    "module": "ESNext",
-    "types": ["vite/client"],
-		"strictNullChecks":true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  }
+	"exclude": ["node_modules"],
+	"include": ["src/**/*"],
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"allowJs": true,
+		"jsx": "react-jsx",
+		"target": "ESNext",
+		"lib": ["ES2015", "DOM"],
+		"module": "ESNext",
+		"types": ["vite/client"],
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	}
 }

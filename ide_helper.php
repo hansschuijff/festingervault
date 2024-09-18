@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Just a PHP file that would help IDE to not throw error
+ * Just a PHP file that would help IDE to not show error for functions
  */
 /**
  * Check if there is a scheduled action in the queue but more efficiently than as_next_scheduled_action().
@@ -17,7 +17,7 @@
  *
  * @return bool True if a matching action is pending or in-progress, false otherwise.
  */
-function as_has_scheduled_action(...$props) {}
+function as_has_scheduled_action($hooks, $args=[], $group="") {return true;}
 /**
  * Schedule an action to run one time
  *
@@ -30,7 +30,7 @@ function as_has_scheduled_action(...$props) {}
  *
  * @return int The action ID. Zero if there was an error scheduling the action.
  */
-function as_schedule_single_action(...$props) {}
+function as_schedule_single_action(...$props) {return 0;}
 /**
  * Schedule a recurring action
  *
@@ -44,4 +44,4 @@ function as_schedule_single_action(...$props) {}
  *
  * @return int The action ID. Zero if there was an error scheduling the action.
  */
-function as_schedule_recurring_action(...$props) {}
+function as_schedule_recurring_action(...$props) {return 0;}

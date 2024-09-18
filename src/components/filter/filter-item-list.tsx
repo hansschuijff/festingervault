@@ -9,7 +9,7 @@ import useCollection from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { CheckIcon, X } from "lucide-react";
-import { KeyboardEvent, useCallback, useRef, useState } from "react";
+import { KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 type ArrayItemType<T, K extends keyof T> = T[K] extends (infer U)[] ? U : never;
 type Item = ArrayItemType<ReturnType<typeof useCollection>, "options">;
@@ -31,12 +31,15 @@ export default function FilterItemList({
 	const [inputValue, setInputValue] = useState<string>("");
 	const [isOpen, setOpen] = useState<boolean>(false);
 	const selectedValues = new Set<string>(intent[item.id]);
-	const filtered = item.options
-		?.filter(option =>
-			option.label.toLowerCase().includes(inputValue.toLowerCase()),
-		)
-		.sort()
-		.slice(0, displayedItems);
+	const filtered = useMemo(() => {
+		const res = item.options
+			?.filter(option =>
+				option.label.toLowerCase().includes(inputValue.toLowerCase()),
+			)
+			.sort();
+		return item.showAll === true ? res : res.slice(0, displayedItems);
+	}, [inputValue, item.options]);
+
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent<HTMLDivElement>) => {
 			const input = inputRef.current;
@@ -93,7 +96,7 @@ export default function FilterItemList({
 								className="group cursor-pointer gap-2 py-0"
 								size="sm"
 								onClick={() => {
-									handleSelectOption(selectedItem, true);
+									selectedItem && handleSelectOption(selectedItem, true);
 								}}
 							>
 								<span>{selectedItem?.label}</span>
@@ -119,7 +122,7 @@ export default function FilterItemList({
 					</div>
 				)}
 
-				<CommandList className="max-h-max">
+				<CommandList className="max-h-96">
 					{filtered.length > 0 ? (
 						<CommandGroup>
 							{filtered.map(option => {

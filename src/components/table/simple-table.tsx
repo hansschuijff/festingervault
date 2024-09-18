@@ -31,7 +31,7 @@ export default function SimpleTable<TData>({ columns, data }: Props<TData>) {
 				</tr>
 			</thead>
 			<tbody className="group/body">
-				{data?.map(row => (
+				{data && data?.map(row => (
 					<tr className="group/body-row" key={row.id}>
 						{columns.map(column => (
 							<td

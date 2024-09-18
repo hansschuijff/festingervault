@@ -2,13 +2,16 @@
 
 namespace FestingerVault;
 
-use FestingerVault\api\Announcement;
-use FestingerVault\api\History;
-use FestingerVault\api\Item;
-use FestingerVault\api\ApiBase;
-use FestingerVault\api\License;
-use FestingerVault\api\Setting;
-use FestingerVault\api\Update;
+use FestingerVault\api\{
+	Announcement,
+	ApiBase,
+	Collection,
+	History,
+	Item,
+	License,
+	Setting,
+	Update
+};
 
 class RestAPI
 {
@@ -25,6 +28,7 @@ class RestAPI
 		$this->register(new Setting());
 		$this->register(new Announcement());
 		$this->register(new History());
+		$this->register(new Collection());
 	}
 
 	public static function get_instance()

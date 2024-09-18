@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/use-api-fetch";
-import useCollection from "@/hooks/use-collection";
+import useCollection, { FilterOption } from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import PostGridItem, {
@@ -68,14 +68,12 @@ export default function Component() {
 	const item = item_types[params.type];
 	const type = item_types[params.type].slug;
 	const page = params.page || 1;
-	const {
-		data: terms,
-		isLoading: categoriesIsLoading,
-		isFetching: isFetchingCategories,
-	} = useApiFetch<PostItemType["terms"]>("item/terms", {
+	const { data: terms, isLoading: categoriesIsLoading } = useApiFetch<
+		PostItemType["terms"]
+	>("item/terms", {
 		type,
 	});
-	const filters = useMemo<ReturnType<typeof useCollection>["options"]>(
+	const filters = useMemo<FilterOption[]>(
 		() =>
 			terms
 				? [
@@ -85,6 +83,7 @@ export default function Component() {
 							enabled: params.type != "elementor-template-kits",
 							onBarView: true,
 							isMulti: true,
+							showAll:true,
 							options: terms
 								?.filter(i => i.taxonomy === "category")
 								.sort((a, b) => a.slug.localeCompare(b.slug))

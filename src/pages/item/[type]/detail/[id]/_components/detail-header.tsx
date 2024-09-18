@@ -53,12 +53,12 @@ export default function ItemDetailHeader({ item }: Props) {
 						</>
 					)}
 				</div>
-				{item.additional_content_count && item.additional_content_count > 0 && (
+				{(item.additional_content_count && item.additional_content_count > 0) ? (
 					<div className="flex flex-row items-center gap-1 text-green-600">
 						<CheckCircle2 size={18} />
 						<span>{__("Demo Included")}</span>
 					</div>
-				)}
+				):null}
 			</div>
 		</div>
 	);

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Home } from "lucide-react";
-import { Fragment, type ElementType } from "react";
+import { Fragment, useEffect, type ElementType } from "react";
 import { Link } from "react-router-dom";
 import BulkAction from "../bulk-action";
 import LanguageSelector from "../language-select";
@@ -130,7 +130,10 @@ type PageHeaderProps = {
 };
 
 function PageHeader({ title, description }: PageHeaderProps) {
-  return (
+	useEffect(() => {
+    document.title = title;
+  }, [location, title]);
+	 return (
     <header className="flex flex-row items-start gap-4 border-b border-border py-6">
       <div className="flex flex-1 flex-col gap-1">
         <h1 className="font-heading text-2xl font-bold">{title}</h1>

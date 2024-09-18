@@ -1,3 +1,4 @@
+import BookmarkButton from "@/components/bookmark-button";
 import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -138,15 +139,7 @@ export default function PostGridItem({ item }: Props) {
 					>
 						<ShoppingBag width={16} />
 					</Button>
-
-					<Button
-						variant="outline"
-						size="icon"
-						className="flex items-center gap-2"
-						onClick={e => {}}
-					>
-						<Star width={16} />
-					</Button>
+					<BookmarkButton item={item} size="icon"></BookmarkButton>
 
 					<Button
 						variant="outline"
