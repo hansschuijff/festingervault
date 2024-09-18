@@ -9,10 +9,10 @@ import AddCollectionButton from "@/components/add-collection-dialog";
 import { Plus } from "lucide-react";
 
 export default function Component() {
-	const { data, isLoading } =
+	const { data, isLoading, isFetching } =
 		useApiFetch<CollectionResponse<BookmarkCollectionType>>("collection/list");
 	return (
-		<AppPageShell title={__("Collections")} isLoading={isLoading}>
+		<AppPageShell title={__("Collections")} isLoading={isLoading} isFetching={isFetching}>
 			<div><AddCollectionButton><Button className="flex gap-2"><Plus size={16} /> <span>{__("Add New Collection")}</span></Button></AddCollectionButton></div>
 			{data && data.data.length > 0 ? (
 				<div className="grid sm:grid-cols-3 gap-5">

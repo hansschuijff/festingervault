@@ -12,13 +12,13 @@ import {
 
 export default function CollectionDetail({}) {
 	const { cid } = useParams("/collection/:cid");
-	const { data, isLoading } = useApiFetch<
+	const { data } = useApiFetch<
 		BookmarkCollectionType,
 		BookmarkCollectionDetailSchema
 	>("collection/detail", {
 		id: Number(cid),
 	});
-	const { data: items } = useApiFetch<
+	const { data: items, isLoading, isFetching } = useApiFetch<
 		CollectionResponse<BookmarkCollectionItemType>,
 		BookmarkCollectionDetailSchema
 	>("collection/items", {
@@ -26,7 +26,7 @@ export default function CollectionDetail({}) {
 	});
 
 	return (
-		<AppPageShell title={data && data.title} isLoading={isLoading}>
+		<AppPageShell title={data && data.title} isLoading={isLoading} isFetching={isFetching}>
 			{items && items.data.length > 0 ? (
 				<div className="grid gap-5 sm:grid-cols-3">
 					{items.data.map(item => (
