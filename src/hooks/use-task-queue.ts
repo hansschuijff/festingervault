@@ -6,13 +6,13 @@ export default function useTaskQueue(concurrency:number=2) {
 
 	const addTask = useCallback((task: () => Promise<unknown>) => {
 		queue.current.add(task);
-	}, []);
+	}, [queue]);
 
-	useEffect(() => {
-		return () => {
-			queue.current.clear();
-		};
-	}, []);
+	// useEffect(() => {
+	// 	return () => {
+	// 		queue.current.clear();
+	// 	};
+	// }, []);
 
 	return { addTask };
 }
