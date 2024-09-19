@@ -4,8 +4,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import uuid from "@/lib/uuid";
 interface DownloadItem {
 	uid: string;
-	title?:string;
-	image?:string;
+	title?: string;
+	image?: string;
 	url: string;
 	filename: string;
 	percentage: number;
@@ -42,10 +42,11 @@ export function DownloadProvider({
 			},
 		]);
 	};
-	const clearCompleted=()=>{
-		setDownloads(prev => prev.filter(pre=>pre.status!=="completed"));
-	}
-	const downloading = downloads.filter(d => d.status === "downloading").length>0;
+	const clearCompleted = () => {
+		setDownloads(prev => prev.filter(pre => pre.status !== "completed"));
+	};
+	const downloading =
+		downloads.filter(d => d.status === "downloading").length > 0;
 	const pending = downloads.find(d => d.status === "pending");
 	useEffect(() => {
 		if (!downloading && pending) {
@@ -73,7 +74,9 @@ export function DownloadProvider({
 	}, [isInProgress, percentage, setDownloads]);
 
 	return (
-		<DownloadContext.Provider value={{ addDownloadTask, downloads , clearCompleted}}>
+		<DownloadContext.Provider
+			value={{ addDownloadTask, downloads, clearCompleted }}
+		>
 			{children}
 		</DownloadContext.Provider>
 	);

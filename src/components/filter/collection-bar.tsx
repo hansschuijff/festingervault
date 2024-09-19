@@ -21,7 +21,7 @@ export default function FilterBar({ collection }: Props) {
         </div>
         <div className="flex flex-row items-center gap-4">
           <PerPage collection={collection} />
-          <FilterToolbar label="Order By" collection={collection} />
+          <FilterToolbar label={__("Order By")} collection={collection} />
         </div>
       </div>
       <div className="flex flex-row items-center gap-4">

@@ -88,13 +88,13 @@ export default function useBookmark() {
 		[addItemAsync],
 	);
 	const addNewCollection = useCallback(
-		(collection: z.infer<typeof BookmarkPostCollectionSchema>) =>
+		(collection: z.infer<typeof BookmarkPostCollectionSchema>, update:boolean = false) =>
 			new Promise((resolve, reject) => {
 				const postData = BookmarkPostCollectionSchema.safeParse(collection);
 				if (postData.success) {
 					toast.promise(addCollectionAsync(postData.data), {
-						description: __("Add New Collection"),
-						loading: __("Creating Collection"),
+						description: update?decodeEntities(collection.title):__("Add New Collection"),
+						loading: update?__("Updating Collection"):__("Creating Collection"),
 						error: (err: TApiError) => {
 							reject(err);
 							return ERROR_MESSAGES[err.message]
@@ -104,7 +104,7 @@ export default function useBookmark() {
 						success: data => {
 							clearCache();
 							resolve(data);
-							return __("Collection Added");
+							return update?__("Collection Updated"):__("Collection Added");
 						},
 					});
 				}

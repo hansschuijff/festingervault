@@ -34,7 +34,7 @@ class Collection extends ApiBase
 	function add_collection(\WP_REST_Request $request)
 	{
 		return Helper::engine_post("collection/add", [
-			"group" => $request->get_param("group"),
+			"id" => $request->get_param("id"),
 			"public" => $request->get_param("public"),
 			"title" => $request->get_param("title"),
 			"summary" => $request->get_param("summary"),

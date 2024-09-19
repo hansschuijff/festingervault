@@ -8,7 +8,7 @@ export type Path =
 	| `/activation`
 	| `/browse`
 	| `/collection`
-	| `/collection/:cid`
+	| `/collection/:cid/:page?`
 	| `/history/:page?`
 	| `/item/:type/:page?`
 	| `/item/:type/detail/:id/:tab?`
@@ -18,7 +18,7 @@ export type Path =
 	| `/updates`;
 
 export type Params = {
-	"/collection/:cid": { cid: string };
+	"/collection/:cid/:page?": { cid: string; page?: string };
 	"/history/:page?": { page?: string };
 	"/item/:type/:page?": { type: string; page?: string };
 	"/item/:type/detail/:id/:tab?": { type: string; id: string; tab?: string };

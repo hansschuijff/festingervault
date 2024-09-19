@@ -87,7 +87,7 @@ export default function AdditionalDownloadButton({
           ) : (
             <CloudDownload width={16} />
           )}
-          {size != "icon" && <span>{"Download"}</span>}
+          {size != "icon" && <span>{__("Download")}</span>}
         </Button>
       </DrawerTrigger>
       <DrawerContent>

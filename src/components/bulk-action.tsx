@@ -68,7 +68,7 @@ export default function BulkAction() {
 						<Button disabled={items.length===0} onClick={install}>{__("Install")}</Button>
 					</SheetClose>
 					<SheetClose asChild>
-						<Button disabled={items.length===0} onClick={download}>Download</Button>
+						<Button disabled={items.length===0} onClick={download}>{__("Download")}</Button>
 					</SheetClose>
 				</SheetFooter>
 			</SheetContent>

@@ -1,3 +1,4 @@
+import AddCollectionButton from "@/components/add-collection-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,13 +8,11 @@ import {
 	CardHeader,
 } from "@/components/ui/card";
 import useBookmark from "@/hooks/use-bookmark";
-import { __, _n } from "@/lib/i18n";
+import { __ } from "@/lib/i18n";
 import { Link } from "@/router";
 import { BookmarkCollectionType } from "@/types/bookmark";
-import { LockClosedIcon } from "@radix-ui/react-icons";
 import { decodeEntities } from "@wordpress/html-entities";
-import { sprintf } from "@wordpress/i18n";
-import { Delete, Globe, Lock, LockIcon, Trash } from "lucide-react";
+import { Globe, LockIcon } from "lucide-react";
 
 type Props = {
 	collection: BookmarkCollectionType;
@@ -26,9 +25,24 @@ export default function Collection({ collection }: Props) {
 			<Card>
 				<CardHeader className="border-b">
 					<div className="flex flex-row items-center justify-between gap-2">
-						<Link to="/collection/:cid" params={{ cid: String(collection.id) }} className="flex flex-row gap-2 items-start ">
-							<span className="text-muted-foreground mt-0.5" title={collection.public?__("Public"):__("Private")}>{collection.public?<Globe size={16} />:<LockIcon size={16} />}</span>
-							<span className="text-lg leading-none">{decodeEntities(collection.title)}</span>
+						<Link
+							to="/collection/:cid/:page?"
+							params={{ cid: String(collection.id) }}
+							className="flex flex-row items-start gap-2 "
+						>
+							<span
+								className="mt-0.5 text-muted-foreground"
+								title={collection.public ? __("Public") : __("Private")}
+							>
+								{collection.public ? (
+									<Globe size={16} />
+								) : (
+									<LockIcon size={16} />
+								)}
+							</span>
+							<span className="text-lg leading-none">
+								{decodeEntities(collection.title)}
+							</span>
 						</Link>
 						{collection.count > 0 && (
 							<Badge variant="secondary">{collection.count}</Badge>
@@ -45,8 +59,8 @@ export default function Collection({ collection }: Props) {
 					)}
 				</CardContent>
 				<CardFooter className="border-t">
-					<div>
-						<Button
+					<div className="flex flex-row gap-2">
+					<Button
 							variant="secondary"
 							onClick={() => {
 								if (
@@ -57,8 +71,14 @@ export default function Collection({ collection }: Props) {
 							}}
 							size="sm"
 						>
-							Delete
+							{__("Delete")}
 						</Button>
+						<AddCollectionButton collection={collection} update={true}><Button
+							variant="destructive"
+							size="sm"
+						>
+							{__("Edit")}
+						</Button></AddCollectionButton>
 					</div>
 				</CardFooter>
 			</Card>

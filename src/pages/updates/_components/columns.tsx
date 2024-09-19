@@ -45,7 +45,7 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
   },
   {
     accessorKey: "title",
-    header: () => <span className="pl-2">Download</span>,
+    header: () => <span className="pl-2">{__("Download")}</span>,
     id: "title",
     cell: ({ row }) => {
       return (
