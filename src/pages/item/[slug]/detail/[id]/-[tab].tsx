@@ -3,7 +3,7 @@ import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { useMemo } from "react";
@@ -17,6 +17,7 @@ import ItemDemoContents from "./_components/item-demo-contents";
 import ItemDescription from "./_components/item-description";
 import ItemDocumentation from "./_components/item-documentation";
 import ItemSidebar from "./_components/item-sidebar";
+import { SlugToItemType } from "@/lib/type-to-slug";
 
 type TabRecordType = {
 	id: string;
@@ -27,13 +28,14 @@ type TabRecordType = {
 };
 export type DetailTabType = TabRecordType[];
 export default function Component() {
-	const params = useParams("/item/:type/detail/:id/:tab?");
-	const { data, isError, isLoading, isFetching } = useApiFetch<PostItemType>(
+	const params = useParams("/item/:slug/detail/:id/:tab?");
+	const { data, isError, isLoading, isFetching } = useApiFetch<TPostItem>(
 		"item/detail",
 		{
 			item_id: params.id,
 		},
 	);
+	const item_type=SlugToItemType(params.slug);
 	const tabs = useMemo<DetailTabType>(() => {
 		if (!data) {
 			return [];
@@ -79,8 +81,8 @@ export default function Component() {
 			preloader={<ItemDetailHeaderSkeleton />}
 			breadcrump={[
 				{
-					label: item_types[params.type].label,
-					href: `/item/${params.type}`,
+					label: item_type?.label,
+					href: `/item/${params.slug}`,
 				},
 				{
 					label: decodeEntities(data?.title ?? ""),

@@ -1,11 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
 import renderHtml from "@/lib/render-html";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import DemoContentPreview from "./demo-content-preview";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 export default function ItemDescription({ item }: Props) {
   return (

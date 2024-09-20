@@ -1,21 +1,21 @@
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
 } from "@/components/ui/table";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type {
-  DataTableFilterableColumn,
-  DataTableSearchableColumn,
+	DataTableFilterableColumn,
+	DataTableSearchableColumn,
 } from "@/types/data-table";
 import {
-  type ColumnDef,
-  type Table as TanstackTable,
-  flexRender,
+	type ColumnDef,
+	type Table as TanstackTable,
+	flexRender,
 } from "@tanstack/react-table";
 import { BulkActionType } from "./data-table-bulk-action";
 import { DataTablePagination } from "./data-table-pagination";

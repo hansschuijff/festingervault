@@ -123,17 +123,17 @@ const navigation: SidebarNavItems[] = [
       {
         label: __("Themes"),
         icon: Palette,
-        href: "/item/wordpress-themes",
+        href: "/item/themes",
       },
       {
         label: __("Plugins"),
         icon: ToyBrick,
-        href: "/item/wordpress-plugins",
+        href: "/item/plugins",
       },
       {
         label: __("Elementor Kits"),
         icon: Drum,
-        href: "/item/elementor-template-kits",
+        href: "/item/template-kits",
       },
       {
         label: __("Requests"),

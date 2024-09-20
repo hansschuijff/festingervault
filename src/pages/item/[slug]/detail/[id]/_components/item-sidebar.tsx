@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import millify from "millify";
 import CountUp from "react-countup";
 import ChangelogPreview from "./changelog-preview";
@@ -10,10 +10,10 @@ import ItemTerms from "./item-terms";
 import VirusTotalScan from "./item-virus-total";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 export default function ItemSidebar({ item }: Props) {
-  const params = useParams("/item/:type/detail/:id/:tab?");
+  const params = useParams("/item/:slug/detail/:id/:tab?");
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>

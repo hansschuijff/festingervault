@@ -10,15 +10,17 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import useActivation from "@/hooks/use-activation";
-import useInstalled from "@/hooks/use-is-installed";
 import useApiMutation from "@/hooks/use-api-mutation";
+import useDownload from "@/hooks/use-download";
 import useInstall, {
 	PluginInstallResponse,
 	PluginInstallSchema,
 } from "@/hooks/use-install";
+import useInstalled from "@/hooks/use-is-installed";
 import { __, _x } from "@/lib/i18n";
+import { TypeToSlug } from "@/lib/type-to-slug";
 import { useNavigate, useParams } from "@/router";
-import { PostItemType, PostMediaType } from "@/types/item";
+import { TPostItem, TPostMedia } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import {
@@ -29,11 +31,10 @@ import {
 	RefreshCw,
 } from "lucide-react";
 import { toast } from "sonner";
-import useDownload from "@/hooks/use-download";
 
 type Props = {
-	item: PostItemType;
-	media?: PostMediaType;
+	item: TPostItem;
+	media?: TPostMedia;
 } & ButtonProps;
 
 export default function InstallButton({ item, media, size, variant }: Props) {
@@ -47,7 +48,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 		media,
 	);
 	const { clearCache } = useInstalled();
-	const { tab } = useParams("/item/:type/detail/:id/:tab?");
+	const { tab } = useParams("/item/:slug/detail/:id/:tab?");
 	function install(is_download?: boolean) {
 		if (typeof activation?.plan_type == "undefined") {
 			toast.error(__("License not activated"));
@@ -227,13 +228,13 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 									<span>{__("Download")}</span>
 								</Button>
 							</DrawerClose>
-							{tab !== "changelog" && (
+							{tab !== "changelog" && isInstallable && (
 								<DrawerClose asChild>
 									<Button
 										onClick={() =>
-											navigate("/item/:type/detail/:id/:tab?", {
+											navigate("/item/:slug/detail/:id/:tab?", {
 												params: {
-													type: item.type,
+													slug: TypeToSlug(item.type),
 													id: item.id,
 													tab: "changelog",
 												},

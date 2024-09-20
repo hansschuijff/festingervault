@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/card";
 import useInstalled from "@/hooks/use-is-installed";
 import { __ } from "@/lib/i18n";
+import { TypeToSlug } from "@/lib/type-to-slug";
 import { cn } from "@/lib/utils";
 import { Link } from "@/router";
 import { sprintf } from "@wordpress/i18n";
@@ -32,10 +33,10 @@ export default function AvailableUpdates({ className }: Props) {
               >
                 <div>
                   <Link
-                    to="/item/:type/detail/:id/:tab?"
+                    to="/item/:slug/detail/:id/:tab?"
                     params={{
                       id: item.id,
-                      type: item.type,
+                      slug: TypeToSlug(item.type),
                     }}
                   >
                     {item.title}

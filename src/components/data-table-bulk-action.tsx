@@ -1,12 +1,12 @@
-import { Row, type Table } from "@tanstack/react-table";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
+import { Row, type Table } from "@tanstack/react-table";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";

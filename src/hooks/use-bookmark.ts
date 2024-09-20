@@ -3,10 +3,9 @@ import { __ } from "@/lib/i18n";
 import { TApiError } from "@/types/api";
 import {
 	BookmarkCollectionType,
-	BookmarkItemSchema,
-	BookmarkPostCollectionSchema,
 } from "@/types/bookmark";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
+import { BookmarkItemSchema, BookmarkPostCollectionSchema } from "@/zod/bookmark";
 import { useQueryClient } from "@tanstack/react-query";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
@@ -30,6 +29,9 @@ export default function useBookmark() {
 		queryClient.invalidateQueries({
 			queryKey: ["item/list"],
 		});
+		queryClient.invalidateQueries({
+			queryKey: ["item/detail"],
+		});
 	};
 	const { mutateAsync: addItemAsync } = useApiMutation<
 		Record<string, string>,
@@ -48,7 +50,7 @@ export default function useBookmark() {
 	>("collection/add");
 
 	const addItemToCollection = useCallback(
-		(item: PostItemType, collection: BookmarkCollectionType) =>
+		(item: TPostItem, collection: BookmarkCollectionType) =>
 			new Promise((resolve, reject) => {
 				const isAdd = item.collections?.includes(collection.id) === false;
 				toast.promise(

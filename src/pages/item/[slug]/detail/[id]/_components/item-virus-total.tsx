@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { sprintf } from "@wordpress/i18n";
 import { ShieldCheck, ShieldEllipsis } from "lucide-react";
 import moment from "moment";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 export default function VirusTotalScan({ item }: Props) {
   return (

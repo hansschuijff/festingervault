@@ -1,13 +1,13 @@
-import { CollectionResponse } from "@/types/api";
-import { ThemePluginItemType } from "@/types/item";
 import version_compare from "@/lib/version_compare";
+import { CollectionResponse } from "@/types/api";
+import { TThemePluginItem } from "@/types/item";
+import { useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 import useApiFetch from "./use-api-fetch";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function useInstalled() {
   const { data, isFetched, isLoading } =
-    useApiFetch<CollectionResponse<ThemePluginItemType>>(`update/list`);
+    useApiFetch<CollectionResponse<TThemePluginItem>>(`update/list`);
 		const queryClient=useQueryClient();
   const updateable = useMemo(
     () =>

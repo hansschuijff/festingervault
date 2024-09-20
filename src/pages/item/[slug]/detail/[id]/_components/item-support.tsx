@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useParams } from "@/router";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 export default function ItemSupport({ item }: Props) {
-  const params = useParams("/item/:type/detail/:id/:tab?");
+  const params = useParams("/item/:slug/detail/:id/:tab?");
   return (
     <div className="flex flex-col gap-5 sm:gap-7">
       <Card>

@@ -7,17 +7,17 @@ import {
 import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { Link, useParams } from "@/router";
-import { DemoContentCollectionResponse, PostItemType } from "@/types/item";
+import { TDemoContentCollection, TPostItem } from "@/types/item";
 import { DemoContentTable } from "./item-demo-contents";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 
 export default function DemoContentPreview({ item }: Props) {
-  const params = useParams("/item/:type/detail/:id/:tab?");
+  const params = useParams("/item/:slug/detail/:id/:tab?");
   const { data, isLoading, isFetching } =
-    useApiFetch<DemoContentCollectionResponse>("item/demo-content", {
+    useApiFetch<TDemoContentCollection>("item/demo-content", {
       item_id: params.id,
     });
   return (
@@ -39,7 +39,7 @@ export default function DemoContentPreview({ item }: Props) {
         </CardContent>
         <CardFooter className="justify-center border-t border-border text-center">
           <Link
-            to="/item/:type/detail/:id/:tab?"
+            to="/item/:slug/detail/:id/:tab?"
             params={{ ...params, tab: "demo-contents" }}
             className="border-b border-dashed border-blue-500 text-sm text-blue-500"
           >

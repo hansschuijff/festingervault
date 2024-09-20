@@ -1,20 +1,20 @@
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
 } from "@/components/ui/select";
+import { __, _n } from "@/lib/i18n";
 import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  DoubleArrowLeftIcon,
-  DoubleArrowRightIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+	DoubleArrowLeftIcon,
+	DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import { type Table } from "@tanstack/react-table";
 import { sprintf } from "@wordpress/i18n";
-import { __, _n } from "@/lib/i18n";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;

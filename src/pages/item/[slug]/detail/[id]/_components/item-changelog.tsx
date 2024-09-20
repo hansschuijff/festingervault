@@ -8,9 +8,9 @@ import useInstall from "@/hooks/use-install";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import {
-	PostChangelogCollectionResponse,
-	PostItemType,
-	PostMediaType,
+	TPostChangelogCollection,
+	TPostItem,
+	TPostMedia,
 } from "@/types/item";
 import moment from "moment";
 import { useMemo } from "react";
@@ -18,16 +18,16 @@ import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 type ItemChangelogTableProps = {
-  item: PostItemType;
-  data: PostMediaType[];
+  item: TPostItem;
+  data: TPostMedia[];
 };
 const pageSchema = z.number().gte(1);
 function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
   const { isInstalled } = useInstall(item);
-  const columns = useMemo<SimpleColumnDef<PostMediaType>[]>(
+  const columns = useMemo<SimpleColumnDef<TPostMedia>[]>(
     () => [
       {
         id: "version",
@@ -75,11 +75,11 @@ function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
   return <SimpleTable columns={columns} data={data} />;
 }
 export default function ItemChangeLog({ item }: Props) {
-  const params = useParams("/item/:type/detail/:id/:tab?");
+  const params = useParams("/item/:slug/detail/:id/:tab?");
   const [searchParams, setSearchParams] = useSearchParams();
   const page = pageSchema.parse(Number(searchParams?.get("page") ?? 1));
   const { data, isError, isLoading, isFetching } =
-    useApiFetch<PostChangelogCollectionResponse>("item/changelog", {
+    useApiFetch<TPostChangelogCollection>("item/changelog", {
       item_id: params.id,
       page,
     });
@@ -99,7 +99,7 @@ export default function ItemChangeLog({ item }: Props) {
                   currentPage={page}
                   totalPages={Number(data?.meta?.last_page)}
                   urlGenerator={(_page: number) =>
-                    `/item/${params.type}/detail/${params.id}/${params.tab}?page=${_page}`
+                    `/item/${params.slug}/detail/${params.id}/${params.tab}?page=${_page}`
                   }
                 />
               )}

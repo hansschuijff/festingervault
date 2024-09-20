@@ -2,7 +2,7 @@ import { Switch } from "@/components/ui/switch";
 import useApiMutation from "@/hooks/use-api-mutation";
 import useSetting from "@/hooks/use-setting";
 import { __ } from "@/lib/i18n";
-import { ThemePluginItemType } from "@/types/item";
+import { TThemePluginItem } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
 import { useQueryClient } from "@tanstack/react-query";
 import { Row } from "@tanstack/react-table";
@@ -11,7 +11,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 type Props = {
-  row: Row<ThemePluginItemType>;
+  row: Row<TThemePluginItem>;
 };
 
 export default function AutoUpdateSwitcher({ row }: Props) {

@@ -8,7 +8,8 @@ import {
 } from "@/components/ui/dialog";
 import useBookmark from "@/hooks/use-bookmark";
 import { __ } from "@/lib/i18n";
-import { BookmarkCollectionType, BookmarkPostCollectionSchema } from "@/types/bookmark";
+import { BookmarkCollectionType } from "@/types/bookmark";
+import { BookmarkPostCollectionSchema } from "@/zod/bookmark";
 import { useCallback, useState } from "react";
 import { z, ZodFormattedError } from "zod";
 import Errors from "./Error";

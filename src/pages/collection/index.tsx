@@ -7,15 +7,31 @@ import Collection from "./_components/collection";
 import { Button } from "@/components/ui/button";
 import AddCollectionButton from "@/components/add-collection-dialog";
 import { Plus } from "lucide-react";
+import { sprintf } from "@wordpress/i18n";
 
 export default function Component() {
 	const { data, isLoading, isFetching } =
 		useApiFetch<CollectionResponse<BookmarkCollectionType>>("collection/list");
 	return (
-		<AppPageShell title={__("Collections")} isLoading={isLoading} isFetching={isFetching}>
-			<div><AddCollectionButton><Button className="flex gap-2"><Plus size={16} /> <span>{__("Add New Collection")}</span></Button></AddCollectionButton></div>
+		<AppPageShell
+			title={__("Collections")}
+			isLoading={isLoading}
+			isFetching={isFetching}
+			breadcrump={[
+				{
+					label: __("Collection"),
+				},
+			]}
+		>
+			<div>
+				<AddCollectionButton>
+					<Button className="flex gap-2">
+						<Plus size={16} /> <span>{__("Add New Collection")}</span>
+					</Button>
+				</AddCollectionButton>
+			</div>
 			{data && data.data.length > 0 ? (
-				<div className="grid sm:grid-cols-3 gap-5">
+				<div className="grid gap-5 sm:grid-cols-3">
 					{data.data.map(collection => (
 						<Collection collection={collection} key={collection.id} />
 					))}

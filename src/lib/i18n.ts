@@ -1,8 +1,8 @@
 import {
-  __ as wp__,
-  _n as wp_n,
-  _nx as wp_nx,
-  _x as wp_x,
+	__ as wp__,
+	_n as wp_n,
+	_nx as wp_nx,
+	_x as wp_x,
 } from "@wordpress/i18n";
 
 /**

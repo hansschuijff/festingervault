@@ -65,12 +65,12 @@ const serializeQuery = (items: FilterState): Record<string, string> => {
     ]),
   );
 };
-type ParamsWith<T, Keys extends string[] = ["type"]> = {
+type ParamsWith<T, Keys extends string[] = ["slug"]> = {
   [K in keyof T]: Keys extends (keyof T[K])[] ? K : never;
 }[keyof T];
 type useCollectionProps = {
   options: FilterOption[];
-  path: ParamsWith<Params, ["type"]>; // Only need Params that has `type` params
+  path: ParamsWith<Params, ["slug"]>; // Only need Params that has `slug` params
   sort: SortItem[];
 };
 export default function useCollection({
@@ -178,7 +178,7 @@ export default function useCollection({
     });
   }
   function resetPage() {
-    navigate(path, { params: { type: params.type } });
+    navigate(path, { params: { slug: params.slug } });
   }
 
   return {

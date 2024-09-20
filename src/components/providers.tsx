@@ -1,9 +1,9 @@
+import { BulkProvider } from "@/hooks/use-bulk";
+import { DownloadProvider } from "@/hooks/use-download";
 import { ThemeProvider } from "@/hooks/use-theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "./ui/sonner";
-import { BulkProvider } from "@/hooks/use-bulk";
-import { DownloadProvider } from "@/hooks/use-download";
 
 type ProvidersProps = {
 	children: React.ReactNode;

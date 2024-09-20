@@ -7,16 +7,17 @@ import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/use-api-fetch";
 import useCollection, { FilterOption } from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
+import { SlugToItemType } from "@/lib/type-to-slug";
 import { cn } from "@/lib/utils";
 import PostGridItem, {
 	PostGridItemSkeleton,
-} from "@/pages/item/[type]/-[page]/_components/PostGridItem";
+} from "@/pages/item/[slug]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
 import {
-	ItemTypeEnum,
-	PostItemCollectionResponse,
-	PostItemType,
+	TPostItemCollection,
+	TPostItem,
 } from "@/types/item";
+import { EnumItemType } from "@/zod/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
@@ -38,13 +39,13 @@ const sort_items: ReturnType<typeof useCollection>["sort"] = [
 		value: "popularity",
 	},
 ];
-const path = "/item/:type/:page?";
+const path = "/item/:slug/:page?";
 const paramsSchema = z.object({
-	type: ItemTypeEnum.default("wordpress-themes"),
+	type: EnumItemType.default("wordpress-themes"),
 	page: z.coerce.number().default(1),
 });
 function NoSearchResultFound() {
-	const params = paramsSchema.parse(useParams(path));
+	const params = useParams(path);
 	return (
 		<Card className="col-span-1  md:col-span-3">
 			<div className="flex flex-col items-center gap-4 px-4 py-10 sm:px-6">
@@ -57,19 +58,22 @@ function NoSearchResultFound() {
 					)}
 				</div>
 				<Button asChild variant="outline">
-					<Link to={`/requests?type=${params.type}`}>{__("Add Request")}</Link>
+					<Link to={`/requests?type=${params.slug}`}>{__("Add Request")}</Link>
 				</Button>
 			</div>
 		</Card>
 	);
 }
 export default function Component() {
-	const params = paramsSchema.parse(useParams(path));
-	const item = item_types[params.type];
-	const type = item_types[params.type].slug;
+	const params = useParams(path);
+	const item_type = SlugToItemType(params.slug);
+	if(!item_type){
+		throw new Error("Invalid Item Type");
+	}
+	const type = item_type?.type;
 	const page = params.page || 1;
 	const { data: terms, isLoading: categoriesIsLoading } = useApiFetch<
-		PostItemType["terms"]
+		TPostItem["terms"]
 	>("item/terms", {
 		type,
 	});
@@ -80,7 +84,7 @@ export default function Component() {
 						{
 							id: "category",
 							label: __("Category"),
-							enabled: params.type != "elementor-template-kits",
+							enabled: params.slug != "template-kits",
 							onBarView: true,
 							isMulti: true,
 							showAll:true,
@@ -101,7 +105,7 @@ export default function Component() {
 						{
 							id: "widget-ready",
 							label: __("Widget Ready"),
-							enabled: params.type != "elementor-template-kits",
+							enabled: params.slug != "template-kits",
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "widget-ready")
@@ -120,7 +124,7 @@ export default function Component() {
 						{
 							id: "files-included",
 							label: __("Files Included"),
-							enabled: params.type != "elementor-template-kits",
+							enabled: params.slug != "template-kits",
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "files-included")
@@ -160,7 +164,7 @@ export default function Component() {
 							id: "add_content",
 							label: __("Additional Content"),
 							isMulti: false,
-							enabled: params.type != "elementor-template-kits",
+							enabled: params.slug != "template-kits",
 							options: [
 								{
 									label: "Yes",
@@ -182,7 +186,7 @@ export default function Component() {
 		sort: sort_items,
 	});
 	const { data, isLoading, isFetching } =
-		useApiFetch<PostItemCollectionResponse>("item/list", {
+		useApiFetch<TPostItemCollection>("item/list", {
 			type,
 			page,
 			filter: collection.filter,
@@ -198,8 +202,8 @@ export default function Component() {
 	}, [data]);
 	return (
 		<AppPageShell
-			title={item.label}
-			description={item.description}
+			title={item_type?.label}
+			description={item_type?.description}
 			isFetching={isFetching}
 			isLoading={isLoading}
 			preloader={
@@ -209,11 +213,11 @@ export default function Component() {
 			}
 			breadcrump={[
 				{
-					label: item_types[params.type].label,
+					label: item_type?.label,
 					href: `/item/${type}`,
 				},
 				{
-					label: sprintf(__("Page %d"), params.page.toLocaleString()),
+					label: sprintf(__("Page %d"), Number(page)),
 				},
 			]}
 		>
@@ -232,10 +236,10 @@ export default function Component() {
 					</div>
 					{data.meta && (
 						<Paging
-							currentPage={page}
+							currentPage={Number(page)}
 							totalPages={data.meta?.last_page}
 							urlGenerator={(_page: number) =>
-								`/item/${params.type}/${_page}?${collection?.searchParams}`
+								`/item/${params.slug}/${_page}?${collection?.searchParams}`
 							}
 						/>
 					)}

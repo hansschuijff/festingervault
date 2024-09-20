@@ -1,7 +1,7 @@
 import { Grid } from "@/components/ui/grid";
 import { Skeleton } from "@/components/ui/skeleton";
 import { __, _x } from "@/lib/i18n";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { Calendar, CheckCircle2 } from "lucide-react";
@@ -18,7 +18,7 @@ export function ItemDetailHeaderSkeleton() {
 	);
 }
 type Props = {
-	item: PostItemType;
+	item: TPostItem;
 };
 export default function ItemDetailHeader({ item }: Props) {
 	const category = item.terms

@@ -1,23 +1,23 @@
 import { Button, ButtonProps } from "@/components/ui/button";
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger,
 } from "@/components/ui/drawer";
 import useActivation from "@/hooks/use-activation";
-import useInstalled from "@/hooks/use-is-installed";
 import useApiMutation from "@/hooks/use-api-mutation";
 import { PluginInstallResponse } from "@/hooks/use-install";
+import useInstalled from "@/hooks/use-is-installed";
+import { __ } from "@/lib/i18n";
 import { useNavigate } from "@/router";
-import { DemoContentType, PostItemType } from "@/types/item";
+import { TDemoContent, TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
-import { __ } from "@/lib/i18n";
 
 import { CloudDownload, Download, Loader } from "lucide-react";
 import { toast } from "sonner";
@@ -26,8 +26,8 @@ type AdditionalContentDownloadSchema = {
   media_id?: number;
 };
 type Props = {
-  item: PostItemType;
-  media: DemoContentType;
+  item: TPostItem;
+  media: TDemoContent;
 } & ButtonProps;
 
 export default function AdditionalDownloadButton({
@@ -104,8 +104,8 @@ export default function AdditionalDownloadButton({
                 <div>
                   {sprintf(
                     __("Download demo content %s of %s"),
-                    media.title,
-                    item.title,
+                    decodeEntities(media.title),
+                    decodeEntities(item.title)
                   )}
                 </div>
                 <div>
@@ -118,17 +118,17 @@ export default function AdditionalDownloadButton({
                 </div>
                 <div className="flex flex-row justify-center divide-x">
                   <div className="px-4">
-                    {sprintf(__("Daily Limit: %d"), activation?.today_limit)}
+                    {sprintf(__("Daily Limit: %s"), activation?.today_limit.toLocaleString())}
                   </div>
                   <div className="px-4">
                     {sprintf(
-                      __("Used Limit: %d"),
-                      activation?.today_limit_used,
+                      __("Used Limit: %s"),
+                      activation?.today_limit_used.toLocaleString(),
                     )}
                   </div>
                   {activation?.plan_title === "recurring" && (
                     <div className="p-4">
-                      {sprintf(__("Total Limit: %d"), activation?.total_limit)}
+                      {sprintf(__("Total Limit: %s"), activation?.total_limit.toLocaleString())}
                     </div>
                   )}
                 </div>

@@ -11,10 +11,12 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { item_types } from "@/config/item";
 import useBulk from "@/hooks/use-bulk";
 import { __, _x } from "@/lib/i18n";
+import {TypeToItemType} from "@/lib/type-to-slug";
 import { cn } from "@/lib/utils";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { Clock, Ellipsis, Eye, Info, ShoppingBag, Star } from "lucide-react";
@@ -37,17 +39,18 @@ export function PostGridItemSkeleton() {
 	);
 }
 type Props = {
-	item: PostItemType;
+	item: TPostItem;
 };
 export default function PostGridItem({ item }: Props) {
 	const navigate = useNavigate();
 	const { addItem, hasItem, removeItem } = useBulk();
+	const item_type=TypeToItemType(item.type);
 	return (
 		<Card className="group/item flex flex-col justify-between transition-all duration-300">
 			<div>
 				<CardHeader className="group/image relative aspect-video overflow-hidden rounded-t-sm bg-slate-400 p-0 sm:p-0">
 					{item.image && (
-						<Link to={`/item/${item.type}/detail/${item.id}`}>
+						<Link to={`/item/${item_type?.slug}/detail/${item.id}`}>
 							<img
 								src={item.image}
 								className="aspect-video rounded-t-sm object-cover"
@@ -80,7 +83,7 @@ export default function PostGridItem({ item }: Props) {
 				</CardHeader>
 				<CardContent className="space-y-1">
 					<CardTitle className="leading-normal">
-						<Link to={`/item/${item.type}/detail/${item.id}`}>
+						<Link to={`/item/${item_type?.slug}/detail/${item.id}`}>
 							{decodeEntities(item.title)}
 						</Link>
 					</CardTitle>
@@ -111,7 +114,7 @@ export default function PostGridItem({ item }: Props) {
 						size="icon"
 						className="flex items-center gap-2"
 						onClick={e => {
-							navigate(`/item/${item.type}/detail/${item.id}`);
+							navigate(`/item/${item_type?.slug}/detail/${item.id}`);
 						}}
 					>
 						<Eye width={16} />

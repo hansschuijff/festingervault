@@ -1,5 +1,5 @@
-import { PostItemType, PostMediaType } from "@/types/item";
 import version_compare from "@/lib/version_compare";
+import { TPostItem, TPostMedia } from "@/types/item";
 import { useMemo } from "react";
 import useInstalled from "./use-is-installed";
 export type PluginInstallResponse = {
@@ -14,7 +14,7 @@ export type PluginInstallSchema = {
   media_id?: number;
 };
 
-export default function useInstall(item: PostItemType, media?: PostMediaType) {
+export default function useInstall(item: TPostItem, media?: TPostMedia) {
   const isInstallable = useMemo(
     () => ["wordpress-themes", "wordpress-plugins"].includes(item.type),
     [item],

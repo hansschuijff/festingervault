@@ -16,13 +16,13 @@ import useBookmark from "@/hooks/use-bookmark";
 import { __ } from "@/lib/i18n";
 import { CollectionResponse } from "@/types/api";
 import { BookmarkCollectionType } from "@/types/bookmark";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
+import { decodeEntities } from "@wordpress/html-entities";
 import { Check, Star } from "lucide-react";
 import { useCallback } from "react";
 import AddCollectionButton from "./add-collection-dialog";
-import { decodeEntities } from "@wordpress/html-entities";
 type Props = {
-	item: PostItemType;
+	item: TPostItem;
 } & ButtonProps;
 export default function BookmarkButton({ item, size, variant }: Props) {
 	const { addItemToCollection } = useBookmark();

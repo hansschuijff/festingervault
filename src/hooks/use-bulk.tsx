@@ -9,11 +9,11 @@ import {
 } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
+import useApiMutation from "./use-api-mutation";
+import useDownload from "./use-download";
+import { PluginInstallResponse, PluginInstallSchema } from "./use-install";
 import useInstalled from "./use-is-installed";
 import useTaskQueue from "./use-task-queue";
-import useApiMutation from "./use-api-mutation";
-import { PluginInstallResponse, PluginInstallSchema } from "./use-install";
-import useDownload from "./use-download";
 type BulkProviderProps = {
 	children: React.ReactNode;
 	storageKey?: string;

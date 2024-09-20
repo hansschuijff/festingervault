@@ -10,8 +10,8 @@ export type Path =
 	| `/collection`
 	| `/collection/:cid/:page?`
 	| `/history/:page?`
-	| `/item/:type/:page?`
-	| `/item/:type/detail/:id/:tab?`
+	| `/item/:slug/:page?`
+	| `/item/:slug/detail/:id/:tab?`
 	| `/popular`
 	| `/requests`
 	| `/settings`
@@ -20,8 +20,8 @@ export type Path =
 export type Params = {
 	"/collection/:cid/:page?": { cid: string; page?: string };
 	"/history/:page?": { page?: string };
-	"/item/:type/:page?": { type: string; page?: string };
-	"/item/:type/detail/:id/:tab?": { type: string; id: string; tab?: string };
+	"/item/:slug/:page?": { slug: string; page?: string };
+	"/item/:slug/detail/:id/:tab?": { slug: string; id: string; tab?: string };
 };
 
 export type ModalPath = never;

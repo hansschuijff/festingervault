@@ -1,26 +1,26 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+	CommandSeparator,
 } from "@/components/ui/command";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import type { Option } from "@/types/data-table";
 import { CheckIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { type Column } from "@tanstack/react-table";
 import { sprintf } from "@wordpress/i18n";
-import { __ } from "@/lib/i18n";
 
 interface DataTableFacetedFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;

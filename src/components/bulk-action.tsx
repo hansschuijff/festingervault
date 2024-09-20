@@ -8,13 +8,13 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet";
-import { ShoppingBag, X } from "lucide-react";
-import { Button } from "./ui/button";
 import useBulk from "@/hooks/use-bulk";
+import { __ } from "@/lib/i18n";
 import { decodeEntities } from "@wordpress/html-entities";
-import { __, _x } from "@/lib/i18n";
 import { sprintf } from "@wordpress/i18n";
+import { ShoppingBag, X } from "lucide-react";
 import { Alert } from "./ui/alert";
+import { Button } from "./ui/button";
 export default function BulkAction() {
 	const { items, removeItem, install, download } = useBulk();
 	return (

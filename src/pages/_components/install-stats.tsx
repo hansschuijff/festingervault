@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
-import { PostItemCollectionResponse } from "@/types/item";
+import { TPostItemCollection } from "@/types/item";
 import { useMemo } from "react";
 import { ClassNameValue } from "tailwind-merge";
 import { StackedBarChart, StackedBarChartDataType } from "./stacked-bar-chart";
@@ -13,7 +13,7 @@ type Props = {
 
 export default function InstallStats({ className }: Props) {
   const { data, isLoading, isError, status } =
-    useApiFetch<PostItemCollectionResponse>(`update/list`, {});
+    useApiFetch<TPostItemCollection>(`update/list`, {});
   const themes = useMemo(() => {
     if (data?.data) {
       return data?.data?.filter(item => item.type === "wordpress-themes");

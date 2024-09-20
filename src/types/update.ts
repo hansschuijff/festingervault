@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { ItemTypeEnum } from "./item";
+import { EnumItemType } from "@/zod/item";
 
 export type AutoupdatePostSchema = {
-  type: Exclude<z.infer<typeof ItemTypeEnum>, "elementor-template-kits">;
+  type: Exclude<z.infer<typeof EnumItemType>, "elementor-template-kits">;
   slug: string;
   enabled: boolean;
 };

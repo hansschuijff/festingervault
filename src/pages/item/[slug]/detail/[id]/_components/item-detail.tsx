@@ -1,12 +1,12 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { __ } from "@/lib/i18n";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
 import { useMemo } from "react";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 type Row = {
   label: string;

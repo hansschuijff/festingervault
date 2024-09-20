@@ -1,11 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { PostItemType } from "@/types/item";
+import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 
 type Props = {
   title: string;
-  terms: PostItemType["terms"];
+  terms: TPostItem["terms"];
 };
 
 export default function ItemTerms({ title, terms }: Props) {

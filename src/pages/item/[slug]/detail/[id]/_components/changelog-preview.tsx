@@ -10,23 +10,23 @@ import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { Link, useParams } from "@/router";
 import {
-	PostChangelogCollectionResponse,
-	PostItemType,
-	PostMediaType,
+	TPostChangelogCollection,
+	TPostItem,
+	TPostMedia,
 } from "@/types/item";
 import moment from "moment";
 import { useMemo } from "react";
 
 type Props = {
-  item: PostItemType;
+  item: TPostItem;
 };
 export default function ChangelogPreview({ item }: Props) {
-  const params = useParams("/item/:type/detail/:id/:tab?");
+  const params = useParams("/item/:slug/detail/:id/:tab?");
   const { data, isError, isLoading, isFetching } =
-    useApiFetch<PostChangelogCollectionResponse>("item/changelog", {
+    useApiFetch<TPostChangelogCollection>("item/changelog", {
       item_id: params.id,
     });
-  const columns = useMemo<SimpleColumnDef<PostMediaType>[]>(
+  const columns = useMemo<SimpleColumnDef<TPostMedia>[]>(
     () => [
       {
         id: "version",
@@ -81,7 +81,7 @@ export default function ChangelogPreview({ item }: Props) {
         </CardContent>
         <CardFooter className="justify-center border-t border-border text-center">
           <Link
-            to="/item/:type/detail/:id/:tab?"
+            to="/item/:slug/detail/:id/:tab?"
             params={{ ...params, tab: "changelog" }}
             className="border-b border-dashed border-blue-500 text-sm text-blue-500"
           >

@@ -1,34 +1,30 @@
 import { __ } from "@/lib/i18n";
+import { EnumItemSlug, EnumItemType } from "@/zod/item";
+import { z } from "zod";
 
-interface ItemType {
-  slug: string;
+type TItemType ={
+  slug: z.infer<typeof EnumItemSlug>;
+	type:z.infer<typeof EnumItemType>;
   label: string;
   description: string;
 }
 
-type ItemTypes<T extends string> = {
-  [key in T]: ItemType;
-};
-
-export const item_types: ItemTypes<string> = {
-  "wordpress-themes": {
-    slug: "wordpress-themes",
-    label: __("WordPress Themes"),
+export const item_types: TItemType[] = [{
+		slug:"themes",
+    type: "wordpress-themes",
+    label: __("Themes"),
     description: __("Tailored Premium WordPress themes"),
   },
-  "wordpress-plugins": {
-    slug: "wordpress-plugins",
-    label: __("WordPress Plugins"),
-    description: __("Tailored Premium WordPress plugins"),
+   {
+    slug: "plugins",
+    type: "wordpress-plugins",
+    label: __("Plugins"),
+    description: __("Tailored Premium plugins"),
   },
-  "elementor-template-kits": {
-    slug: "elementor-template-kits",
+   {
+    slug: "template-kits",
+    type: "elementor-template-kits",
     label: __("Template Kits"),
-    description: __("Elementor Template Kits"),
+    description: __("Template Kits"),
   },
-  wishlist: {
-    slug: "wishlist",
-    label: __("Requests"),
-    description: __("Wishlisted Items"),
-  },
-};
+];

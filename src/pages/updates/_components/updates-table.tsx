@@ -14,7 +14,7 @@ import {
 	DataTableFilterableColumn,
 	DataTableSearchableColumn,
 } from "@/types/data-table";
-import { ThemePluginItemType } from "@/types/item";
+import { TThemePluginItem } from "@/types/item";
 import { AutoupdatePostSchema } from "@/types/update";
 import { useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
@@ -23,7 +23,7 @@ import { toast } from "sonner";
 import { getColumns } from "./columns";
 import { TApiError } from "@/types/api";
 
-const filterableColumns: DataTableFilterableColumn<ThemePluginItemType>[] = [
+const filterableColumns: DataTableFilterableColumn<TThemePluginItem>[] = [
 	{
 		id: "type",
 		title: __("Type"),
@@ -39,11 +39,11 @@ const filterableColumns: DataTableFilterableColumn<ThemePluginItemType>[] = [
 		],
 	},
 ];
-const searchableColumns: DataTableSearchableColumn<ThemePluginItemType>[] = [
+const searchableColumns: DataTableSearchableColumn<TThemePluginItem>[] = [
 	{ id: "title", placeholder: __("Search downloads...") },
 ];
 type UpdateTableProps = {
-	data: ThemePluginItemType[];
+	data: TThemePluginItem[];
 };
 export function UpdatesTableSkeleton() {
 	return (
@@ -66,7 +66,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
 	>("update/update-autoupdate");
 	const { clearCache } = useInstalled();
 	const { addTask } = useTaskQueue();
-	const bulkActions: BulkActionType<ThemePluginItemType>[] = [
+	const bulkActions: BulkActionType<TThemePluginItem>[] = [
 		{
 			id: "update",
 			label: __("Update"),
@@ -204,7 +204,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
 			},
 		},
 	];
-	const columns = useMemo<ColumnDef<ThemePluginItemType, unknown>[]>(
+	const columns = useMemo<ColumnDef<TThemePluginItem, unknown>[]>(
 		() => getColumns(),
 		[],
 	);

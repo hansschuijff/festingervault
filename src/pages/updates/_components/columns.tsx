@@ -2,22 +2,23 @@ import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "@/router";
-import { ThemePluginItemType } from "@/types/item";
+import { TThemePluginItem } from "@/types/item";
 import version_compare from "@/lib/version_compare";
 import { type ColumnDef } from "@tanstack/react-table";
 import { decodeEntities } from "@wordpress/html-entities";
 import AutoUpdateSwitcher from "./autoupdate-switch";
 import { __ } from "@/lib/i18n";
 import { sprintf } from "@wordpress/i18n";
+import { TypeToItemType, TypeToSlug } from "@/lib/type-to-slug";
 
-export function getColumns(): ColumnDef<ThemePluginItemType>[] {
+export function getColumns(): ColumnDef<TThemePluginItem>[] {
   return columns;
 }
 const type_labels = {
   "wordpress-themes": "Theme",
   "wordpress-plugins": "Plugin",
 };
-export const columns: ColumnDef<ThemePluginItemType>[] = [
+export const columns: ColumnDef<TThemePluginItem>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -60,8 +61,8 @@ export const columns: ColumnDef<ThemePluginItemType>[] = [
             <div className="font-semibold">
               <div className="line-clamp-1">
                 <Link
-                  to={`/item/:type/detail/:id/:tab?`}
-                  params={{ id: row.original.id, type: row.original.type }}
+                  to={`/item/:slug/detail/:id/:tab?`}
+                  params={{ id: row.original.id, slug: TypeToSlug(row.original.type) }}
                 >
                   {decodeEntities(row.original.title)}
                 </Link>

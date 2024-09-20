@@ -1,41 +1,37 @@
 import { z } from "zod";
 import {  CollectionResponse } from "./api";
-export const ItemTypeEnum = z.enum([
-  "wordpress-themes",
-  "wordpress-plugins",
-  "elementor-template-kits",
-]);
-
-export const AccessEnum = z.enum(["gold", "bronze", "silver"]);
-type VirusTotal = {
+import { EnumAccessLevel, EnumItemSlug, EnumItemType } from "@/zod/item";
+type TVirusTotal = {
   filename: string;
   hash: string;
   result: string;
   stats: Record<string, number>;
   updated: number;
 };
-type Term={
+type TTerm={
 	id:number;
 	name:string;
 	slug:string;
 	taxonomy:string;
 }
-export type PostItemType<Ex = never> = {
+export type TItemTypeEnum=z.infer<typeof EnumItemType>
+export type TItemTypeSlugEnum=z.infer<typeof EnumItemSlug>
+export type TPostItem<Ex extends TItemTypeEnum = never> = {
   id: string;
   title: string;
   slug: string;
   summary: string;
   image: string;
   thumbnail: string;
-  type: Exclude<z.infer<typeof ItemTypeEnum>, Ex>;
+  type: Exclude<TItemTypeEnum, Ex>;
   author: string;
   category: string;
-	terms:Term[],
+	terms:TTerm[],
   updated: number;
   created: number;
   version: string;
   owned: boolean;
-  access?: z.infer<typeof AccessEnum>;
+  access?: z.infer<typeof EnumAccessLevel>;
   installed_version?: string;
   additional_content_count?: number;
   download_count?: number;
@@ -43,12 +39,12 @@ export type PostItemType<Ex = never> = {
   media_count?: number;
   preview?: string;
   support_url?: string;
-  virus_total?: VirusTotal;
+  virus_total?: TVirusTotal;
 	path?:string;
 	install_dir?:string;
 	collections?:number[];
 };
-export type PostMediaType = {
+export type TPostMedia = {
   id: number;
   filename: string;
   version: string;
@@ -56,19 +52,19 @@ export type PostMediaType = {
   size: number;
   updated: number;
 };
-export type DemoContentType = {
+export type TDemoContent = {
   id: number;
   type: string;
   title: string;
   updated: number;
 };
-export type PostItemCollectionResponse = CollectionResponse<PostItemType>;
-export type PostChangelogCollectionResponse = CollectionResponse<PostMediaType>;
-export type DemoContentCollectionResponse = CollectionResponse<DemoContentType>;
+export type TPostItemCollection = CollectionResponse<TPostItem>;
+export type TPostChangelogCollection = CollectionResponse<TPostMedia>;
+export type TDemoContentCollection = CollectionResponse<TDemoContent>;
 export type ItemStatsResponse = {
   total: number;
   themes: number;
   plugins: number;
   kits: number;
 };
-export type ThemePluginItemType = PostItemType<"elementor-template-kits">;
+export type TThemePluginItem = TPostItem<"elementor-template-kits">;

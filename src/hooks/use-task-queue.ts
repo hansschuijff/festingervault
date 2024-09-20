@@ -1,5 +1,5 @@
 import PQueue from "p-queue";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 
 export default function useTaskQueue(concurrency:number=2) {
 	const queue = useRef(new PQueue({ concurrency}));

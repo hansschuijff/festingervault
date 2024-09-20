@@ -7,9 +7,9 @@ import capitalizeHyphenatedWords from "@/lib/capitalizeHyphenatedWords";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
 import {
-	DemoContentCollectionResponse,
-	DemoContentType,
-	PostItemType,
+	TDemoContentCollection,
+	TDemoContent,
+	TPostItem,
 } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
@@ -17,15 +17,15 @@ import { useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
 type DemoContentTableProps = {
-	item: PostItemType;
-	data: DemoContentType[];
+	item: TPostItem;
+	data: TDemoContent[];
 };
 type Props = {
-	item: PostItemType;
+	item: TPostItem;
 };
 const pageSchema = z.number().gte(1).default(1);
 export function DemoContentTable({ item, data }: DemoContentTableProps) {
-	const columns = useMemo<SimpleColumnDef<DemoContentType>[]>(
+	const columns = useMemo<SimpleColumnDef<TDemoContent>[]>(
 		() => [
 			{
 				id: "name",
@@ -72,11 +72,11 @@ export function DemoContentTable({ item, data }: DemoContentTableProps) {
 	return <SimpleTable columns={columns} data={data} />;
 }
 export default function ItemDemoContents({ item }: Props) {
-	const params = useParams("/item/:type/detail/:id/:tab?");
+	const params = useParams("/item/:slug/detail/:id/:tab?");
 	const [searchParams, setSearchParams] = useSearchParams();
 	const page = pageSchema.parse(Number(searchParams?.get("page") ?? 1));
 	const { data, isLoading, isFetching } =
-		useApiFetch<DemoContentCollectionResponse>("item/demo-content", {
+		useApiFetch<TDemoContentCollection>("item/demo-content", {
 			item_id: params.id,
 			page,
 		});
@@ -95,7 +95,7 @@ export default function ItemDemoContents({ item }: Props) {
 									currentPage={page}
 									totalPages={Number(data?.meta?.last_page)}
 									urlGenerator={(_page: number) =>
-										`/item/${params.type}/detail/${params.id}/${params.tab}?page=${_page}`
+										`/item/${params.slug}/detail/${params.id}/${params.tab}?page=${_page}`
 									}
 								/>
 							)}
