@@ -17,7 +17,7 @@ import {
 	TPostItemCollection,
 	TPostItem,
 } from "@/types/item";
-import { EnumItemType } from "@/zod/item";
+import { EnumItemSlug, EnumItemType } from "@/zod/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
@@ -41,7 +41,7 @@ const sort_items: ReturnType<typeof useCollection>["sort"] = [
 ];
 const path = "/item/:slug/:page?";
 const paramsSchema = z.object({
-	type: EnumItemType.default("wordpress-themes"),
+	slug: EnumItemSlug.default("themes"),
 	page: z.coerce.number().default(1),
 });
 function NoSearchResultFound() {
@@ -65,13 +65,13 @@ function NoSearchResultFound() {
 	);
 }
 export default function Component() {
-	const params = useParams(path);
-	const item_type = SlugToItemType(params.slug);
-	if(!item_type){
-		throw new Error("Invalid Item Type");
+	const params =paramsSchema.safeParse(useParams(path));
+	if(params.error){
+		throw Error("Invalid Item Type");
 	}
-	const type = item_type?.type;
-	const page = params.page || 1;
+	const item_type = SlugToItemType(params.data.slug);
+	const type = item_type.type;
+	const page = params.data.page;
 	const { data: terms, isLoading: categoriesIsLoading } = useApiFetch<
 		TPostItem["terms"]
 	>("item/terms", {
@@ -84,7 +84,7 @@ export default function Component() {
 						{
 							id: "category",
 							label: __("Category"),
-							enabled: params.slug != "template-kits",
+							enabled: item_type.slug != "template-kits",
 							onBarView: true,
 							isMulti: true,
 							showAll:true,
@@ -105,7 +105,7 @@ export default function Component() {
 						{
 							id: "widget-ready",
 							label: __("Widget Ready"),
-							enabled: params.slug != "template-kits",
+							enabled: item_type.slug != "template-kits",
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "widget-ready")
@@ -124,7 +124,7 @@ export default function Component() {
 						{
 							id: "files-included",
 							label: __("Files Included"),
-							enabled: params.slug != "template-kits",
+							enabled: item_type.slug != "template-kits",
 							isMulti: false,
 							options: terms
 								?.filter(i => i.taxonomy === "files-included")
@@ -164,7 +164,7 @@ export default function Component() {
 							id: "add_content",
 							label: __("Additional Content"),
 							isMulti: false,
-							enabled: params.slug != "template-kits",
+							enabled: item_type.slug != "template-kits",
 							options: [
 								{
 									label: "Yes",
@@ -239,7 +239,7 @@ export default function Component() {
 							currentPage={Number(page)}
 							totalPages={data.meta?.last_page}
 							urlGenerator={(_page: number) =>
-								`/item/${params.slug}/${_page}?${collection?.searchParams}`
+								`/item/${item_type.slug}/${_page}?${collection?.searchParams}`
 							}
 						/>
 					)}

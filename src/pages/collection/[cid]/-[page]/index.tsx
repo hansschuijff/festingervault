@@ -70,7 +70,7 @@ export default function CollectionDetail({}) {
 				</>
 			) : (
 				<div className="text-sm italic text-muted-foreground">
-					{__("No Items Found")}
+					{__("No Items found in collection")}
 				</div>
 			)}
 		</AppPageShell>

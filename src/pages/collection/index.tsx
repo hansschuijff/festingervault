@@ -38,7 +38,7 @@ export default function Component() {
 				</div>
 			) : (
 				<div className="text-sm italic text-muted-foreground">
-					{__("No Collections Found Found")}
+					{__("No Collections Found")}
 				</div>
 			)}
 		</AppPageShell>
