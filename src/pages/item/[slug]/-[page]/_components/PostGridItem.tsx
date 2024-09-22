@@ -11,15 +11,14 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { item_types } from "@/config/item";
 import useBulk from "@/hooks/use-bulk";
 import { __, _x } from "@/lib/i18n";
-import {TypeToItemType} from "@/lib/type-to-slug";
+import { TypeToItemType } from "@/lib/type-to-slug";
 import { cn } from "@/lib/utils";
 import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
-import { Clock, Ellipsis, Eye, Info, ShoppingBag, Star } from "lucide-react";
+import { Clock, Ellipsis, Eye, Info, ShoppingBag } from "lucide-react";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -44,7 +43,7 @@ type Props = {
 export default function PostGridItem({ item }: Props) {
 	const navigate = useNavigate();
 	const { addItem, hasItem, removeItem } = useBulk();
-	const item_type=TypeToItemType(item.type);
+	const item_type = TypeToItemType(item.type);
 	return (
 		<Card className="group/item flex flex-col justify-between transition-all duration-300">
 			<div>
@@ -113,7 +112,7 @@ export default function PostGridItem({ item }: Props) {
 						variant="outline"
 						size="icon"
 						className="flex items-center gap-2"
-						onClick={e => {
+						onClick={() => {
 							navigate(`/item/${item_type?.slug}/detail/${item.id}`);
 						}}
 					>
@@ -128,16 +127,18 @@ export default function PostGridItem({ item }: Props) {
 								? __("Remove from bulk")
 								: __("Add to Bulk")
 						}
-						onClick={e => {
-							hasItem(item.id) === true
-								? removeItem(item.id)
-								: addItem({
-										id: Number(item.id),
-										type: item.type,
-										image: item.thumbnail ?? item.image,
-										title: item.title,
-										version: item.version,
-									});
+						onClick={() => {
+							if (hasItem(item.id) === true) {
+								removeItem(item.id);
+							} else {
+								addItem({
+									id: Number(item.id),
+									type: item.type,
+									image: item.thumbnail ?? item.image,
+									title: item.title,
+									version: item.version,
+								});
+							}
 						}}
 					>
 						<ShoppingBag width={16} />
@@ -148,7 +149,7 @@ export default function PostGridItem({ item }: Props) {
 						variant="outline"
 						size="icon"
 						className="flex items-center gap-2"
-						onClick={e => {
+						onClick={() => {
 							//navigate(`/item/${item.type}/detail/${item.id}`);
 						}}
 					>

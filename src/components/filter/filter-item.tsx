@@ -86,7 +86,7 @@ export default function FilterItem({ item, collection }: FilterItemProps) {
                 return (
                   <CommandItem
                     key={option.value}
-                    onSelect={newValue => {
+                    onSelect={() => {
                       if (isSelected) {
                         selectedValues.delete(option.value);
                       } else {

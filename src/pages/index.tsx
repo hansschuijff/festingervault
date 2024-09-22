@@ -52,6 +52,7 @@ export default function Component() {
 								<a
 									href="https://festingervault.com/beta-feedback"
 									target="_blank"
+									rel="noreferrer"
 								>
 									{_x("Report Feedback", "Dashboard report feedback button")}
 								</a>

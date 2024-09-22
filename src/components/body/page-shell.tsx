@@ -1,23 +1,22 @@
+import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { Home } from "lucide-react";
 import { Fragment, useEffect, type ElementType } from "react";
 import { Link } from "react-router-dom";
 import BulkAction from "../bulk-action";
+import DownloadManager from "../download-manager";
 import LanguageSelector from "../language-select";
 import ModeToggle from "../mode-toggle";
 import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
+	Breadcrumb,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbList,
+	BreadcrumbPage,
+	BreadcrumbSeparator,
 } from "../ui/breadcrumb";
 import { Card, CardContent } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
-import { __ } from "@/lib/i18n";
-import useDownload from "@/hooks/use-download";
-import DownloadManager from "../download-manager";
 type BreadCrumbType = {
   label: string;
   href?: string;
@@ -132,7 +131,7 @@ type PageHeaderProps = {
 function PageHeader({ title, description }: PageHeaderProps) {
 	useEffect(() => {
     document.title = title;
-  }, [location, title]);
+  }, [title]);
 	 return (
     <header className="flex flex-row items-start gap-4 border-b border-border py-6">
       <div className="flex flex-1 flex-col gap-1">

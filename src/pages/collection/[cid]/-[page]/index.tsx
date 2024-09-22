@@ -13,7 +13,7 @@ import {
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 
-export default function CollectionDetail({}) {
+export default function CollectionDetail() {
 	const { cid, page = 1 } = useParams("/collection/:cid/:page?");
 	const { data: collection } = useApiFetch<
 		BookmarkCollectionType,

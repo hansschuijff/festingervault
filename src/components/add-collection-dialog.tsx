@@ -4,13 +4,13 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger
+	DialogTrigger,
 } from "@/components/ui/dialog";
 import useBookmark from "@/hooks/use-bookmark";
 import { __ } from "@/lib/i18n";
 import { BookmarkCollectionType } from "@/types/bookmark";
 import { BookmarkPostCollectionSchema } from "@/zod/bookmark";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { z, ZodFormattedError } from "zod";
 import Errors from "./Error";
 import { Button } from "./ui/button";
@@ -20,17 +20,30 @@ import { Switch } from "./ui/switch";
 import { Textarea } from "./ui/textarea";
 type Props = {
 	children?: React.ReactNode;
-	collection?:BookmarkCollectionType,
-	update?:boolean;
+	collection?: BookmarkCollectionType;
+	update?: boolean;
 };
-export default function AddCollectionButton({ children, collection, update=false }: Props) {
+export default function AddCollectionButton({
+	children,
+	collection,
+	update = false,
+}: Props) {
 	const { addNewCollection } = useBookmark();
 	const [dialogOpen, setDialogOpen] = useState<boolean>(false);
-	const [id, setId] = useState<number>(collection?collection.id:0);
-	const [title, setTitle] = useState<string>(collection?collection.title:"");
-	const [summary, setSummary] = useState<string>(collection?collection.summary:"");
-	const [isPublic, setIsPublic] = useState<boolean>(collection?collection.public:true);
-	const [errors,setError]=useState<ZodFormattedError<z.infer<typeof BookmarkPostCollectionSchema>,string>>(null);
+	const [title, setTitle] = useState<string>(
+		collection ? collection.title : "",
+	);
+	const [summary, setSummary] = useState<string>(
+		collection ? collection.summary : "",
+	);
+	const [isPublic, setIsPublic] = useState<boolean>(
+		collection ? collection.public : true,
+	);
+	const [errors, setError] =
+		useState<
+			ZodFormattedError<z.infer<typeof BookmarkPostCollectionSchema>, string>
+		>(null);
+	const id = useMemo<number>(() => collection?.id ?? 0, [collection]);
 	const addList = useCallback(() => {
 		const postData = BookmarkPostCollectionSchema.safeParse({
 			id,
@@ -41,38 +54,42 @@ export default function AddCollectionButton({ children, collection, update=false
 		if (postData.success) {
 			addNewCollection(postData.data, update).then(() => setDialogOpen(false));
 		}
-		if(postData.error){
-			setError(postData.error.format())
+		if (postData.error) {
+			setError(postData.error.format());
 		}
-	}, [title, summary, isPublic, addNewCollection, setError]);
+	}, [id, title, summary, isPublic, addNewCollection, update]);
 	return (
 		<Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
 			<DialogTrigger asChild className="cursor-pointer">
 				{children ? (
 					children
 				) : (
-					<span className="w-full">{update?__("Update Collection"):__("Add New Collection")}</span>
+					<span className="w-full">
+						{update ? __("Update Collection") : __("Add New Collection")}
+					</span>
 				)}
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>{update?__("Update Collection"):__("Create New Collection")}</DialogTitle>
+					<DialogTitle>
+						{update ? __("Update Collection") : __("Create New Collection")}
+					</DialogTitle>
 				</DialogHeader>
 				<div className="flex flex-col gap-2">
-					<div className="flex gap-2 flex-col">
+					<div className="flex flex-col gap-2">
 						<Input
 							placeholder={__("List Title")}
 							value={title}
-							onChange={e => setTitle(prev => e.target.value)}
+							onChange={e => setTitle(() => e.target.value)}
 						/>
-							<Errors errors={errors?.title?._errors} />
-							</div>
+						<Errors errors={errors?.title?._errors} />
+					</div>
 					<div className="flex flex-col gap-2">
 						<Textarea
 							placeholder={__("List Description")}
 							value={summary}
 							className="h-16 max-h-16 resize-none"
-							onChange={e => setSummary(prev => e.target.value)}
+							onChange={e => setSummary(() => e.target.value)}
 						/>
 						<Errors errors={errors?.summary?._errors} />
 					</div>
@@ -86,7 +103,9 @@ export default function AddCollectionButton({ children, collection, update=false
 					</div>
 				</div>
 				<DialogFooter>
-					<Button onClick={addList}>{update?__("Update Collection"):__("Add New Collection")}</Button>
+					<Button onClick={addList}>
+						{update ? __("Update Collection") : __("Add New Collection")}
+					</Button>
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

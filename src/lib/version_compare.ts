@@ -1,4 +1,8 @@
-export default function version_compare(v1: string, v2: string, operator?: string) {
+export default function version_compare(
+	v1: string,
+	v2: string,
+	operator?: string,
+) {
 	try {
 		let compare = 0;
 
@@ -10,21 +14,21 @@ export default function version_compare(v1: string, v2: string, operator?: strin
 			b: -4,
 			RC: -3,
 			rc: -3,
-			'#': -2,
+			"#": -2,
 			p: 1,
-			pl: 1
+			pl: 1,
 		};
 
 		const _prepVersion = (v: string): (number | string)[] => {
-			v = v.replace(/[_\-+]/g, '.');
-			v = v.replace(/([^.\d]+)/g, '.$1.').replace(/\.{2,}/g, '.');
-			return v.length === 0 ? [-8] : v.split('.');
+			v = v.replace(/[_\-+]/g, ".");
+			v = v.replace(/([^.\d]+)/g, ".$1.").replace(/\.{2,}/g, ".");
+			return v.length === 0 ? [-8] : v.split(".");
 		};
 
 		const _numVersion = (v: string | number): number => {
-			if (typeof v === 'number') return v;
+			if (typeof v === "number") return v;
 			if (!v) return 0;
-			return isNaN(parseInt(v, 10)) ? (vm[v] || -7) : parseInt(v, 10);
+			return isNaN(parseInt(v, 10)) ? vm[v] || -7 : parseInt(v, 10);
 		};
 
 		const v1Parts = _prepVersion(v1);
@@ -51,30 +55,31 @@ export default function version_compare(v1: string, v2: string, operator?: strin
 		}
 
 		switch (operator) {
-			case '>':
-			case 'gt':
+			case ">":
+			case "gt":
 				return compare > 0;
-			case '>=':
-			case 'ge':
+			case ">=":
+			case "ge":
 				return compare >= 0;
-			case '<=':
-			case 'le':
+			case "<=":
+			case "le":
 				return compare <= 0;
-			case '===':
-			case '=':
-			case 'eq':
+			case "===":
+			case "=":
+			case "eq":
 				return compare === 0;
-			case '<>':
-			case '!==':
-			case 'ne':
+			case "<>":
+			case "!==":
+			case "ne":
 				return compare !== 0;
-			case '':
-			case '<':
-			case 'lt':
+			case "":
+			case "<":
+			case "lt":
 				return compare < 0;
 			default:
 				return null;
 		}
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (err) {
 		return null;
 	}

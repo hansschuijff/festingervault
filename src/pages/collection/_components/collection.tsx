@@ -60,7 +60,7 @@ export default function Collection({ collection }: Props) {
 				</CardContent>
 				<CardFooter className="border-t">
 					<div className="flex flex-row gap-2">
-					<Button
+						<Button
 							variant="secondary"
 							onClick={() => {
 								if (
@@ -73,12 +73,11 @@ export default function Collection({ collection }: Props) {
 						>
 							{__("Delete")}
 						</Button>
-						<AddCollectionButton collection={collection} update={true}><Button
-							variant="destructive"
-							size="sm"
-						>
-							{__("Edit")}
-						</Button></AddCollectionButton>
+						<AddCollectionButton collection={collection} update={true}>
+							<Button variant="destructive" size="sm">
+								{__("Edit")}
+							</Button>
+						</AddCollectionButton>
 					</div>
 				</CardFooter>
 			</Card>

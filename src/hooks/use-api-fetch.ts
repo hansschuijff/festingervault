@@ -4,8 +4,8 @@ import apiFetch from "@wordpress/api-fetch";
 
 export default function useApiFetch<
   ResponseDataType,
-  PostDataType = Record<string, any>,
->(path: string, data?: PostDataType, enabled = true) {
+  PostDataType = Record<string, unknown>,
+>(path: string, data?: PostDataType, enabled:boolean = true) {
   const query = useQuery<ResponseDataType, Error>({
     queryKey: [path, data].filter(item => item),
     queryFn:  () =>apiFetch<ResponseDataType>({

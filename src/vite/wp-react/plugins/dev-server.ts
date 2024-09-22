@@ -26,6 +26,7 @@ export function devServer(options: Options = {}): Plugin {
     name: "my-vite:dev-server",
     async config(config) {
       let {
+        // eslint-disable-next-line prefer-const
         server: { host = "localhost", port = 5173, ...serverConfig } = {},
       } = config;
 

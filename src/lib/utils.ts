@@ -19,7 +19,7 @@ export function formatDate(date: string | number | Date) {
   return format(new Date(date), "PP");
 }
 
-export function removeEmptyParams(params: Record<string, any>) {
+export function removeEmptyParams(params: Record<string, string | string[]>) {
   return Object.entries(params).reduce(function (acc, [key, val]) {
     if (val.length > 0) {
       acc[key] = val;

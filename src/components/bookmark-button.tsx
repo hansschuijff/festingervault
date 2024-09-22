@@ -24,12 +24,10 @@ import AddCollectionButton from "./add-collection-dialog";
 type Props = {
 	item: TPostItem;
 } & ButtonProps;
-export default function BookmarkButton({ item, size, variant }: Props) {
+export default function BookmarkButton({ item, size }: Props) {
 	const { addItemToCollection } = useBookmark();
 	const {
 		data: collections,
-		isLoading,
-		isFetched,
 	} = useApiFetch<CollectionResponse<BookmarkCollectionType>>(
 		"collection/list",
 	);
@@ -59,7 +57,7 @@ export default function BookmarkButton({ item, size, variant }: Props) {
 										<CommandItem
 											key={collection.id}
 											className="flex cursor-pointer flex-row justify-between gap-2"
-											onSelect={e => {
+											onSelect={() => {
 												addItem(collection);
 											}}
 										>

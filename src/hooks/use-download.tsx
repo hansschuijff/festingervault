@@ -24,10 +24,9 @@ type DownloadProviderProps = {
 };
 export function DownloadProvider({
 	children,
-	...props
 }: DownloadProviderProps) {
 	const [downloads, setDownloads] = useState<DownloadItem[]>([]);
-	const { download, percentage, isInProgress, cancel } = useDownloader();
+	const { download, percentage, isInProgress } = useDownloader();
 	const addDownloadTask = (url: string, filename: string) => {
 		setDownloads(prev => [
 			...prev,

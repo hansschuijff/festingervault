@@ -114,7 +114,7 @@ export default function useCollection({
       search: searchResult.success ? searchResult.data : {},
       pagination: paginationResult.success ? paginationResult.data : { per_page:"30"},
     };
-  }, [searchParams, filterSchema, sortSchema, searchSchema, paginationSchema]);
+  }, [unserializeQuery, searchParams, filterSchema, sortSchema]);
   // Update URL with new filter and sorting parameters
 
   function setFilter(key: string, values: string[]) {

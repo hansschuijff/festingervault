@@ -31,7 +31,7 @@ export default function PieChartStats({
 }: Props) {
   const total = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.value, 0);
-  }, []);
+  }, [chartData]);
   return (
     <ChartContainer config={chartConfig} className={cn("", className)}>
       <PieChart>

@@ -21,16 +21,11 @@ export type Props = {
 	setIntent: (key: string, value: string[]) => void;
 };
 const displayedItems: number = 10;
-export default function FilterItemList({
-	item,
-	collection,
-	intent,
-	setIntent,
-}: Props) {
+export default function FilterItemList({ item, intent, setIntent }: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const [inputValue, setInputValue] = useState<string>("");
 	const [isOpen, setOpen] = useState<boolean>(false);
-	const selectedValues = new Set<string>(intent[item.id]);
+	const selectedValues = useMemo(()=>new Set<string>(intent[item.id]),[intent, item]);
 	const filtered = useMemo(() => {
 		const res = item.options
 			?.filter(option =>
@@ -38,7 +33,7 @@ export default function FilterItemList({
 			)
 			.sort();
 		return item.showAll === true ? res : res.slice(0, displayedItems);
-	}, [inputValue, item.options]);
+	}, [inputValue, item]);
 
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent<HTMLDivElement>) => {
@@ -62,7 +57,7 @@ export default function FilterItemList({
 				input.blur();
 			}
 		},
-		[isOpen, setOpen, item, inputValue],
+		[isOpen, item, selectedValues],
 	);
 
 	const handleBlur = useCallback(() => {
@@ -71,15 +66,17 @@ export default function FilterItemList({
 
 	const handleSelectOption = useCallback(
 		(selectedOption: Option, selected: boolean) => {
-			selected
-				? selectedValues.delete(selectedOption.value)
-				: selectedValues.add(selectedOption.value);
+			if (selected) {
+				selectedValues.delete(selectedOption.value);
+			} else {
+				selectedValues.add(selectedOption.value);
+			}
 			setIntent(item.id, Array.from(selectedValues));
 			setTimeout(() => {
 				inputRef?.current?.blur();
 			}, 0);
 		},
-		[],
+		[item, selectedValues, setIntent],
 	);
 	return (
 		<div className="flex flex-col gap-2">
@@ -96,7 +93,9 @@ export default function FilterItemList({
 								className="group cursor-pointer gap-2 py-0"
 								size="sm"
 								onClick={() => {
-									selectedItem && handleSelectOption(selectedItem, true);
+									if (selectedItem) {
+										handleSelectOption(selectedItem, true);
+									}
 								}}
 							>
 								<span>{selectedItem?.label}</span>

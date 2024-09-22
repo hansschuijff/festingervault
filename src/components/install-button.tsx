@@ -10,13 +10,7 @@ import {
 	DrawerTrigger,
 } from "@/components/ui/drawer";
 import useActivation from "@/hooks/use-activation";
-import useApiMutation from "@/hooks/use-api-mutation";
-import useDownload from "@/hooks/use-download";
-import useInstall, {
-	PluginInstallResponse,
-	PluginInstallSchema,
-} from "@/hooks/use-install";
-import useInstalled from "@/hooks/use-is-installed";
+import useInstall from "@/hooks/use-install";
 import { __, _x } from "@/lib/i18n";
 import { TypeToSlug } from "@/lib/type-to-slug";
 import { useNavigate, useParams } from "@/router";
@@ -30,7 +24,7 @@ import {
 	Loader,
 	RefreshCw,
 } from "lucide-react";
-import { toast } from "sonner";
+import { useState } from "react";
 
 type Props = {
 	item: TPostItem;
@@ -38,59 +32,23 @@ type Props = {
 } & ButtonProps;
 
 export default function InstallButton({ item, media, size, variant }: Props) {
-	const {addDownloadTask}=useDownload();
 	const navigate = useNavigate();
 	const { data: activation } = useActivation();
-	const { isPending: isInstallPending, mutateAsync: installPlugin } =
-		useApiMutation<PluginInstallResponse, PluginInstallSchema>("item/install");
-	const { isInstalled, isNewerVersion, isInstallable, isRollBack } = useInstall(
-		item,
-		media,
-	);
-	const { clearCache } = useInstalled();
+	const [isPending,setIsPending]=useState<boolean>(false);
+	const { isInstalled, isNewerVersion, isInstallable, isRollBack, installItem, downloadItem } =
+		useInstall();
+	const installed = isInstalled(item);
+	const is_new = isNewerVersion(item);
+	const installable = isInstallable(item);
+	const is_rollback = isRollBack(item, media);
 	const { tab } = useParams("/item/:slug/detail/:id/:tab?");
 	function install(is_download?: boolean) {
-		if (typeof activation?.plan_type == "undefined") {
-			toast.error(__("License not activated"));
-			navigate("/activation");
-			return;
+		setIsPending(true);
+		if(is_download){
+			downloadItem(item,media).then(()=>setIsPending(false));
+		}else{
+			installItem(item,media).then(()=>setIsPending(false));
 		}
-		toast.promise(
-			installPlugin({
-				item_id: item.id,
-				method:
-					is_download === true
-						? "download"
-						: isInstalled
-							? "update"
-							: "install",
-				media_id: media?.id,
-			}),
-			{
-				description: decodeEntities(item.title),
-				loading:
-					is_download === true
-						? __("Fetching Download Link")
-						: isRollBack
-							? sprintf(__("Roll-Back to version %s"), media?.version)
-							: isInstalled
-								? isNewerVersion
-									? __("Updating")
-									: __("Re-Installing")
-								: __("Installing"),
-				success(data) {
-					clearCache();
-					if (data.link && is_download === true && data.filename) {
-						addDownloadTask(data.link,data.filename);
-						return __("Add item to download queue.");
-					}
-					return __("Successful");
-				},
-				error(err) {
-					return err.message;
-				},
-			},
-		);
 	}
 	return (
 		<Drawer>
@@ -99,20 +57,20 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 					variant={variant}
 					size={size}
 					className="flex items-center gap-2"
-					disabled={isInstallPending}
+					disabled={isPending}
 				>
-					{isInstallPending ? (
+					{isPending ? (
 						<Loader className="h-4 w-4 animate-spin" />
 					) : (
 						<CloudDownload width={16} />
 					)}
 					{size != "icon" && (
 						<span>
-							{isInstallable
-								? isRollBack
+							{installable
+								? is_rollback
 									? __("Roll-Back")
-									: isInstalled
-										? isNewerVersion
+									: installed
+										? is_new
 											? __("Update")
 											: __("Re-Install")
 										: __("Install")
@@ -133,23 +91,23 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 						>
 							<div>
 								<div>
-									{isInstallable
-										? isRollBack
+									{installable
+										? is_rollback
 											? sprintf(
 													__("Roll-back to version from %s to %s"),
-													isInstalled?.installed_version,
+													installed?.installed_version,
 													media?.version,
 												)
-											: isInstalled
-												? isNewerVersion
+											: installed
+												? is_new
 													? sprintf(
 															__("Update version from %s to %s"),
-															isInstalled.installed_version,
-															isInstalled.version,
+															installed.installed_version,
+															installed.version,
 														)
 													: sprintf(
 															__("Re-install version %s"),
-															media ? media.version : isInstalled.version,
+															media ? media.version : installed.version,
 														)
 												: sprintf(
 														__("Install version %s"),
@@ -198,7 +156,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 					</DrawerHeader>
 					<DrawerFooter>
 						<div className="flex flex-row justify-center gap-4">
-							{isInstallable && (
+							{installable && (
 								<DrawerClose asChild>
 									<Button
 										onClick={() => install(false)}
@@ -207,10 +165,10 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 									>
 										<DownloadCloud size={16} />
 										<span>
-											{isRollBack
+											{is_rollback
 												? __("Roll-Back")
-												: isInstalled
-													? isNewerVersion
+												: installed
+													? is_new
 														? __("Update")
 														: __("Re-Install")
 													: __("Install")}
@@ -228,7 +186,7 @@ export default function InstallButton({ item, media, size, variant }: Props) {
 									<span>{__("Download")}</span>
 								</Button>
 							</DrawerClose>
-							{tab !== "changelog" && isInstallable && (
+							{tab !== "changelog" && installable && (
 								<DrawerClose asChild>
 									<Button
 										onClick={() =>

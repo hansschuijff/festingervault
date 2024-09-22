@@ -44,10 +44,10 @@ const BulkProviderContext = createContext<BulkProviderState>({
 	items: [],
 	install: () => {},
 	download: () => {},
-	addItem: item => {},
-	removeItem: item => {},
+	addItem: () => {},
+	removeItem: () => {},
 	clearItems: () => {},
-	hasItem: item_id => {
+	hasItem: () => {
 		return false;
 	},
 });
@@ -56,7 +56,7 @@ export function BulkProvider({
 	storageKey = "bulk_cart",
 	...props
 }: BulkProviderProps) {
-	const {downloads, addDownloadTask}=useDownload();
+	const { addDownloadTask } = useDownload();
 	const [items, setItems] = useState<BulkItemType[]>(() => {
 		try {
 			const initialState = itemsSchema.safeParse(
@@ -65,7 +65,8 @@ export function BulkProvider({
 			if (initialState.success) {
 				return initialState.data;
 			}
-		} catch (e) {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		} catch (err) {
 			return [];
 		}
 		return [];
@@ -81,12 +82,12 @@ export function BulkProvider({
 		if (parsed.success) {
 			localStorage.setItem(storageKey, JSON.stringify(parsed.data));
 		}
-	}, [items]);
+	}, [items, storageKey]);
 	const addItem = (item: BulkItemType) => {
 		toast.success(__("Added To Cart"), {
 			description: decodeEntities(item.title),
 		});
-		setItems(prev => [...prev?.filter(i => i.id != item.id), item]);
+		setItems(prev => [...prev.filter(i => i.id != item.id), item]);
 	};
 	const removeItem = (item_id: number | string) => {
 		const item = items.find(i => i.id === Number(item_id));
@@ -105,9 +106,9 @@ export function BulkProvider({
 	);
 	const clearItems = () => {
 		toast.info(__("Cart Cleared"));
-		setItems(prev => []);
+		setItems(() => []);
 	};
-	const download=()=>{
+	const download = () => {
 		items.forEach(item => {
 			addQueueTask(() => {
 				return new Promise((resolve, reject) => {
@@ -118,12 +119,15 @@ export function BulkProvider({
 						}),
 						{
 							description: item.title,
-							loading: __('Fetching Download Link'),
+							loading: __("Fetching Download Link"),
 							success(data) {
 								resolve(data);
 								removeItem(item.id);
-								data.link && data.filename && addDownloadTask(data.link,data.filename);
-								return __("Added to queue");
+								if (data.link && data.filename) {
+									addDownloadTask(data.link, data.filename);
+									return __("Added to queue");
+								}
+								return __("Something went wrong");
 							},
 							error(err) {
 								reject(err);
@@ -136,8 +140,8 @@ export function BulkProvider({
 					);
 				});
 			});
-		})
-	}
+		});
+	};
 	const install = () => {
 		items.forEach(item => {
 			addQueueTask(() => {

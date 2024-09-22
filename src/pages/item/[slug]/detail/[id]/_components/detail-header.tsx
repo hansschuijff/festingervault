@@ -21,9 +21,6 @@ type Props = {
 	item: TPostItem;
 };
 export default function ItemDetailHeader({ item }: Props) {
-	const category = item.terms
-		?.filter(term => term.taxonomy === "category")
-		.map(term => decodeEntities(term.name));
 	return (
 		<div className="relative flex flex-col items-center gap-3 p-6 py-12">
 			<Grid size={50} />
@@ -53,12 +50,12 @@ export default function ItemDetailHeader({ item }: Props) {
 						</>
 					)}
 				</div>
-				{(item.additional_content_count && item.additional_content_count > 0) ? (
+				{item.additional_content_count && item.additional_content_count > 0 ? (
 					<div className="flex flex-row items-center gap-1 text-green-600">
 						<CheckCircle2 size={18} />
 						<span>{__("Demo Included")}</span>
 					</div>
-				):null}
+				) : null}
 			</div>
 		</div>
 	);

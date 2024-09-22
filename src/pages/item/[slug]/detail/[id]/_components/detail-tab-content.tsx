@@ -7,7 +7,7 @@ type Props = {
   item: TPostItem;
   tabs: DetailTabType;
 };
-export default function DetailTabContent({ item, tabs }: Props) {
+export default function DetailTabContent({  tabs }: Props) {
   const params = useParams("/item/:slug/detail/:id/:tab?");
   const active = tabs.find(tab => tab.id === params.tab)?.id ?? "description";
   const tab = tabs.find(tab => tab.id === active);

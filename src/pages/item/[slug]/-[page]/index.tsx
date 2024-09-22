@@ -3,7 +3,6 @@ import FilterBar from "@/components/filter/collection-bar";
 import Paging from "@/components/paging";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { item_types } from "@/config/item";
 import useApiFetch from "@/hooks/use-api-fetch";
 import useCollection, { FilterOption } from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
@@ -13,11 +12,8 @@ import PostGridItem, {
 	PostGridItemSkeleton,
 } from "@/pages/item/[slug]/-[page]/_components/PostGridItem";
 import { useParams } from "@/router";
-import {
-	TPostItemCollection,
-	TPostItem,
-} from "@/types/item";
-import { EnumItemSlug, EnumItemType } from "@/zod/item";
+import { TPostItem, TPostItemCollection } from "@/types/item";
+import { EnumItemSlug } from "@/zod/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import { sprintf } from "@wordpress/i18n";
 import { SearchX } from "lucide-react";
@@ -65,14 +61,14 @@ function NoSearchResultFound() {
 	);
 }
 export default function Component() {
-	const params =paramsSchema.safeParse(useParams(path));
-	if(params.error){
+	const params = paramsSchema.safeParse(useParams(path));
+	if (params.error) {
 		throw Error("Invalid Item Type");
 	}
 	const item_type = SlugToItemType(params.data.slug);
 	const type = item_type.type;
 	const page = params.data.page;
-	const { data: terms, isLoading: categoriesIsLoading } = useApiFetch<
+	const { data: terms, isLoading: isCategoriesLoading } = useApiFetch<
 		TPostItem["terms"]
 	>("item/terms", {
 		type,
@@ -87,7 +83,7 @@ export default function Component() {
 							enabled: item_type.slug != "template-kits",
 							onBarView: true,
 							isMulti: true,
-							showAll:true,
+							showAll: true,
 							options: terms
 								?.filter(i => i.taxonomy === "category")
 								.sort((a, b) => a.slug.localeCompare(b.slug))
@@ -178,22 +174,25 @@ export default function Component() {
 						},
 					]
 				: [],
-		[terms, categoriesIsLoading, params],
+		[terms, item_type],
 	);
 	const collection = useCollection({
 		options: filters,
 		path: path,
 		sort: sort_items,
 	});
-	const { data, isLoading, isFetching } =
-		useApiFetch<TPostItemCollection>("item/list", {
-			type,
-			page,
-			filter: collection.filter,
-			sort: collection.sorting,
-			keyword: collection.search?.keyword,
-			per_page: Number(collection.pagination?.per_page),
-		});
+	const {
+		data,
+		isLoading: isItemsLoading,
+		isFetching,
+	} = useApiFetch<TPostItemCollection>("item/list", {
+		type,
+		page,
+		filter: collection.filter,
+		sort: collection.sorting,
+		keyword: collection.search?.keyword,
+		per_page: Number(collection.pagination?.per_page),
+	});
 	useEffect(() => {
 		window.scrollTo({
 			top: 0,
@@ -205,7 +204,7 @@ export default function Component() {
 			title={item_type?.label}
 			description={item_type?.description}
 			isFetching={isFetching}
-			isLoading={isLoading}
+			isLoading={isItemsLoading || isCategoriesLoading}
 			preloader={
 				<div className="grid grid-cols-1 md:grid-cols-3">
 					<PostGridItemSkeleton />

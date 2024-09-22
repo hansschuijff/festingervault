@@ -2,6 +2,7 @@ import { DataTable } from "@/components/data-table";
 import { BulkActionType } from "@/components/data-table-bulk-action";
 import { Skeleton } from "@/components/ui/skeleton";
 import useApiMutation from "@/hooks/use-api-mutation";
+import useAutoUpdate from "@/hooks/use-auto-update";
 import { useDataTable } from "@/hooks/use-data-table";
 import {
 	PluginInstallResponse,
@@ -16,13 +17,10 @@ import {
 	DataTableSearchableColumn,
 } from "@/types/data-table";
 import { TThemePluginItem } from "@/types/item";
-import { AutoupdatePostSchema } from "@/types/update";
-import { useQueryClient } from "@tanstack/react-query";
 import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { getColumns } from "./columns";
-import useAutoUpdate from "@/hooks/use-auto-update";
 
 const filterableColumns: DataTableFilterableColumn<TThemePluginItem>[] = [
 	{

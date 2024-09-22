@@ -5,7 +5,7 @@ export function TypeToItemType(type:TItemTypeEnum){
 	const item_type=item_types.find((i)=>i.type===type);
 	return item_type;
 }
-export function SlugToItemType(slug:TItemTypeSlugEnum){
+export function SlugToItemType(slug:TItemTypeSlugEnum | string){
 	const item_type=item_types.find((i)=>i.slug===slug);
 	return item_type;
 }

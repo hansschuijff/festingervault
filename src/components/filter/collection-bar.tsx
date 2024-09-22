@@ -10,7 +10,6 @@ import FilterToolbar from "./toolbars";
 type Props = {
   collection: ReturnType<typeof useCollection>;
 };
-
 export default function FilterBar({ collection }: Props) {
   return (
     <div className="flex flex-col gap-4">

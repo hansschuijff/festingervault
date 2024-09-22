@@ -1,13 +1,12 @@
-import { useCallback } from "react";
-import useApiFetch from "./use-api-fetch";
-import { useQueryClient } from "@tanstack/react-query";
-import useApiMutation from "./use-api-mutation";
-import { AutoupdatePostSchema } from "@/types/update";
-import { toast } from "sonner";
-import { TItemTypeEnum, TPostItem, TThemePluginItem } from "@/types/item";
-import { decodeEntities } from "@wordpress/html-entities";
 import { __ } from "@/lib/i18n";
-type AutoUpdateType = Record<string, boolean>;
+import { TThemePluginItem } from "@/types/item";
+import { AutoupdatePostSchema } from "@/types/update";
+import { useQueryClient } from "@tanstack/react-query";
+import { decodeEntities } from "@wordpress/html-entities";
+import { useCallback } from "react";
+import { toast } from "sonner";
+import useApiFetch from "./use-api-fetch";
+import useApiMutation from "./use-api-mutation";
 type SettingType = {
 	"wordpress-themes"?: string[];
 	"wordpress-plugins"?: string[];
@@ -27,7 +26,7 @@ export default function useAutoUpdate() {
 		});
 	}, [queryClient]);
 	const { isPending: isPendingUpdate, mutateAsync: autoupdatePromise } =
-		useApiMutation<any, AutoupdatePostSchema>("update/update-autoupdate");
+		useApiMutation<never, AutoupdatePostSchema>("update/update-autoupdate");
 	const changeStatus = useCallback(
 		(item: TThemePluginItem, enabled: boolean = false) =>
 			new Promise((resolve, reject) =>
@@ -54,7 +53,7 @@ export default function useAutoUpdate() {
 					},
 				),
 			),
-		[queryClient, autoupdatePromise],
+		[autoupdatePromise, clearCache],
 	);
 	return {
 		setting,

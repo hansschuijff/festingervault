@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ClassValue } from "clsx";
+import { ReactElement, ReactNode } from "react";
 
 type ColumnRenderProps<TData> = {
 	row: TData;
@@ -9,7 +10,7 @@ export type SimpleColumnDef<TData> = {
 	id: string;
 	label: string;
 	className?: ClassValue;
-	render: string | ((props: ColumnRenderProps<TData>) => any);
+	render: string | ((props: ColumnRenderProps<TData>) => ReactElement | ReactNode);
 };
 type Props<TData> = {
 	columns: SimpleColumnDef<TData>[];

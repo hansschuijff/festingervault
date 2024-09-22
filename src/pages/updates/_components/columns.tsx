@@ -122,7 +122,7 @@ export const columns: ColumnDef<TThemePluginItem>[] = [
 			return <AutoUpdateSwitcher row={row} />;
 		},
 		enableSorting: true,
-		sortingFn: (rowA, rowB, columnId) => {
+		sortingFn: (rowA) => {
 			const isNewA = version_compare(
 				rowA.original.version,
 				rowA.original.installed_version ?? "",

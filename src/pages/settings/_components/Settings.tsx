@@ -5,9 +5,7 @@ import {
 	CardFooter,
 	CardHeader,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import useApiFetch from "@/hooks/use-api-fetch";
 import useApiMutation from "@/hooks/use-api-mutation";
@@ -90,7 +88,7 @@ export default function SettingsForm({ setting }: Props) {
 				},
 			},
 		);
-	}, [settings, mutateAsync]);
+	}, [settings, mutateAsync, clearCache]);
 	return (
 		<>
 			<Card>

@@ -1,6 +1,6 @@
 import { AppHeader } from "@/components/header/app-header";
 import { Sidebar } from "@/components/sidebar/Sidebar";
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 type Props = {
   sideNavRemoveIds?: string[];
   sideNavIncludedIds?: string[];
@@ -9,7 +9,6 @@ export default function Layout({
   sideNavIncludedIds,
   sideNavRemoveIds,
 }: Props) {
-  const { state } = useNavigation();
   return (
     <div className="container flex items-start gap-8">
       <div className="sticky left-0 top-0 hidden h-screen w-52 flex-shrink-0 lg:block xl:w-60 ">

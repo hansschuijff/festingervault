@@ -28,19 +28,18 @@ export default function FilterSheet({ collection }: Props) {
 	const [intentFilter, setIntentFilter] = useState<Record<string, string[]>>(
 		collection.filter,
 	);
-	const setFilter = useCallback(
-		(key: string, values: string[]) => {
-			setIntentFilter(prev =>
-				removeEmptyParams({
-					...prev,
-					[key]: values,
-				}),
-			);
-		},
-		[collection],
-	);
+	const setFilter = useCallback((key: string, values: string[]) => {
+		setIntentFilter(prev =>
+			removeEmptyParams({
+				...prev,
+				[key]: values,
+			}),
+		);
+	}, []);
 	const openChange = (open: boolean) => {
-		open === false && setIntentFilter(prev => ({}));
+		if (open === false) {
+			setIntentFilter(() => ({}));
+		}
 	};
 	const enabledFilters = collection.options.filter(
 		option => option.enabled !== false,

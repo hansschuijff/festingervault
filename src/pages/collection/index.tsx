@@ -1,13 +1,12 @@
+import AddCollectionButton from "@/components/add-collection-dialog";
 import { AppPageShell } from "@/components/body/page-shell";
+import { Button } from "@/components/ui/button";
 import useApiFetch from "@/hooks/use-api-fetch";
 import { __ } from "@/lib/i18n";
 import { CollectionResponse } from "@/types/api";
 import { BookmarkCollectionType } from "@/types/bookmark";
-import Collection from "./_components/collection";
-import { Button } from "@/components/ui/button";
-import AddCollectionButton from "@/components/add-collection-dialog";
 import { Plus } from "lucide-react";
-import { sprintf } from "@wordpress/i18n";
+import Collection from "./_components/collection";
 
 export default function Component() {
 	const { data, isLoading, isFetching } =

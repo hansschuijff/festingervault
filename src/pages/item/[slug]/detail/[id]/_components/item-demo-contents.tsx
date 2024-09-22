@@ -6,11 +6,7 @@ import useApiFetch from "@/hooks/use-api-fetch";
 import capitalizeHyphenatedWords from "@/lib/capitalizeHyphenatedWords";
 import { __ } from "@/lib/i18n";
 import { useParams } from "@/router";
-import {
-	TDemoContentCollection,
-	TDemoContent,
-	TPostItem,
-} from "@/types/item";
+import { TDemoContent, TDemoContentCollection, TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
 import { useMemo } from "react";
@@ -73,13 +69,15 @@ export function DemoContentTable({ item, data }: DemoContentTableProps) {
 }
 export default function ItemDemoContents({ item }: Props) {
 	const params = useParams("/item/:slug/detail/:id/:tab?");
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const page = pageSchema.parse(Number(searchParams?.get("page") ?? 1));
-	const { data, isLoading, isFetching } =
-		useApiFetch<TDemoContentCollection>("item/demo-content", {
+	const { data, isLoading, isFetching } = useApiFetch<TDemoContentCollection>(
+		"item/demo-content",
+		{
 			item_id: params.id,
 			page,
-		});
+		},
+	);
 	return (
 		<div className="flex flex-col gap-5 sm:gap-7">
 			<Card>

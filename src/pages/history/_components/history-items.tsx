@@ -64,7 +64,7 @@ export default function HistoryItems({ data }: Props) {
 				},
 			},
 		],
-		[data],
+		[],
 	);
 	return (
 		<Card>

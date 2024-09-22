@@ -19,7 +19,7 @@ const ERROR_MESSAGES = {
 };
 export default function useBookmark() {
 	const queryClient = useQueryClient();
-	const clearCache = () => {
+	const clearCache = useCallback(() => {
 		queryClient.invalidateQueries({
 			queryKey: ["collection/list"],
 		});
@@ -32,7 +32,7 @@ export default function useBookmark() {
 		queryClient.invalidateQueries({
 			queryKey: ["item/detail"],
 		});
-	};
+	},[queryClient]);
 	const { mutateAsync: addItemAsync } = useApiMutation<
 		Record<string, string>,
 		z.infer<typeof BookmarkItemSchema>,
@@ -87,7 +87,7 @@ export default function useBookmark() {
 					},
 				);
 			}),
-		[addItemAsync],
+		[addItemAsync, clearCache],
 	);
 	const addNewCollection = useCallback(
 		(collection: z.infer<typeof BookmarkPostCollectionSchema>, update:boolean = false) =>
@@ -133,7 +133,7 @@ export default function useBookmark() {
 					});
 				}
 			}),
-		[clearCache, addCollectionAsync],
+		[removeCollectionAsync, clearCache],
 	);
 
 	return { addItemToCollection, addNewCollection, removeCollection };

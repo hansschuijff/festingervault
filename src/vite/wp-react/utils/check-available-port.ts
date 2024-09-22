@@ -18,6 +18,7 @@ export async function checkAvailablePort(
 	const server = createServer();
 
 	return new Promise((resolve, reject) => {
+		// eslint-disable-next-line prefer-const
 		let { host = 'localhost', port = 5173 } = options;
 
 		const handle_error = (error: { code?: string }) => {

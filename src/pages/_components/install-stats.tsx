@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function InstallStats({ className }: Props) {
-  const { data, isLoading, isError, status } =
+  const { data } =
     useApiFetch<TPostItemCollection>(`update/list`, {});
   const themes = useMemo(() => {
     if (data?.data) {

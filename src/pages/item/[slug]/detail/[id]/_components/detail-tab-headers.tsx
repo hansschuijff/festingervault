@@ -10,64 +10,65 @@ import { DetailTabType } from "../-[tab]";
 import BookmarkButton from "@/components/bookmark-button";
 
 type Props = {
-  item: TPostItem;
-  tabs: DetailTabType;
+	item: TPostItem;
+	tabs: DetailTabType;
 };
 export default function DetailTabHeaders({ item, tabs }: Props) {
-  const params = useParams("/item/:slug/detail/:id/:tab?");
-  const active = tabs.find(tab => tab.id === params.tab)?.id ?? "description";
-  return (
-    <div className="flex flex-row items-center justify-between border-b-2 border-b-card">
-      <div className="flex flex-row">
-        {tabs.map(({ id, label, external }) => (
-          <Slot
-            key={id}
-            className={cn(
-              "rounded-none border-b-2 border-transparent px-6 py-4 text-sm transition-colors hover:border-b-blue-600",
-              id === active && "border-b-blue-800",
-            )}
-          >
-            {external ? (
-              <a href={external} target="_blank">
-                {__("Support")}
-              </a>
-            ) : (
-              <Link
-                to="/item/:slug/detail/:id/:tab?"
-                params={{
-                  ...params,
-                  tab: id,
-                }}
-              >
-                {label}
-              </Link>
-            )}
-          </Slot>
-        ))}
-      </div>
-      <div className="flex flex-row gap-4">
-        <InstallButton item={item} />
-        {item.preview && (
-          <Button
-            asChild
-            className="flex gap-2"
-            variant="outline"
-            size="default"
-          >
-            <a href={item.preview} target="_blank" referrerPolicy="no-referrer">
-              <span>{__("Live Preview")}</span>
-              <ExternalLink size={16} />
-            </a>
-          </Button>
-        )}
+	const params = useParams("/item/:slug/detail/:id/:tab?");
+	const active = tabs.find(tab => tab.id === params.tab)?.id ?? "description";
+	return (
+		<div className="flex flex-row items-center justify-between border-b-2 border-b-card">
+			<div className="flex flex-row">
+				{tabs.map(({ id, label, external }) => (
+					<Slot
+						key={id}
+						className={cn(
+							"rounded-none border-b-2 border-transparent px-6 py-4 text-sm transition-colors hover:border-b-blue-600",
+							id === active && "border-b-blue-800",
+						)}
+					>
+						{external ? (
+							<a href={external} target="_blank" rel="noreferrer">
+								{__("Support")}
+							</a>
+						) : (
+							<Link
+								to="/item/:slug/detail/:id/:tab?"
+								params={{
+									...params,
+									tab: id,
+								}}
+							>
+								{label}
+							</Link>
+						)}
+					</Slot>
+				))}
+			</div>
+			<div className="flex flex-row gap-4">
+				<InstallButton item={item} />
+				{item.preview && (
+					<Button
+						asChild
+						className="flex gap-2"
+						variant="outline"
+						size="default"
+					>
+						<a href={item.preview} target="_blank" rel="noreferrer">
+							<span>{__("Live Preview")}</span>
+							<ExternalLink size={16} />
+						</a>
+					</Button>
+				)}
 				<BookmarkButton item={item}>
-        <Button size="icon" variant="outline">
-          <Heart size={16} />
-        </Button></BookmarkButton>
-        <Button size="icon" variant="outline">
-          <EllipsisVertical size={16} />
-        </Button>
-      </div>
-    </div>
-  );
+					<Button size="icon" variant="outline">
+						<Heart size={16} />
+					</Button>
+				</BookmarkButton>
+				<Button size="icon" variant="outline">
+					<EllipsisVertical size={16} />
+				</Button>
+			</div>
+		</div>
+	);
 }

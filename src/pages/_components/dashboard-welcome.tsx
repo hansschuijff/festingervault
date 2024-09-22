@@ -45,6 +45,7 @@ export default function DashboardWelcome({ className }: Props) {
 					href="https://festingervault.com/beta-feedback"
 					target="_blank"
 					className="border-b border-dashed border-blue-500 text-sm text-blue-500"
+					rel="noreferrer"
 				>
 					{__("Get Started")}
 				</a>

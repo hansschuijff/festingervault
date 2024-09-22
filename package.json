@@ -94,7 +94,7 @@
 	},
 	"devDependencies": {
 		"@babel/preset-env": "^7.24.8",
-		"@eslint/js": "^9.10.0",
+		"@eslint/js": "^9.11.0",
 		"@tailwindcss/typography": "^0.5.13",
 		"@tanstack/react-query-devtools": "^5.40.0",
 		"@types/adm-zip": "^0.5.5",
@@ -112,8 +112,9 @@
 		"adm-zip": "^0.5.14",
 		"deepmerge": "^4.3.1",
 		"esbuild": "^0.23.0",
-		"eslint": "^9.10.0",
-		"eslint-plugin-react": "^7.35.2",
+		"eslint": "^9.11.0",
+		"eslint-plugin-react": "^7.36.1",
+		"eslint-plugin-react-hooks": "^5.1.0-rc-e4953922-20240919",
 		"fast-glob": "^3.3.2",
 		"fs-extra": "^11.2.0",
 		"glob": "^10.4.3",
@@ -126,7 +127,7 @@
 		"rollup-plugin-external-globals": "^0.11.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.5.4",
-		"typescript-eslint": "^8.4.0",
+		"typescript-eslint": "^8.6.0",
 		"vite-plugin-external": "^4.3.1",
 		"vite-plugin-minify": "^1.5.2"
 	}

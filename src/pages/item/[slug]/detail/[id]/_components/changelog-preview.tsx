@@ -22,7 +22,7 @@ type Props = {
 };
 export default function ChangelogPreview({ item }: Props) {
   const params = useParams("/item/:slug/detail/:id/:tab?");
-  const { data, isError, isLoading, isFetching } =
+  const { data, isLoading, isFetching } =
     useApiFetch<TPostChangelogCollection>("item/changelog", {
       item_id: params.id,
     });
