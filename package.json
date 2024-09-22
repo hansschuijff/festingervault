@@ -9,7 +9,8 @@
 		"deploy": "npm run build && node ./scripts/deploy.js",
 		"make-json": "node ./scripts/po2json.js",
 		"dist": "node ./scripts/release.js",
-		"build": "vite build",
+		"build": "npm run lint && vite build",
+		"lint":"eslint",
 		"namespace": "node ./scripts/namespace.js"
 	},
 	"keywords": [],

@@ -21,7 +21,6 @@ import { sprintf } from "@wordpress/i18n";
 import { Clock, Ellipsis, Eye, Info, ShoppingBag } from "lucide-react";
 import moment from "moment";
 import { Link, useNavigate } from "react-router-dom";
-
 export function PostGridItemSkeleton() {
 	return (
 		<Card>

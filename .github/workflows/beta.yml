@@ -1,4 +1,4 @@
-name: Relase
+name: BETA
 on:
   push:
     branches:
