@@ -1,14 +1,14 @@
-import useCollection from "@/hooks/use-collection";
+import useDataCollection from "@/hooks/use-data-collection";
 import { __ } from "@/lib/i18n";
 import { X } from "lucide-react";
 import { Button } from "../ui/button";
-import PerPage from "./collection-per-page";
+import PerPage from "./filter-per-page";
 import FilterItem from "./filter-item";
 import FilterSheet from "./filter-sheet";
 import Search from "./search-input";
 import FilterToolbar from "./toolbars";
 type Props = {
-  collection: ReturnType<typeof useCollection>;
+  collection: ReturnType<typeof useDataCollection>;
 };
 export default function FilterBar({ collection }: Props) {
   return (

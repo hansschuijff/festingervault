@@ -1,4 +1,6 @@
-declare module '*.png';
-declare var vault:{
-	logo:string;
-};
+declare module "*.png";
+interface Window {
+	vault: {
+		logo: string;
+	};
+}

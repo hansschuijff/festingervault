@@ -22,15 +22,6 @@ export default function useInstalled() {
 		queryClient.invalidateQueries({
 			queryKey: ["update/list"],
 		});
-		queryClient.invalidateQueries({
-			queryKey: ["license/detail"],
-		});
-		queryClient.invalidateQueries({
-			queryKey: ["item/detail"],
-		});
-		queryClient.invalidateQueries({
-			queryKey: ["history/list"],
-		});
 	}, [queryClient]);
 	return { list: data?.data, isLoading, isFetched, updateable, clearCache };
 }

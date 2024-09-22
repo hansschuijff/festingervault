@@ -49,7 +49,7 @@ export default function LanguageSelector() {
         <Command>
           <CommandList>
             <CommandGroup>
-              {languages.map((lang, index) => (
+              {languages.map((lang) => (
                 <CommandItem
                   key={lang.value}
                   value={lang.value}

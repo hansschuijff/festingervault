@@ -14,6 +14,7 @@ import useDownload from "./use-download";
 import { PluginInstallResponse, PluginInstallSchema } from "./use-install";
 import useInstalled from "./use-is-installed";
 import useTaskQueue from "./use-task-queue";
+import { EnumItemType } from "@/zod/item";
 type BulkProviderProps = {
 	children: React.ReactNode;
 	storageKey?: string;
@@ -22,11 +23,7 @@ const itemSchema = z.object({
 	id: z.coerce.number(),
 	title: z.string(),
 	version: z.string(),
-	type: z.enum([
-		"wordpress-themes",
-		"wordpress-plugins",
-		"elementor-template-kits",
-	]),
+	type: EnumItemType,
 	image: z.string().optional(),
 });
 type BulkItemType = z.infer<typeof itemSchema>;
@@ -65,7 +62,7 @@ export function BulkProvider({
 			if (initialState.success) {
 				return initialState.data;
 			}
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		} catch (err) {
 			return [];
 		}
@@ -193,6 +190,5 @@ export default function useBulk() {
 	if (context === undefined) {
 		throw new Error("useBulk must be used within a BulkProvider");
 	}
-
 	return context;
 }

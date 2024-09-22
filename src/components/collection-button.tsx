@@ -12,7 +12,7 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import useApiFetch from "@/hooks/use-api-fetch";
-import useBookmark from "@/hooks/use-bookmark";
+import useBookmark from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { CollectionResponse } from "@/types/api";
 import { BookmarkCollectionType } from "@/types/bookmark";
@@ -24,7 +24,7 @@ import AddCollectionButton from "./add-collection-dialog";
 type Props = {
 	item: TPostItem;
 } & ButtonProps;
-export default function BookmarkButton({ item, size }: Props) {
+export default function CollectionButton({ item, size }: Props) {
 	const { addItemToCollection } = useBookmark();
 	const {
 		data: collections,

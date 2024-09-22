@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import useCollection from "@/hooks/use-collection";
+import useDataCollection from "@/hooks/use-data-collection";
 import { cn } from "@/lib/utils";
 import { SelectLabel } from "@radix-ui/react-select";
 import { SortAsc, SortDesc } from "lucide-react";
@@ -15,7 +15,7 @@ import { __ } from "@/lib/i18n";
 
 export type Props = {
   label: string;
-  collection: ReturnType<typeof useCollection>;
+  collection: ReturnType<typeof useDataCollection>;
 };
 
 export default function FilterToolbar({ label, collection }: Props) {

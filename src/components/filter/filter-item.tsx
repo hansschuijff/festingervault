@@ -1,29 +1,29 @@
 import { Button } from "@/components/ui/button";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList,
+	CommandSeparator,
 } from "@/components/ui/command";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
 } from "@/components/ui/popover";
-import useCollection from "@/hooks/use-collection";
+import useDataCollection from "@/hooks/use-data-collection";
+import { __, _x } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-import { __, _x } from "@/lib/i18n";
+import { sprintf } from "@wordpress/i18n";
 import { CheckIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Separator } from "../ui/separator";
-import { sprintf } from "@wordpress/i18n";
 export type FilterItemProps = {
-  collection: ReturnType<typeof useCollection>;
-  item: ReturnType<typeof useCollection>["options"][0];
+  collection: ReturnType<typeof useDataCollection>;
+  item: ReturnType<typeof useDataCollection>["options"][0];
 };
 export default function FilterItem({ item, collection }: FilterItemProps) {
   const selectedValues = new Set<string>(

@@ -14,16 +14,28 @@ const plugins = {
 const config = [
 	{
 		files: ["src/**/*.{js,mjs,cjs,ts,jsx,tsx}"],
-
 	},
-	{ languageOptions: { globals: globals.browser } },
+	{
+		settings: {
+			react: {
+				version: "detect",
+			},
+		},
+		languageOptions: { globals: globals.browser },
+	},
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
 	pluginReact.configs.flat.recommended,
 	plugins,
 	{
-		ignores: ["src/components/ui/*", "src/vite/**/*"],
-
-	}
+		ignores: [
+			"src/components/ui/*",
+			"src/vite/**/*",
+			"build/**/*",
+			"deploy/**/*",
+			"scripts/**/*",
+			"src/router.ts",
+		],
+	},
 ];
 export default config;

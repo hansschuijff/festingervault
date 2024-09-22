@@ -7,7 +7,7 @@ import {
 	CardFooter,
 	CardHeader,
 } from "@/components/ui/card";
-import useBookmark from "@/hooks/use-bookmark";
+import useBookmark from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { Link } from "@/router";
 import { BookmarkCollectionType } from "@/types/bookmark";

@@ -5,18 +5,18 @@ import {
 	CommandItem,
 	CommandList,
 } from "@/components/ui/command";
-import useCollection from "@/hooks/use-collection";
+import useDataCollection from "@/hooks/use-data-collection";
 import { __ } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { CheckIcon, X } from "lucide-react";
 import { KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
 import { Badge } from "../ui/badge";
 type ArrayItemType<T, K extends keyof T> = T[K] extends (infer U)[] ? U : never;
-type Item = ArrayItemType<ReturnType<typeof useCollection>, "options">;
+type Item = ArrayItemType<ReturnType<typeof useDataCollection>, "options">;
 type Option = ArrayItemType<Item, "options">;
 export type Props = {
-	collection: ReturnType<typeof useCollection>;
-	item: ArrayItemType<ReturnType<typeof useCollection>, "options">;
+	collection: ReturnType<typeof useDataCollection>;
+	item: ArrayItemType<ReturnType<typeof useDataCollection>, "options">;
 	intent: Record<string, string[]>;
 	setIntent: (key: string, value: string[]) => void;
 };

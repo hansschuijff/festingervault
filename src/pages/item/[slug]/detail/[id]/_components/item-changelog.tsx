@@ -24,7 +24,7 @@ const pageSchema = z.number().gte(1);
 function ItemChangelogTable({ item, data }: ItemChangelogTableProps) {
 	const { isInstalled } = useInstall();
 	const installed = isInstalled(item);
-	const columns = useMemo<SimpleColumnDef<TPostMedia>[]>(
+	const columns = useMemo<Array<SimpleColumnDef<TPostMedia>>>(
 		() => [
 			{
 				id: "version",

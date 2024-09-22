@@ -1,200 +1,140 @@
-import { removeEmptyParams } from "@/lib/utils";
-import { Params, useNavigate, useParams } from "@/router";
-import { useCallback, useMemo } from "react";
-import { useSearchParams } from "react-router-dom";
+import useApiMutation from "@/hooks/use-api-mutation";
+import { __ } from "@/lib/i18n";
+import { TApiError } from "@/types/api";
+import {
+	BookmarkCollectionType,
+} from "@/types/bookmark";
+import { TPostItem } from "@/types/item";
+import { BookmarkItemSchema, BookmarkPostCollectionSchema } from "@/zod/bookmark";
+import { useQueryClient } from "@tanstack/react-query";
+import { decodeEntities } from "@wordpress/html-entities";
+import { sprintf } from "@wordpress/i18n";
+import { useCallback } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
-type FilterState = Record<string, string[]>;
-
-type SortItem = {
-  value: string;
-  label: string;
+const ERROR_MESSAGES = {
+	MAX_COLLECTION_LIMIT: __("You have reached your max collection limit."),
+	MAX_COLLECTION_ITEMS: __("You have reached your items per collection limit."),
 };
-type Option = {
-  label: string;
-  value: string;
-  icon?: React.ComponentType<{ className?: string }>;
-};
+export default function useBookmark() {
+	const queryClient = useQueryClient();
+	const clearCache = useCallback(() => {
+		queryClient.invalidateQueries({
+			queryKey: ["collection/list"],
+		});
+		queryClient.invalidateQueries({
+			queryKey: ["collection/items"],
+		});
+		queryClient.invalidateQueries({
+			queryKey: ["item/list"],
+		});
+		queryClient.invalidateQueries({
+			queryKey: ["item/detail"],
+		});
+	},[queryClient]);
+	const { mutateAsync: addItemAsync } = useApiMutation<
+		Record<string, string>,
+		z.infer<typeof BookmarkItemSchema>,
+		TApiError
+	>("collection/item/add");
+	const { mutateAsync: removeCollectionAsync } = useApiMutation<
+		Record<string, string>,
+		Pick<z.infer<typeof BookmarkPostCollectionSchema>, "id">,
+		TApiError
+	>("collection/delete");
+	const { mutateAsync: addCollectionAsync } = useApiMutation<
+		Record<string, string>,
+		z.infer<typeof BookmarkPostCollectionSchema>,
+		TApiError
+	>("collection/add");
 
-export type FilterOption = {
-  id: string;
-  label: string;
-  values?: string[];
-  options: Option[];
-  isMulti?: boolean;
-	showAll?:boolean;
-  onBarView?: boolean;
-  enabled?: boolean;
-};
-// Create schemas dynamically
-const createFilterSchema = (options: FilterOption[]) => {
-  const schemaShape: Record<string, z.ZodTypeAny> = {};
-  options.forEach(option => {
-    if (option.enabled === false) {
-      return;
-    }
-    schemaShape[option.id] = z.array(z.string()).optional();
-  });
-  return z.object(schemaShape);
-};
+	const addItemToCollection = useCallback(
+		(item: TPostItem, collection: BookmarkCollectionType) =>
+			new Promise((resolve, reject) => {
+				const isAdd = item.collections?.includes(collection.id) === false;
+				toast.promise(
+					addItemAsync({ cid: collection.id, id: Number(item.id) }),
+					{
+						description: decodeEntities(item.title),
+						loading: sprintf(
+							isAdd
+								? __("Adding to collection %s")
+								: __("Removing from collection %s"),
+							collection.title,
+						),
+						error: (err: TApiError) => {
+							reject(err);
+							return ERROR_MESSAGES[err.message]
+								? ERROR_MESSAGES[err.message]
+								: sprintf(
+										isAdd
+											? __("Error adding %s to collection")
+											: __("Error removing from collection %s"),
+										collection.title,
+									);
+						},
+						success: data => {
+							clearCache();
+							resolve(data);
+							return sprintf(
+								isAdd
+									? __("Added to collection %s")
+									: __("Removed from collection %s"),
+								collection.title,
+							);
+						},
+					},
+				);
+			}),
+		[addItemAsync, clearCache],
+	);
+	const addNewCollection = useCallback(
+		(collection: z.infer<typeof BookmarkPostCollectionSchema>, update:boolean = false) =>
+			new Promise((resolve, reject) => {
+				const postData = BookmarkPostCollectionSchema.safeParse(collection);
+				if (postData.success) {
+					toast.promise(addCollectionAsync(postData.data), {
+						description: update?decodeEntities(collection.title):__("Add New Collection"),
+						loading: update?__("Updating Collection"):__("Creating Collection"),
+						error: (err: TApiError) => {
+							reject(err);
+							return ERROR_MESSAGES[err.message]
+								? ERROR_MESSAGES[err.message]
+								: __("Error");
+						},
+						success: data => {
+							clearCache();
+							resolve(data);
+							return update?__("Collection Updated"):__("Collection Added");
+						},
+					});
+				}
+			}),
+		[clearCache, addCollectionAsync],
+	);
+	const removeCollection = useCallback(
+		(collection: z.infer<typeof BookmarkPostCollectionSchema>) =>
+			new Promise((resolve, reject) => {
+				const postData = BookmarkPostCollectionSchema.safeParse(collection);
+				if (postData.success) {
+					toast.promise(removeCollectionAsync({ id: collection.id }), {
+						description: decodeEntities(collection.title),
+						loading: __("Removing Collection"),
+						error: (err: TApiError) => {
+							reject(err);
+							return __("Error Removing Collection");
+						},
+						success: data => {
+							clearCache();
+							resolve(data);
+							return __("Collection Removed");
+						},
+					});
+				}
+			}),
+		[removeCollectionAsync, clearCache],
+	);
 
-const createSortSchema = (sort_items: SortItem[]) => {
-  if (sort_items.length === 0)
-    throw new Error("sort_items must have at least one item.");
-  const sortValues = sort_items.map(item => item.value) as [
-    string,
-    ...string[],
-  ];
-  return z.object({
-    order_by: z.enum(sortValues).default(sortValues[0]),
-    order: z.enum(["asc", "desc"]).default("desc"),
-  });
-};
-
-const paginationSchema = z.object({
-  per_page: z.enum(["30", "60", "90"]).default("30"),
-});
-const searchSchema = z.object({ keyword: z.string().optional() });
-
-// Utility functions
-const serializeQuery = (items: FilterState): Record<string, string> => {
-  return Object.fromEntries(
-    Object.entries(items).map(([key, values]) => [
-      key,
-      values.sort().join(","),
-    ]),
-  );
-};
-type ParamsWith<T, Keys extends string[] = ["slug"]> = {
-  [K in keyof T]: Keys extends (keyof T[K])[] ? K : never;
-}[keyof T];
-type useCollectionProps = {
-  options: FilterOption[];
-  path: ParamsWith<Params, ["slug"]>; // Only need Params that has `slug` params
-  sort: SortItem[];
-};
-export default function useCollection({
-  options,
-  path,
-  sort,
-}: useCollectionProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const filterSchema = useMemo(() => createFilterSchema(options), [options]);
-  const sortSchema = useMemo(() => createSortSchema(sort), [sort]);
-  const params = useParams(path);
-  const navigate = useNavigate();
-  const unserializeQuery = useCallback(
-    (searchParams: URLSearchParams): FilterState => {
-      const result:FilterState = {};
-      Array.from(searchParams.entries()).forEach(([key, value]) => {
-        const option = options.find(i => i.id === key);
-        if (option) {
-          result[key] = value.split(",").filter(v => v.length > 0);
-        }
-      });
-      return result;
-    },
-    [options],
-  );
-  // Extract and validate initial state from search params
-  const initialState = useMemo(() => {
-    const unserialized = unserializeQuery(searchParams);
-    const filterResult = filterSchema.safeParse(unserialized);
-    const sortResult = sortSchema.safeParse(Object.fromEntries(searchParams));
-
-    const searchResult = searchSchema.safeParse(
-      Object.fromEntries(searchParams),
-    );
-    const paginationResult = paginationSchema.safeParse(
-      Object.fromEntries(searchParams),
-    );
-    return {
-      filter: filterResult.success ? filterResult.data : {},
-      sorting: sortResult.success ? sortResult.data : {},
-      search: searchResult.success ? searchResult.data : {},
-      pagination: paginationResult.success ? paginationResult.data : { per_page:"30"},
-    };
-  }, [unserializeQuery, searchParams, filterSchema, sortSchema]);
-  // Update URL with new filter and sorting parameters
-
-  function setFilter(key: string, values: string[]) {
-    const newItems = removeEmptyParams({
-      ...initialState.filter,
-      [key]: values.length > 0 && values.sort(),
-    });
-    resetPage();
-    setSearchParams({
-      ...initialState.search,
-      ...serializeQuery(newItems),
-      ...initialState.sorting,
-      ...initialState.pagination,
-    });
-  }
-	function setFilters(values:FilterState){
-		resetPage();
-    setSearchParams({
-      ...initialState.search,
-      ...serializeQuery(values),
-      ...initialState.sorting,
-      ...initialState.pagination,
-    });
-	}
-
-  function setSort(key: string, order: "asc" | "desc") {
-    const newSorting = removeEmptyParams({
-      order_by: key ?? null,
-      order: order ?? "asc",
-    });
-    setSearchParams({
-      ...initialState.search,
-      ...serializeQuery(initialState.filter),
-      ...newSorting,
-      ...initialState.pagination,
-    });
-  }
-  function setSearch(keyword: string) {
-    resetPage();
-    setSearchParams({
-      ...(keyword.length > 0 ? { keyword } : {}),
-      ...serializeQuery(initialState.filter),
-      ...initialState.sorting,
-      ...initialState.pagination,
-    });
-  }
-  function setPerPage(per_page: number | string) {
-    resetPage();
-    setSearchParams({
-      ...initialState.search,
-      ...serializeQuery(initialState.filter),
-      ...initialState.sorting,
-      per_page: String(per_page),
-    });
-  }
-  function clearFilter() {
-    resetPage();
-    setSearchParams({
-      ...initialState.sorting,
-      ...initialState.pagination,
-    });
-  }
-  function resetPage() {
-    navigate(path, { params: { slug: params.slug } });
-  }
-
-  return {
-    options,
-    searchParams,
-    sort,
-    search: initialState.search,
-    filter: initialState.filter,
-    sorting: initialState.sorting,
-    pagination: initialState.pagination,
-    setFilter,
-    setFilters,
-    setSort,
-    resetPage,
-    setSearch,
-    setPerPage,
-    clearFilter,
-  };
+	return { addItemToCollection, addNewCollection, removeCollection };
 }

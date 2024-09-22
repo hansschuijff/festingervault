@@ -6,7 +6,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from "@/components/ui/dialog";
-import useBookmark from "@/hooks/use-bookmark";
+import useBookmark from "@/hooks/use-collection";
 import { __ } from "@/lib/i18n";
 import { BookmarkCollectionType } from "@/types/bookmark";
 import { BookmarkPostCollectionSchema } from "@/zod/bookmark";

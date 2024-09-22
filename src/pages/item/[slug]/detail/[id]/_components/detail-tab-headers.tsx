@@ -7,7 +7,7 @@ import { TPostItem } from "@/types/item";
 import { Slot } from "@radix-ui/react-slot";
 import { EllipsisVertical, ExternalLink, Heart } from "lucide-react";
 import { DetailTabType } from "../-[tab]";
-import BookmarkButton from "@/components/bookmark-button";
+import CollectionButton from "@/components/collection-button";
 
 type Props = {
 	item: TPostItem;
@@ -60,11 +60,11 @@ export default function DetailTabHeaders({ item, tabs }: Props) {
 						</a>
 					</Button>
 				)}
-				<BookmarkButton item={item}>
+				<CollectionButton item={item}>
 					<Button size="icon" variant="outline">
 						<Heart size={16} />
 					</Button>
-				</BookmarkButton>
+				</CollectionButton>
 				<Button size="icon" variant="outline">
 					<EllipsisVertical size={16} />
 				</Button>

@@ -40,7 +40,7 @@ export default function useInstall() {
 			["wordpress-themes", "wordpress-plugins"].includes(item.type),
 		[],
 	);
-	const { list } = useInstalled();
+	const { list, clearCache:clearInstalledCache } = useInstalled();
 	const isInstalled = useCallback(
 		(item: TPostItem) => list?.find(i => i.id === item.id),
 		[list],
@@ -78,9 +78,7 @@ export default function useInstall() {
 		[isInstalled],
 	);
 	const clearCache = useCallback(() => {
-		queryClient.invalidateQueries({
-			queryKey: ["update/list"],
-		});
+		clearInstalledCache()
 		queryClient.invalidateQueries({
 			queryKey: ["license/detail"],
 		});
@@ -90,7 +88,7 @@ export default function useInstall() {
 		queryClient.invalidateQueries({
 			queryKey: ["history/list"],
 		});
-	}, [queryClient]);
+	}, [clearInstalledCache, queryClient]);
 	const checkActivation=useCallback(()=>{
 		if (typeof activation?.plan_type == "undefined") {
 			toast.error(__("License not activated"));

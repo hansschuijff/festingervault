@@ -1,10 +1,10 @@
 import { AppPageShell } from "@/components/body/page-shell";
-import FilterBar from "@/components/filter/collection-bar";
+import FilterBar from "@/components/filter/filter-bar";
 import Paging from "@/components/paging";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import useApiFetch from "@/hooks/use-api-fetch";
-import useCollection, { FilterOption } from "@/hooks/use-collection";
+import useDataCollection, { FilterOption } from "@/hooks/use-data-collection";
 import { __ } from "@/lib/i18n";
 import { SlugToItemType } from "@/lib/type-to-slug";
 import { cn } from "@/lib/utils";
@@ -21,7 +21,7 @@ import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 
-const sort_items: ReturnType<typeof useCollection>["sort"] = [
+const sort_items: ReturnType<typeof useDataCollection>["sort"] = [
 	{
 		label: __("Updated"),
 		value: "updated",
@@ -176,7 +176,7 @@ export default function Component() {
 				: [],
 		[terms, item_type],
 	);
-	const collection = useCollection({
+	const dataCollection = useDataCollection({
 		options: filters,
 		path: path,
 		sort: sort_items,
@@ -188,10 +188,10 @@ export default function Component() {
 	} = useApiFetch<TPostItemCollection>("item/list", {
 		type,
 		page,
-		filter: collection.filter,
-		sort: collection.sorting,
-		keyword: collection.search?.keyword,
-		per_page: Number(collection.pagination?.per_page),
+		filter: dataCollection.filter,
+		sort: dataCollection.sorting,
+		keyword: dataCollection.search?.keyword,
+		per_page: Number(dataCollection.pagination?.per_page),
 	});
 	useEffect(() => {
 		window.scrollTo({
@@ -222,7 +222,7 @@ export default function Component() {
 		>
 			{data && (
 				<>
-					<FilterBar collection={collection} />
+					<FilterBar collection={dataCollection} />
 
 					<div
 						className={cn(["grid grid-cols-1 gap-5 md:grid-cols-3 lg:gap-7"])}
@@ -238,7 +238,7 @@ export default function Component() {
 							currentPage={Number(page)}
 							totalPages={data.meta?.last_page}
 							urlGenerator={(_page: number) =>
-								`/item/${item_type.slug}/${_page}?${collection?.searchParams}`
+								`/item/${item_type.slug}/${_page}?${dataCollection?.searchParams}`
 							}
 						/>
 					)}

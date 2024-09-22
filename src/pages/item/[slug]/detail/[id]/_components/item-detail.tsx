@@ -3,14 +3,14 @@ import { __ } from "@/lib/i18n";
 import { TPostItem } from "@/types/item";
 import { decodeEntities } from "@wordpress/html-entities";
 import moment from "moment";
-import { useMemo } from "react";
+import { ReactElement, useMemo } from "react";
 
 type Props = {
   item: TPostItem;
 };
 type Row = {
   label: string;
-  el: () => React.ReactNode;
+  el: () => React.ReactNode | ReactElement;
   enabled?: boolean;
 };
 export default function ItemDetail({ item }: Props) {

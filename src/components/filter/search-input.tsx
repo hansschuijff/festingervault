@@ -1,4 +1,4 @@
-import useCollection from "@/hooks/use-collection";
+import useDataCollection from "@/hooks/use-data-collection";
 import { useDebounce } from "@/hooks/use-debounce";
 import { cn } from "@/lib/utils";
 import { __ } from "@/lib/i18n";
@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 type Props = {
-	collection: ReturnType<typeof useCollection>;
+	collection: ReturnType<typeof useDataCollection>;
 };
 export default function Search({ collection }: Props) {
 	const [text, setText] = useState<string>(collection.search?.keyword ?? "");

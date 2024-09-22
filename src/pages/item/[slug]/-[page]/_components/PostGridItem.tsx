@@ -1,4 +1,4 @@
-import BookmarkButton from "@/components/bookmark-button";
+import CollectionButton from "@/components/collection-button";
 import InstallButton from "@/components/install-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -143,7 +143,7 @@ export default function PostGridItem({ item }: Props) {
 					>
 						<ShoppingBag width={16} />
 					</Button>
-					<BookmarkButton item={item} size="icon"></BookmarkButton>
+					<CollectionButton item={item} size="icon"></CollectionButton>
 
 					<Button
 						variant="outline"
