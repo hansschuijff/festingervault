@@ -26,11 +26,11 @@ class AutoUpdate
 
 	function auto_update()
 	{
-		$settings = get_option(Constants::SETTING_KEY, Constants::DEFAULT_SETTINGS);
+		$settings = get_option(Constants::AUTOUPDATE_SETTING_KEY);
 		$engine_data = Helper::get_item_updates();
 		if (!is_wp_error($engine_data)) {
 			foreach ($engine_data['data'] as $item) {
-				if (isset($settings["autoupdate"][$item["type"]][$item["slug"]]) && true == $settings["autoupdate"][$item["type"]][$item["slug"]]) {
+				if (isset($settings[$item["type"]]) && in_array($item["slug"],$settings[$item["type"]])) {
 					if (version_compare($item["version"], $item["installed_version"], "gt") === true) {
 						if (function_exists("as_schedule_single_action")) {
 							as_schedule_single_action(time(), Constants::SLUG . "/autoupdate/run-update", [

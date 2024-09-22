@@ -1,7 +1,6 @@
 import uuid from "@/lib/uuid";
 import { createContext, useContext, useEffect, useState } from "react";
 import useDownloader from "react-use-downloader";
-import useTaskQueue from "./use-task-queue";
 interface DownloadItem {
 	uid: string;
 	title?: string;
@@ -27,7 +26,6 @@ export function DownloadProvider({
 	children,
 	...props
 }: DownloadProviderProps) {
-	const { addTask } = useTaskQueue(1);
 	const [downloads, setDownloads] = useState<DownloadItem[]>([]);
 	const { download, percentage, isInProgress, cancel } = useDownloader();
 	const addDownloadTask = (url: string, filename: string) => {

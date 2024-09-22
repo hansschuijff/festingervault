@@ -43,6 +43,9 @@ abstract class ApiBase
 			);
 		}
 	}
+	final function user_is_adminstrator(){
+		return current_user_can( 'administrator' );
+	}
 
 	final function user_can_install()
 	{

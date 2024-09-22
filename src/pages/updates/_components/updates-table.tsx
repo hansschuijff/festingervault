@@ -1,15 +1,16 @@
 import { DataTable } from "@/components/data-table";
 import { BulkActionType } from "@/components/data-table-bulk-action";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useDataTable } from "@/hooks/use-data-table";
-import useInstalled from "@/hooks/use-is-installed";
-import useTaskQueue from "@/hooks/use-task-queue";
 import useApiMutation from "@/hooks/use-api-mutation";
+import { useDataTable } from "@/hooks/use-data-table";
 import {
 	PluginInstallResponse,
 	PluginInstallSchema,
 } from "@/hooks/use-install";
+import useInstalled from "@/hooks/use-is-installed";
+import useTaskQueue from "@/hooks/use-task-queue";
 import { __ } from "@/lib/i18n";
+import { TApiError } from "@/types/api";
 import {
 	DataTableFilterableColumn,
 	DataTableSearchableColumn,
@@ -21,7 +22,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { toast } from "sonner";
 import { getColumns } from "./columns";
-import { TApiError } from "@/types/api";
+import useAutoUpdate from "@/hooks/use-auto-update";
 
 const filterableColumns: DataTableFilterableColumn<TThemePluginItem>[] = [
 	{
@@ -55,15 +56,11 @@ export function UpdatesTableSkeleton() {
 }
 
 export default function UpdatesTable({ data }: UpdateTableProps) {
-	const queryClient = useQueryClient();
 	const { mutateAsync: installPlugin } = useApiMutation<
 		PluginInstallResponse,
 		PluginInstallSchema
 	>("item/install");
-	const { mutateAsync: autoupdatePromise } = useApiMutation<
-		any,
-		AutoupdatePostSchema
-	>("update/update-autoupdate");
+	const {changeStatus}=useAutoUpdate();
 	const { clearCache } = useInstalled();
 	const { addTask } = useTaskQueue();
 	const bulkActions: BulkActionType<TThemePluginItem>[] = [
@@ -135,33 +132,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
 			action: items => {
 				items.forEach(({ original: item }) => {
 					addTask(() => {
-						return new Promise((resolve, reject) => {
-							toast.promise(
-								autoupdatePromise({
-									type: item.type,
-									slug: item.slug,
-									enabled: true,
-								}),
-								{
-									description: item.title,
-									loading: __("Enabling Auto Update"),
-									success() {
-										resolve(item);
-										return __("Auto Update Enabled");
-									},
-									error() {
-										reject(item);
-										queryClient.invalidateQueries(
-											{
-												queryKey: ["setting/get"],
-											},
-											{},
-										);
-										return __("Error Enabling Auto Update");
-									},
-								},
-							);
-						});
+						return changeStatus(item,true);
 					});
 				});
 			},
@@ -172,33 +143,7 @@ export default function UpdatesTable({ data }: UpdateTableProps) {
 			action: items => {
 				items.forEach(({ original: item }) => {
 					addTask(() => {
-						return new Promise((resolve, reject) => {
-							toast.promise(
-								autoupdatePromise({
-									type: item.type,
-									slug: item.slug,
-									enabled: false,
-								}),
-								{
-									description: item.title,
-									loading: __("Disabling Auto Update"),
-									success() {
-										resolve(item);
-										return __("Auto Update Disabled");
-									},
-									error() {
-										reject(item);
-										return __("Error Disabling Auto Update");
-									},
-									finally() {
-										queryClient.invalidateQueries({
-											queryKey: ["setting/get"],
-										});
-										table.resetRowSelection();
-									},
-								},
-							);
-						});
+						return changeStatus(item,false);
 					});
 				});
 			},

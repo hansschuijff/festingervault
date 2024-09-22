@@ -1,6 +1,4 @@
-import { z } from "zod";
 import { TPostItem } from "./item";
-import { __ } from "@/lib/i18n";
 
 export type BookmarkCollectionType = {
 	id: number;

@@ -16,6 +16,7 @@ type TTerm={
 }
 export type TItemTypeEnum=z.infer<typeof EnumItemType>
 export type TItemTypeSlugEnum=z.infer<typeof EnumItemSlug>
+export type TItemAccessLevelEnum=z.infer<typeof EnumAccessLevel>
 export type TPostItem<Ex extends TItemTypeEnum = never> = {
   id: string;
   title: string;
@@ -31,7 +32,7 @@ export type TPostItem<Ex extends TItemTypeEnum = never> = {
   created: number;
   version: string;
   owned: boolean;
-  access?: z.infer<typeof EnumAccessLevel>;
+  access?: TItemAccessLevelEnum;
   installed_version?: string;
   additional_content_count?: number;
   download_count?: number;

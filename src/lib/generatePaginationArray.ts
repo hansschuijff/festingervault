@@ -4,7 +4,7 @@ type PageItemType = {
 	active: boolean,
 
 }
-export default function generatePaginationArray(currentPage: number, totalPages: number, pageBufferSize: number = 1): PageItemType[] {
+export default function generatePaginationArray(currentPage: number, totalPages: number, pageBufferSize: number = 1): Array<PageItemType> {
 	let pagerList: PageItemType[] = [];
 	let left = Math.max(1, currentPage - pageBufferSize);
 	let right = Math.min(currentPage + pageBufferSize, totalPages);

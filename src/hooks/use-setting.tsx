@@ -1,15 +1,23 @@
+import { settingSchema } from "@/zod/setting";
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback } from "react";
+import { z } from "zod";
 import useApiFetch from "./use-api-fetch";
-type AutoUpdateType = Record<string, boolean>;
-type SettingType = {
-  autoupdate: {
-    "wordpress-themes"?: AutoUpdateType;
-    "wordpress-plugins"?: AutoUpdateType;
-    "elementor-template-kits"?: AutoUpdateType;
-  };
-};
-export default function useSetting() {
-  const { data: setting, isFetched: settingIsFetched } =
-    useApiFetch<SettingType>(`setting/get`);
 
-  return { setting, settingIsFetched };
+export default function useSetting() {
+	const {
+		data: setting,
+		isFetched,
+		isLoading,
+		isFetching,
+	} = useApiFetch<z.infer<typeof settingSchema>>(`setting/get`);
+	const queryClient = useQueryClient();
+
+	const clearCache = useCallback(() => {
+		queryClient.invalidateQueries({
+			queryKey: ["setting/get"],
+		});
+	}, [queryClient]);
+
+	return { setting, isFetched, isLoading, isFetching, clearCache };
 }

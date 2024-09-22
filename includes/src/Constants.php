@@ -26,6 +26,7 @@ class Constants
 	const PLUGIN_INFO_URL = "https://raw.githubusercontent.com/FestingerVault/festingervault/dev-rc/info.json";
 
 	const SETTING_KEY = "vault_settings";
+	const AUTOUPDATE_SETTING_KEY = "vault_autoupdates";
 
 	const SLUG = "festingervault";
 
